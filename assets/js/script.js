@@ -1,48 +1,139 @@
-
 // =============== Variables ===============
-var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0"
-var stockEod
-var stockRtd
-var numOfDays = 14
+//apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
+//apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
+var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+var stockEod;
+var stockRtd;
+var numOfDays = 14;
+
+//[]
+
+var dData = [
+  {
+    date: 1657036800,
+    open: 137.77,
+    high: 141.61,
+    low: 136.93,
+    close: 141.56,
+    volume: 73429641,
+  },
+  {
+    date: 1656691200,
+    open: 136.04,
+    high: 139.04,
+    low: 135.66,
+    close: 138.93,
+    volume: 71051552,
+  },
+  {
+    date: 1656604800,
+    open: 137.25,
+    high: 138.37,
+    low: 133.77,
+    close: 136.72,
+    volume: 98964467,
+  },
+  {
+    date: 1656518400,
+    open: 137.46,
+    high: 140.67,
+    low: 136.67,
+    close: 139.23,
+    volume: 66242411,
+  },
+  {
+    date: 1656432000,
+    open: 142.13,
+    high: 143.42,
+    low: 137.32,
+    close: 137.44,
+    volume: 67315328,
+  },
+];
+//[[],[],[]                 ]
+var arr = new Array();
 
 // =============== Fetch Functions ===============
 const fetchStockEODHistorical = async (companySymbols) => {
-
-    let stockEODHistoricalresponse = await fetch (`https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`)
-    let eodData = await stockEODHistoricalresponse.json();
-    stockEod = eodData
-    for (var i = 0; i < numOfDays ; i++) {
-        console.log ("date", stockEod.data[i].date);        
-        console.log ("close", stockEod.data[i].close);
-        console.log ("high", stockEod.data[i].high);
-        console.log ("low", stockEod.data[i].low);
-        console.log ("open", stockEod.data[i].open);
-        console.log ("volume", stockEod.data[i].volume);        
-    }
-};
-
-const fetchStockRealTime = async (companySymbols) => {
-    let stockRealTimeresponse = await fetch (`https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`)
-    let realTimeData = await stockRealTimeresponse.json();
-    stockRtd = realTimeData
-    console.log (stockRtd)
-    console.log("52 week high:", stockRtd.data[0]["52_week_high"]);
-    console.log("52 week low:", stockRtd.data[0]["52_week_low"]);
-    console.log("day high:", stockRtd.data[0].day_high);
-    console.log("day low:", stockRtd.data[0].day_low);
-    console.log("day open", stockRtd.data[0].day_open);
-    console.log("price:", stockRtd.data[0].price);
-
   let stockEODHistoricalresponse = await fetch(
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
+  let eodData = await stockEODHistoricalresponse.json();
+  stockEod = dData;
+  // console.log(stockEod);
+  //date, open, high, low, close
+
+  //[[(00),(01)]]
+  //[( 10),(01)]
+  var indexArr = [];
+  for (let i = stockEod.length - 1; i >= 0; i--) {
+    let date = stockEod[i].date;
+    // Date.parse(date) / 1000;
+    indexArr[0] = date;
+    indexArr[1] = stockEod[i].open;
+    indexArr[2] = stockEod[i].high;
+    indexArr[3] = stockEod[i].low;
+    indexArr[4] = stockEod[i].close;
+    arr.push(indexArr);
+
+    indexArr = [];
+  }
+  console.log(arr);
+  // console.log(arr);
+  // for (let i = stockEod.length - 1; i >= 0; i--) {
+  //   var dataDate = stockEod[i].date;
+  //   console.log(dataDate);
+
+  //   console.log(Date.parse(dataDate) / 1000);
+  //   // arr[i][0] = Date.parse(dataDate) / 1000;
+  //   indexArr[0] = Date.parse(dataDate) / 1000;
+  //   indexArr[1] = stockEod[i].open;
+  //   arr.push(indexArr);
+
+  //   // arr[i][1] = stockEod[i].open;
+  //   // arr[i][2] = stockEod[i].high;
+  //   // arr[i][3] = stockEod[i].low;
+  //   // arr[i][4] = stockEod[i].close;
+  //   // console.log(indexArr);
+  // }
+  // console.log(arr);
+  // console.log(indexArr);
+  // arr.push(indexArr);
+  // console.log(arr);
+  // for (var i = 0; i < numOfDays; i++) {
+  //   console.log("date", stockEod.data[i].date);
+  //   console.log("close", stockEod.data[i].close);
+  //   console.log("high", stockEod.data[i].high);
+  //   console.log("low", stockEod.data[i].low);
+  //   console.log("open", stockEod.data[i].open);
+  //   console.log("volume", stockEod.data[i].volume);
+  // }
+};
+
+const fetchStockRealTime = async (companySymbols) => {
+  // let stockRealTimeresponse = await fetch(
+  //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
+  // );
+  let realTimeData = await stockRealTimeresponse.json();
+  stockRtd = realTimeData;
+  console.log(stockRtd);
+  console.log("52 week high:", stockRtd.data[0]["52_week_high"]);
+  console.log("52 week low:", stockRtd.data[0]["52_week_low"]);
+  console.log("day high:", stockRtd.data[0].day_high);
+  console.log("day low:", stockRtd.data[0].day_low);
+  console.log("day open", stockRtd.data[0].day_open);
+  console.log("price:", stockRtd.data[0].price);
+
+  // let stockEODHistoricalresponse = await fetch(
+  //   `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
+  // );
   console.log(stockEODHistoricalresponse);
   let eodData = await stockEODHistoricalresponse.json();
   console.log(eodData);
 };
 
-fetchStockEODHistorical("AAPL")
-fetchStockRealTime("AAPL")
+fetchStockEODHistorical("AAPL");
+// fetchStockRealTime("AAPL");
 
 /**
  * add event listener for search button and get data for newspaper on submit
@@ -85,5 +176,43 @@ const getNewsData = async (input) => {
 function init() {}
 init();
 
-
 // console.log(newdata());
+
+/**
+ *[[1594128600000,93.85,94.65,93.06,93.17],
+   [1594215000000,94.18,95.38,94.09,95.34],
+   [1594301400000,96.26,96.32,94.67,95.75]]
+ *
+ */
+Highcharts.getJSON(
+  "https://demo-live-data.highcharts.com/aapl-ohlc.json",
+  function (data) {
+    // create the chart
+    Highcharts.stockChart("candlestick", {
+      rangeSelector: {
+        selected: 1,
+      },
+
+      title: {
+        text: "AAPL Stock Price",
+      },
+
+      series: [
+        {
+          type: "candlestick",
+          name: "AAPL Stock Price",
+          data: data,
+          dataGrouping: {
+            units: [
+              [
+                "week", // unit name
+                [1], // allowed multiples
+              ],
+              ["month", [1, 2, 3, 4, 6]],
+            ],
+          },
+        },
+      ],
+    });
+  }
+);
