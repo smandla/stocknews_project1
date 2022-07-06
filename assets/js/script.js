@@ -1,7 +1,8 @@
 // =============== Variables ===============
 //apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
-var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+//apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
+var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
@@ -59,17 +60,17 @@ const fetchStockEODHistorical = async (companySymbols) => {
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
   let eodData = await stockEODHistoricalresponse.json();
-  stockEod = dData;
-  // console.log(stockEod);
+  var stockEod = eodData.data;
+  console.log(stockEod);
   //date, open, high, low, close
 
   //[[(00),(01)]]
   //[( 10),(01)]
   var indexArr = [];
-  for (let i = stockEod.length - 1; i >= 0; i--) {
+  for (let i = 251; i >= 0; i--) {
     let date = stockEod[i].date;
-    // Date.parse(date) / 1000;
-    indexArr[0] = date;
+    indexArr[0] = Date.parse(date);
+    // indexArr[0] = date*1000;
     indexArr[1] = stockEod[i].open;
     indexArr[2] = stockEod[i].high;
     indexArr[3] = stockEod[i].low;
@@ -190,18 +191,18 @@ Highcharts.getJSON(
     // create the chart
     Highcharts.stockChart("candlestick", {
       rangeSelector: {
-        selected: 1,
+        selected: 11,
       },
 
       title: {
-        text: "AAPL Stock Price",
+        text: "Stock Price",
       },
 
       series: [
         {
           type: "candlestick",
           name: "AAPL Stock Price",
-          data: data,
+          data: arr,
           dataGrouping: {
             units: [
               [
