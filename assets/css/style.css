@@ -4,15 +4,16 @@
 }
 
 header {
-  height: 80px;
+  /* height: 80px;
   width: 100%;
   margin: 0 auto;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; */
   padding: 20px;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 header h1 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
 }
 main {
   position: relative;
