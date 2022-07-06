@@ -4,6 +4,8 @@ var stockEod
 var stockRtd
 var numOfDays = 14
 
+
+// =============== Fetch Functions ===============
 const fetchStockEODHistorical = async (companySymbols) => {
     let stockEODHistoricalresponse = await fetch (`https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`)
     let eodData = await stockEODHistoricalresponse.json();
