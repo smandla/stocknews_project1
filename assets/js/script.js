@@ -2,19 +2,26 @@
 var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0"
 var stockEod
 var stockRtd
+var numOfDays = 14
 
 const fetchStockEODHistorical = async (companySymbols) => {
     let stockEODHistoricalresponse = await fetch (`https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`)
-    console.log (stockEODHistoricalresponse)
     let eodData = await stockEODHistoricalresponse.json();
     stockEod = eodData
     console.log (stockEod);
+    for (var i = 0; i < numOfDays ; i++) {
+        console.log ("date", stockEod.data[i].date);        
+        console.log ("close", stockEod.data[i].close);
+        console.log ("high", stockEod.data[i].high);
+        console.log ("low", stockEod.data[i].low);
+        console.log ("open", stockEod.data[i].open);
+        console.log ("volume", stockEod.data[i].volume);        
+    }
 };
 
 
 const fetchStockRealTime = async (companySymbols) => {
     let stockRealTimeresponse = await fetch (`https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`)
-    console.log (stockRealTimeresponse)
     let realTimeData = await stockRealTimeresponse.json();
     stockRtd = realTimeData
     console.log (stockRtd)
@@ -28,4 +35,4 @@ const fetchStockRealTime = async (companySymbols) => {
 
 
 fetchStockEODHistorical("AAPL")
-fetchStockRealTime("AAPL")
+//fetchStockRealTime("AAPL")
