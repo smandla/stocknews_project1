@@ -67,7 +67,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
   //[[(00),(01)]]
   //[( 10),(01)]
   var indexArr = [];
-  for (let i = 251; i >= 0; i--) {
+  for (let i = 250; i >= 0; i--) {
     let date = stockEod[i].date;
     indexArr[0] = Date.parse(date);
     // indexArr[0] = date*1000;
