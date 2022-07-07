@@ -19,3 +19,6 @@ main {
   position: relative;
   top: 10px;
 }
+#news_section {
+  overflow: scroll;
+}
