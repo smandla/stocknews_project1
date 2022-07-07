@@ -7,6 +7,8 @@ var stockEod;
 var stockRtd;
 var numOfDays = 14;
 
+var symbol;
+var companyName;
 //[]
 
 var dData = [
@@ -163,8 +165,10 @@ const getTicker = async (input) => {
     }
   );
   const data = await response.json();
-
-  console.log(data.ResultSet.Result[0]);
+  symbol = data.ResultSet.Result[0].symbol;
+  companyName = data.ResultSet.Result[0].name;
+  getNewsData(companyName);
+  // console.log(data.ResultSet.Result[0]);
 };
 const getNewsData = async (input) => {
   console.log(input);
@@ -172,8 +176,46 @@ const getNewsData = async (input) => {
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
   );
   let newsData = await newsDataResponse.json();
+  let articles = newsData.response.docs;
   console.log(newsData.response.docs);
+  showNewsData(articles);
 };
+var cardsEl = $("#cards");
+function showNewsData(articles) {
+  for (let i = 0; i < articles.length; i++) {
+    var cardEl = $("<div>").addClass("card is-three-quarters");
+    var cardImageDivEl = $("<div>").addClass("card-image");
+    cardImageDivEl.appendTo(cardEl);
+    var figureEl = $("<figure>").addClass("image is-4by3");
+    figureEl.appendTo(cardImageDivEl);
+    var imgEl = $("<img>").attr(
+      "src",
+      "https://bulma.io/images/placeholders/1280x960.png"
+    );
+    imgEl.appendTo(figureEl);
+
+    /**card content */
+    var cardContentEl = $("<div>").addClass("card-content");
+
+    var mediaDivEl = $("<div>").addClass("media");
+    mediaDivEl.appendTo(cardContentEl);
+    var TitleDivEl = $("<div>").addClass("media-content");
+
+    var titleEl = $("<p>").addClass("title is-4").text("Title");
+    titleEl.appendTo(TitleDivEl);
+
+    var contentDivEl = $("<div>")
+      .addClass("content")
+      .html(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elite. Phasellus nec iaculis mauris."
+      );
+    contentDivEl.appendTo(cardContentEl);
+    TitleDivEl.appendTo(mediaDivEl);
+    cardContentEl.appendTo(cardEl);
+    cardEl.appendTo(cardsEl);
+  }
+}
+
 function init() {}
 init();
 
