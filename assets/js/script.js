@@ -322,7 +322,7 @@ function writeHistory() {
     var pEl = document.createElement("p");
     pEl.setAttribute("class", "dropdown-item");
     pEl.setAttribute("id", `search${i}`);
-    pEl.textContent = companyList[i];
+    pEl.textContent = companyList[i].split(",")[0];
     var hrEl = document.createElement("hr");
     hrEl.setAttribute("class", "dropdown-divider");
     dropdownContent.appendChild(hrEl);
@@ -337,17 +337,25 @@ function writeHistory() {
 formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
-
   searchInputEl.val("");
-  getTicker(inputVal);
+  if (inputVal === "") {
+    console.log("empty")
+    $(".modal").addClass ("is-active")
+  } else {
+    getTicker(inputVal);
+  }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-document.querySelector("#search_input").addEventListener("blur", function () {
-  setTimeout(function () {
-    document.querySelector("#dropdown").setAttribute("style", "display:none;");
-  }, 200);
-});
+$(".modal-button").click (function () {
+  $(".modal").removeClass ("is-active")
+})
+
+document.querySelector("#search_input").addEventListener("blur", function (){
+  setTimeout (function () {
+    document.querySelector("#dropdown").setAttribute("style","display:none;")
+  }, 200)
+})
 
 document.querySelector("#search_input").addEventListener("focus", function () {
   document
@@ -359,10 +367,11 @@ dropdownContent.addEventListener("click", function (e) {
   console.log("clicked");
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
+      companyName = companyList[i]
       getNewsData(companyList[i]);
       fetchStockEODHistorical(localStorage.getItem(companyList[i]));
       fetchStockRealTime(localStorage.getItem(companyList[i]));
-      console.log(companyList[i]);
+      getInfo(localStorage.getItem(companyList[i]));    
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
