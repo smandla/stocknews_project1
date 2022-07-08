@@ -135,6 +135,13 @@ const getTicker = async (input) => {
     if (companyList.includes (companyName) === false) {
       companyList.push (companyName)
       localStorage.setItem(companyName, symbol)
+      if (companyList.length > 7) {
+        companyList.shift()
+        localStorage.removeItem(companyList[0])
+        localStorage.setItem ("companyList", JSON.stringify(companyList))
+      } else {
+      localStorage.setItem ("companyList", JSON.stringify(companyList))
+      }
     }
     getNewsData(companyName);
     fetchStockEODHistorical(symbol);
@@ -242,6 +249,9 @@ Highcharts.getJSON(
    * On page load function
    */
   function init() {
-
+    
+    if (Boolean(JSON.parse(localStorage.getItem(companyList))) !== false) {
+    companyList = localStorageCompanyList;
+    }
   }
   init();
