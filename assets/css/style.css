@@ -30,6 +30,11 @@ header {
   color: var(--border);
 }
 
+.dropdown-item:hover {
+  cursor:pointer;
+  background-color: aliceblue;
+}
+
 .dropdown-divider {
   background-color: var(--border);
 }
