@@ -4,7 +4,7 @@
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-
+var yahooAPIKey = "HWNAd3ijyo3YelxWUfAln7FZFi75aUJGagKGA7uX"
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
@@ -12,10 +12,15 @@ var numOfDays = 14;
 var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
+
+
+var dropdownContent = document.querySelector(".dropdown-content")
+
 var titleNewsEl = $("#news_title_section");
+
 var symbol;
 var companyName;
-
+var companyList = []
 var dData = [
   {
     date: 1657036800,
@@ -136,21 +141,37 @@ const fetchStockRealTime = async (companySymbols) => {
  * @param {*} input - Takes company user is searching for to return ticker name
  */
 const getTicker = async (input) => {
-  // const response = await fetch(
-  //   `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
-  //   {
-  //     headers: {
-  //       "x-api-key": "HWNAd3ijyo3YelxWUfAln7FZFi75aUJGagKGA7uX",
-  //     },
-  //   }
-  // );
-  const data = await response.json();
-  symbol = data.ResultSet.Result[0].symbol;
-  companyName = data.ResultSet.Result[0].name;
-  getNewsData(companyName);
-  fetchStockRealTime(symbol);
-  fetchStockEODHistorical(symbol);
-};
+
+  const response = await fetch(
+    `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
+    {
+      headers: {
+        "x-api-key": `${yahooAPIKey}`,
+      },
+    }
+
+    );
+    const data = await response.json();
+    symbol = data.ResultSet.Result[0].symbol;
+    companyName = data.ResultSet.Result[0].name;
+    if (companyList.includes (companyName) === false) {
+      companyList.push (companyName)
+      localStorage.setItem(companyName, symbol)
+      if (companyList.length > 4) {
+        companyList.shift()
+        localStorage.removeItem(companyList[0])
+        localStorage.setItem ("companyList", JSON.stringify(companyList))
+      } else {
+      localStorage.setItem ("companyList", JSON.stringify(companyList))
+      writeHistory()
+      }
+    }
+    getNewsData(companyName);
+    fetchStockRealTime(symbol)
+    fetchStockEODHistorical(symbol);
+    getInfo(symbol)
+  };
+  
 
 /**
  * Fetches and calls function to display articles
@@ -160,68 +181,95 @@ const getNewsData = async (input) => {
   console.log(input);
   let newsDataResponse = await fetch(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
-  );
-  let newsData = await newsDataResponse.json();
-  let articles = newsData.response.docs;
-  console.log(newsData.response.docs);
-  showNewsData(articles);
-};
-
-/**
- * Writes articles to page
- * @param {*} articles - Takes array of articles
- */
-function showNewsData(articles) {
-  console.log(articles);
-  titleNewsEl.text(companyName + " News");
-  for (let i = 0; i < articles.length; i++) {
-    var cardEl = $("<div>").addClass("card is-three-quarters");
-    var cardImageDivEl = $("<div>").addClass("card-image");
-    cardImageDivEl.appendTo(cardEl);
-    var figureEl = $("<figure>").addClass("image is-4by3");
-    figureEl.appendTo(cardImageDivEl);
-    var imgEl = $("<img>");
-    // console.log(articles[i].multimedia);
-    if (articles[i].multimedia[0] === undefined) {
-      imgEl.attr(
-        "src",
-        "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
-      );
-    } else {
-      console.log(articles[i].multimedia[0]);
-      imgEl.attr(
-        "src",
-        `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
-      );
-    }
-    imgEl.appendTo(figureEl);
-
-    //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-    /**card content */
-    var cardContentEl = $("<div>").addClass("card-content");
-
-    var mediaDivEl = $("<div>").addClass("media");
-    mediaDivEl.appendTo(cardContentEl);
-    var TitleDivEl = $("<div>").addClass("media-content");
-
-    var titleEl = $("<p>")
-      .addClass("title is-4")
-      .text(articles[i].headline.main);
-    titleEl.appendTo(TitleDivEl);
-    //   <p class="subtitle is-6">@johnsmith</p>
-    var subEl = $("<p>")
-      .addClass("subtitle is-6")
-      .text(articles[i].byline.original);
+    );
+    let newsData = await newsDataResponse.json();
+    let articles = newsData.response.docs;
+    console.log(newsData.response.docs);
+    showNewsData(articles);
+  };
+  
+  /**
+   * Writes articles to page
+   * @param {*} articles - Takes array of articles
+   */
+  function showNewsData(articles) {
+    console.log(articles);
+    titleNewsEl.text(companyName + " News");
+    for (let i = 0; i < articles.length; i++) {
+      var cardEl = $("<div>").addClass("card is-three-quarters");
+      var cardImageDivEl = $("<div>").addClass("card-image");
+      cardImageDivEl.appendTo(cardEl);
+      var figureEl = $("<figure>").addClass("image is-4by3");
+      figureEl.appendTo(cardImageDivEl);
+      var imgEl = $("<img>");
+      // console.log(articles[i].multimedia);
+      if (articles[i].multimedia[0] === undefined) {
+        imgEl.attr(
+          "src",
+          "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
+          );
+        } else {
+          console.log(articles[i].multimedia[0]);
+          imgEl.attr(
+            "src",
+            `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
+            );
+          }
+          imgEl.appendTo(figureEl);
+          
+          //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          /**card content */
+          var cardContentEl = $("<div>").addClass("card-content");
+          
+          var mediaDivEl = $("<div>").addClass("media");
+          mediaDivEl.appendTo(cardContentEl);
+          var TitleDivEl = $("<div>").addClass("media-content");
+          
+          var titleEl = $("<p>")
+          .addClass("title is-4")
+          .text(articles[i].headline.main);
+          titleEl.appendTo(TitleDivEl);
+          //   <p class="subtitle is-6">@johnsmith</p>
+          var subEl = $("<p>")
+          .addClass("subtitle is-6")
+    .text(articles[i].byline.original);
     subEl.appendTo(TitleDivEl);
     var contentDivEl = $("<div>")
-      .addClass("content")
-      .html(articles[i].lead_paragraph);
+    .addClass("content")
+    .html(articles[i].lead_paragraph);
     contentDivEl.appendTo(cardContentEl);
     TitleDivEl.appendTo(mediaDivEl);
     cardContentEl.appendTo(cardEl);
     cardEl.appendTo(cardsEl);
   }
 }
+  
+/**
+ * exchange, ceo, sector, website, ipoDate
+ */
+var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04"
+
+const getInfo = async (input) => {
+  console.log(input);
+  let infoResponse = await fetch(
+    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
+    );
+    let infoData = await infoResponse.json();
+    $('#exchange').text("Exchange: " + infoData[0].exchangeShortName)
+    $('#sector').text("Sector: " + infoData[0].sector)
+    $('#industry').text("Industry: " + infoData[0].industry)
+    $('#ceo').text("CEO: " + infoData[0].ceo)
+    $('#ipo').text("IPO Date: " + infoData[0].ipoDate)
+    $('#site').html("Website: " + '<a href="'+ infoData[0].website + '" target="_blank">'+infoData[0].website+'</a>')
+    // console.log(infoData[0]);
+    // console.log("Exchange: " + infoData[0].exchangeShortName);
+    // console.log("Sector: " + infoData[0].sector);
+    // console.log("Industry: " + infoData[0].industry);
+    // console.log("CEO: " + infoData[0].ceo);
+    // console.log("IPO Date: " + infoData[0].ipoDate);
+    // console.log("Website: " + infoData[0].website);
+}
+getInfo("AAPL")
 
 // Uses highcharts to display fetched historical EOD data
 Highcharts.getJSON(
@@ -235,39 +283,81 @@ Highcharts.getJSON(
       title: {
         text: "Stock Price",
       },
-      series: [
-        {
-          type: "candlestick",
-          name: "AAPL Stock Price",
-          data: dData,
-          dataGrouping: {
-            units: [
-              [
-                "week", // unit name
-                [1], // allowed multiples
-              ],
-              ["month", [1, 2, 3, 4, 6]],
+    series: [
+      {
+        type: "candlestick",
+        name: "AAPL Stock Price",
+        data: dData,
+        dataGrouping: {
+          units: [
+            [
+              "week", // unit name
+              [1], // allowed multiples
             ],
-          },
+            ["month", [1, 2, 3, 4, 6]],
+          ],
         },
-      ],
-    });
-  }
+      },
+    ],
+  });
+}
 );
 
-// =============== Event ===============
 /**
+ * Writes search history to search history box
+ */
+function writeHistory() {
+  dropdownContent.innerHTML = ""
+  var historyEl = document.createElement("p");
+  historyEl.setAttribute("class", "dropdown-item has-text-centered pb-0 pt-0 has-text-weight-bold")
+  for (var i = 0; i < companyList.length ; i++) {
+    var pEl = document.createElement("p");
+    pEl.setAttribute("class", "dropdown-item")
+    pEl.setAttribute("id", `search${i}`)
+    pEl.textContent = companyList[i]
+    var hrEl = document.createElement("hr")
+    hrEl.setAttribute("class", "dropdown-divider")
+    dropdownContent.appendChild(hrEl)
+    dropdownContent.appendChild(pEl);
+}
+}
+
+// =============== Event ===============
+/**  
  * add event listener for search button and get data for newspaper on submit
  */
 formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
-  getTicker(inputVal);
+
+  searchInputEl.val("")
+    getTicker(inputVal);
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-/**
- * On page load function
- */
-function init() {}
-init();
+
+dropdownContent.addEventListener("click", function (e) {
+  console.log("clicked")
+  for (var i = 0; i < companyList.length ; i++) {
+    if (e.target.matches(`#search${i}`)) {
+      getNewsData(companyList[i]);
+      fetchStockEODHistorical(localStorage.getItem(companyList[i]));
+      fetchStockRealTime(localStorage.getItem(companyList[i]))
+      console.log(companyList[i])
+      }
+  }
+})
+
+// =============== On Load ===============
+  /**
+   * On page load function
+   */
+  function init() {
+    if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
+    companyList = JSON.parse(localStorage.getItem("companyList"));
+    }
+    writeHistory()
+  }
+  init();
+
+

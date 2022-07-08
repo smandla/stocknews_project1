@@ -25,17 +25,22 @@
               style="height: 60px"
             />
           </p>
-      
+          <div class="dropdown is-active">
           <p class="level-item has-text-centered ">
-              <form id="search_form">
+              <form id="search_form" autocomplete="off">
                   <input
-            class="input is-primary"
+            class="input is-primary dropdown-trigger"
             type="text"
             placeholder="Search..."
             id="search_input"
           />
+          <div class="dropdown-menu" id="dropdown" role="menu">
+            <div class="dropdown-content">
+            </div>
             </form>
+            </div>
           </p>
+          </div>
         </nav>
       </nav>
     </header>
@@ -101,8 +106,13 @@
               </div>
               <div class="tile is-parent">
                 <article class="tile is-child notification is-info">
-                  <p class="title">Middle tile</p>
-                  <p class="subtitle">With an image</p>
+                  <p class="title">About</p>
+                  <p id="exchange" class="subtitle">Exchange</p>
+                  <p id="sector" class="subtitle">Sector</p>
+                  <p id="industry" class="subtitle">Industry</p>
+                  <p id="ceo" class="subtitle">CEO</p>
+                  <p id="ipo" class="subtitle">IPO Date</p>
+                  <p id="site" class="subtitle">Site</p>
                 </article>
               </div>
               
