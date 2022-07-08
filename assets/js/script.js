@@ -2,7 +2,7 @@
 //apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
-var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var yahooAPIKey = "Ztrai9erbS9aPeUHuug2h4Cb6M0hVrBx90fcGFLM";
 var stockEod;
@@ -111,6 +111,13 @@ const fetchStockRealTime = async (companySymbols) => {
   $("#name").text(stockRtd.data[0].name);
   $("#ticker").text("(" + stockRtd.data[0].ticker + ")");
   $("#change").text("Day Change:" + stockRtd.data[0].day_change);
+  if (stockRtd.data[0].day_change < 0) {
+    $("#change").addClass("has-background-danger");
+  } else if (stockRtd.data[0].day_change >= 0) {
+    $("#change")
+      .removeClass("has-background-danger")
+      .addClass(has - background - success);
+  }
   $("#price").text("Current Price: $" + stockRtd.data[0].price);
   $("#prevClose").text(
     "Previous Close Price: $" + stockRtd.data[0].previous_close_price
@@ -221,7 +228,9 @@ function showNewsData(articles) {
       .attr("href", articles[i].web_url);
     var mediaDivEl = $("<div>").addClass("media");
     mediaDivEl.appendTo(cardContentEl);
-    var TitleDivEl = $("<div>").addClass("media-content");
+    var TitleDivEl = $("<div>")
+      .addClass("media-content")
+      .css("overflow", "hidden");
 
     var titleEl = $("<p>")
       .addClass("title is-4")
