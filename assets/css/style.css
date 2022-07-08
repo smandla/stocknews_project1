@@ -65,6 +65,11 @@ main {
   top: 10px;
   padding: 20px;
 }
+
+#banner{
+  max-height: 200px;
+}
+
 #news_section {
   /* overflow: scroll; */
   /* position: relative; */
@@ -160,6 +165,10 @@ main {
     justify-content: center;
     align-items: center;
   }
+  #banner{
+    height: 300px;
+    margin-bottom: 5rem;
+  }
 }
 .company_section,
 .chart_section,
@@ -178,9 +187,7 @@ main {
   color: white;
   /* background-color: rgb(181, 181, 181); */
 }
-.NYnews_section {
-  z-index: 100;
-}
+
 .chart_section {
   width: 100%;
 }
