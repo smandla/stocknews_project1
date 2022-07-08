@@ -79,12 +79,12 @@ const fetchStockEODHistorical = async (companySymbols) => {
   );
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
-  console.log(stockEod)
+  console.log(stockEod);
   var indexArr = [];
-  if (arr !== []){
-    arr = []
+  if (arr !== []) {
+    arr = [];
   }
-  for (let i = stockEod.length-1; i >= 0; i--) {
+  for (let i = stockEod.length - 1; i >= 0; i--) {
     let days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
     // indexArr[0] = date*1000;
@@ -96,9 +96,9 @@ const fetchStockEODHistorical = async (companySymbols) => {
 
     indexArr = [];
   }
-  console.log(arr)
-  chart(arr)
-  console.log(arr)
+  console.log(arr);
+  chart(arr);
+  console.log(arr);
 };
 
 /**
@@ -188,11 +188,9 @@ const getNewsData = async (input) => {
 function showNewsData(articles) {
   console.log(articles);
   titleNewsEl.text(companyName + " News");
-  cardsEl.html('')
+  cardsEl.html("");
   for (let i = 0; i < articles.length; i++) {
-    var cardEl = $("<div>").addClass(
-      "card has-background-dark has-text-grey-light pt-5"
-    );
+    var cardEl = $("<div>").addClass("card has-text-light pt-5 card_section");
     var cardImageDivEl = $("<div>").addClass("card-image");
     cardImageDivEl.appendTo(cardEl);
     var figureEl = $("<figure>").addClass("image is-4by3");
@@ -278,12 +276,12 @@ const getInfo = async (input) => {
 };
 
 // Uses highcharts to display fetched historical EOD data
-function chart(data){
+function chart(data) {
   Highcharts.getJSON(
     "https://demo-live-data.highcharts.com/aapl-ohlc.json",
     function (data) {
       // create the chart
-      console.log("im in chart")
+      console.log("im in chart");
       Highcharts.stockChart("candlestick", {
         rangeSelector: {
           selected: 11,
@@ -291,8 +289,8 @@ function chart(data){
         title: {
           text: companyName + " Price History",
         },
-        credits:{
-          enabled:false
+        credits: {
+          enabled: false,
         },
         series: [
           {
@@ -312,7 +310,8 @@ function chart(data){
         ],
       });
     }
-  );}
+  );
+}
 
 /**
  * Writes search history to search history box
@@ -344,15 +343,17 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-document.querySelector("#search_input").addEventListener("blur", function (){
-  setTimeout (function () {
-    document.querySelector("#dropdown").setAttribute("style","display:none;")
-  }, 200)
-})
+document.querySelector("#search_input").addEventListener("blur", function () {
+  setTimeout(function () {
+    document.querySelector("#dropdown").setAttribute("style", "display:none;");
+  }, 200);
+});
 
-document.querySelector("#search_input").addEventListener("focus", function (){
-  document.querySelector("#dropdown").setAttribute("style","display:inline-block;")
-})
+document.querySelector("#search_input").addEventListener("focus", function () {
+  document
+    .querySelector("#dropdown")
+    .setAttribute("style", "display:inline-block;");
+});
 
 dropdownContent.addEventListener("click", function (e) {
   console.log("clicked");
@@ -364,7 +365,7 @@ dropdownContent.addEventListener("click", function (e) {
       console.log(companyList[i]);
     }
   }
-  document.querySelector("#dropdown").setAttribute("style","display:none;")
+  document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
 // =============== On Load ===============

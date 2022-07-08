@@ -116,11 +116,16 @@ main {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .current_price {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
+  float: right;
   font-size: 30px;
   align-items: center;
   justify-content: center;
+  padding: 10px;
+  margin: 0;
+  width: fit-content;
+  border-radius: 16px;
 }
 .current_price p {
   font-size: 30px;
@@ -151,4 +156,21 @@ main {
     justify-content: center;
     align-items: center;
   }
+}
+.company_section,
+.chart_section,
+.market_info,
+.about_info,
+.NYnews_section {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgb(38, 192, 199);
+}
+.company_section {
+  /* background: rgba(38, 192, 199, 0.8); */
+  /* background-color: rgb(38, 192, 199); */
+}
+.card_section {
+  background: rgba(181, 181, 181, 0.2);
+  color: white;
+  /* background-color: rgb(181, 181, 181); */
 }
