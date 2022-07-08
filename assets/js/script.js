@@ -6,7 +6,7 @@
 var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
 
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var yahooAPIKey = "Ztrai9erbS9aPeUHuug2h4Cb6M0hVrBx90fcGFLM";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
@@ -113,13 +113,13 @@ const fetchStockRealTime = async (companySymbols) => {
   stockRtd = realTimeData;
   $("#name").text(stockRtd.data[0].name);
   $("#ticker").text("(" + stockRtd.data[0].ticker + ")");
-  $("#change").html("Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>");
+  $("#change").html(
+    "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
+  );
   if (stockRtd.data[0].day_change < 0) {
     $("#change").addClass("red");
   } else if (stockRtd.data[0].day_change >= 0) {
-    $("#change")
-      .removeClass("red")
-      .addClass("green");
+    $("#change").removeClass("red").addClass("green");
   }
   $("#price").text("Current Price: $" + stockRtd.data[0].price);
   $("#prevClose").text(
@@ -245,7 +245,7 @@ function showNewsData(articles) {
 /**
  * exchange, ceo, sector, website, ipoDate
  */
-var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
+var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
 const getInfo = async (input) => {
   console.log(input);
@@ -253,6 +253,7 @@ const getInfo = async (input) => {
     `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
   );
   let infoData = await infoResponse.json();
+  $("#company_name_aboutsection").text(companyName);
   $("#exchange").text("Exchange: " + infoData[0].exchangeShortName);
   $("#sector").text("Sector: " + infoData[0].sector);
   $("#industry").text("Industry: " + infoData[0].industry);
