@@ -263,15 +263,21 @@ formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("")
-  if (companyList.includes(inputVal)) {
-    getNewsData(inputVal);
-    fetchStockEODHistorical(localStorage.getItem(inputVal));
-  } else {
-  getTicker(inputVal);
-  }
+    getTicker(inputVal);
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+dropdownContent.addEventListener("click", function (e) {
+  for (var i = 0; i < companyList.length ; i++) {
+    if (e.target.matches(`#search${i}`)) {
+      getNewsData(companyList[i]);
+      fetchStockEODHistorical(localStorage.getItem(companyList[i]));
+      fetchStockRealTime(localStorage.getItem(companyList[i]))
+      }
+  }
+})
+
+// =============== On Load ===============
   /**
    * On page load function
    */
