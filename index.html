@@ -46,12 +46,14 @@
     </header>
     <main>
       <div class="tile is-ancestor">
-        <div class="tile is-primary is-9">
+        <div class="tile is-primary is-12" >
           <div class="tile is-parent is-vertical">
             <div class="tile is-parent is-primary">
               <article class="tile is-child notification is-primary">
-                <p class="title">Vertical...</p>
-                <p class="subtitle">Top tile</p>
+                <p id="name" class="title">Company Name</p>
+                <p id="ticker" class="subtitle">Ticker</p>
+                <p id="change" class="subtitle">Day Change</p>
+                <p id="price" class="subtitle">Current Price</p>
               </article>
             </div>
             <div class="tile is-parent is-primary">
@@ -69,30 +71,41 @@
             <div class="tile">
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-primary">
-                  <p class="title">Vertical...</p>
-                  <p class="subtitle">Top tile</p>
+                  <p class="title">More Information</p>
+                  <p id="prevClose" class="subtitle">Previous Day close</p>
+                  <p id="open" class="subtitle">Market Open</p>
+                  <p id="dayL" class="subtitle">Day Low</p>
+                  <p id="dayH" class="subtitle">Day High</p>
+                  <p id="yearL" class="subtitle">52 week Low</p>
+                  <p id="yearH" class="subtitle">52 week High</p>
                 </article>
               </div>
               <div class="tile is-parent">
                 <article class="tile is-child notification is-info">
-                  <p class="title">Middle tile</p>
-                  <p class="subtitle">With an image</p>
+                  <p class="title">About</p>
+                  <p id="exchange" class="subtitle">Exchange</p>
+                  <p id="sector" class="subtitle">Sector</p>
+                  <p id="industry" class="subtitle">Industry</p>
+                  <p id="ceo" class="subtitle">CEO</p>
+                  <p id="ipo" class="subtitle">IPO Date</p>
+                  <p id="site" class="subtitle">Site</p>
                 </article>
               </div>
             </div>
           </div>
+          <div class="tile is-parent is-3" id="news_section">
+            <article class="tile is-child notification is-success">
+              <div class="content">
+                <p class="title"id="news_title_section">Tall tile</p>
+                <p class="subtitle">With even more content</p>
+                <p class="content" id="cards">
+               </p>
+              </div>
+            </article>
+          </div>
         </div>
 
-        <div class="tile is-parent" id="news_section">
-          <article class="tile is-child notification is-success">
-            <div class="content">
-              <p class="title">Tall tile</p>
-              <p class="subtitle">With even more content</p>
-              <p class="content" id="cards">
-             </p>
-            </div>
-          </article>
-        </div>
+       
       </div>
     </main>
 
