@@ -58,9 +58,9 @@ var arr = new Array();
 
 // =============== Fetch Functions ===============
 const fetchStockEODHistorical = async (companySymbols) => {
-  let stockEODHistoricalresponse = await fetch(
-    `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
-  );
+  // let stockEODHistoricalresponse = await fetch(
+  // `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
+  // );
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
   console.log(stockEod);
