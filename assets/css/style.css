@@ -118,7 +118,7 @@ main {
 .current_price {
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
-  float: right;
+  /* float: right; */
   font-size: 30px;
   align-items: center;
   justify-content: center;
@@ -131,14 +131,17 @@ main {
   font-size: 30px;
   text-align: center;
 }
-.green span{
-  background-color:  rgba(85, 201, 22, 0.65);
+.green span {
+  background-color: rgba(85, 201, 22, 0.65);
 }
-.red span{
-  background-color:  rgba(233, 11, 11, 0.744);
+.red span {
+  background-color: rgba(233, 11, 11, 0.744);
 }
 #candlestick {
-  width: 100%;
+  /* display: flex; */
+  justify-content: center;
+  width: 99%;
+  /* padding: 10px; */
 }
 #news_title_section {
   overflow: hidden;
@@ -173,4 +176,10 @@ main {
   background: rgba(181, 181, 181, 0.2);
   color: white;
   /* background-color: rgb(181, 181, 181); */
+}
+.NYnews_section {
+  z-index: 100;
+}
+.chart_section {
+  width: 100%;
 }
