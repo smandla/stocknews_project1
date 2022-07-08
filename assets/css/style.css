@@ -2,7 +2,7 @@
   padding: 0;
   margin-left: 2.5px;
   --background-color: #212121;
-  --border: #21adb2;
+  --border: rgb(33, 173, 178);
   font-family: "Poppins";
   text-decoration: none;
 }
@@ -30,7 +30,7 @@ header {
   /* height: 80px;
   width: 100%;
   margin: 0 auto;*/
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid rgba(33, 173, 178, 0.3);
   padding: 20px;
 
   /* border-bottom: 1px solid #21adb2; */
@@ -199,4 +199,10 @@ main {
 
 .chart_section {
   width: 100%;
+}
+.logo_image {
+  justify-content: left;
+}
+.site_name {
+  color: var(--border);
 }
