@@ -19,8 +19,11 @@ header {
 }
 
 #dropdown {
-  position:relative;
-  display: inline-block;
+  display: none;
+}
+
+.input:focus ~ #dropdown {
+  display:inline-block
 }
 
 header h1 {
