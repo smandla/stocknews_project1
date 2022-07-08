@@ -50,7 +50,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
   if (stockEODHistoricalresponse.status === 402) {
-    $("#402-status").addClass ("is-active")
+    $("#402-status").addClass("is-active");
   }
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
@@ -120,7 +120,7 @@ const getTicker = async (input) => {
   const data = await response.json();
 
   if (data.ResultSet.Result[0] === undefined) {
-    $("#bad-search").addClass ("is-active")
+    $("#bad-search").addClass("is-active");
   }
   symbol = data.ResultSet.Result[0].symbol;
   companyName = data.ResultSet.Result[0].name;
@@ -307,33 +307,29 @@ formEl.on("submit", function (e) {
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
   if (inputVal === "") {
-
-    $("#empty-search").addClass ("is-active")
-
+    $("#empty-search").addClass("is-active");
   } else {
     try {
-    getTicker(inputVal);
+      getTicker(inputVal);
     } catch (error) {
-      console.log ("error:", error)
+      console.log("error:", error);
     }
   }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+//Modals
+$("#empty-search-button").click(function () {
+  $("#empty-search").removeClass("is-active");
+});
 
-//Modals 
-$("#empty-search-button").click (function () {
-  $("#empty-search").removeClass ("is-active")
-})
+$("#bad-search-button").click(function () {
+  $("#bad-search").removeClass("is-active");
+});
 
-$("#bad-search-button").click (function () {
-  $("#bad-search").removeClass ("is-active")
-})
-
-$("#402-status-button").click (function () {
-  $("#402-status").removeClass ("is-active")
-})
-
+$("#402-status-button").click(function () {
+  $("#402-status").removeClass("is-active");
+});
 
 document.querySelector("#search_input").addEventListener("blur", function () {
   setTimeout(function () {
@@ -353,7 +349,7 @@ dropdownContent.addEventListener("click", function (e) {
     if (e.target.matches(`#search${i}`)) {
       companyName = companyList[i];
       getNewsData(companyList[i]);
-      fetchStockEODHistorical(localStorage.getItem(companyList[i]));   
+      fetchStockEODHistorical(localStorage.getItem(companyList[i]));
       fetchStockRealTime(localStorage.getItem(companyList[i]));
       getInfo(localStorage.getItem(companyList[i]));
     }
@@ -370,5 +366,11 @@ function init() {
     companyList = JSON.parse(localStorage.getItem("companyList"));
   }
   writeHistory();
+  companyName = "Apple Inc.";
+  symbol = "AAPL";
+  getNewsData(companyName);
+  fetchStockRealTime(symbol);
+  fetchStockEODHistorical(symbol);
+  getInfo(symbol);
 }
 init();
