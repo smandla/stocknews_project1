@@ -131,6 +131,12 @@ main {
   font-size: 30px;
   text-align: center;
 }
+.green span{
+  background-color:  rgba(85, 201, 22, 0.65);
+}
+.red span{
+  background-color:  rgba(233, 11, 11, 0.744);
+}
 #candlestick {
   width: 100%;
 }
