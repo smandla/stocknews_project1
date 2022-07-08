@@ -143,7 +143,7 @@
       </div>
     </main>
 
-    <div class="modal">
+    <div class="modal" id="empty-search">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -153,7 +153,37 @@
           Please search for a company name
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success modal-button">Close</button>
+          <button class="button is-success modal-button" id="empty-search-button">Close</button>
+        </footer>
+      </div>
+    </div>
+
+    <div class="modal is-active" id="bad-search">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Oops, we couldn't find that company!</p>
+        </header>
+        <section class="modal-card-body">
+          Please try again. 
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success modal-button" id="bad-search-button">Close</button>
+        </footer>
+      </div>
+    </div>
+
+    <div class="modal" id="402-status">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Fetch Requests Exceeded</p>
+        </header>
+        <section class="modal-card-body">
+          Sorry, we have a limited number of searches per day. Please try again later. 
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success modal-button" id="402-status-button">Close</button>
         </footer>
       </div>
     </div>

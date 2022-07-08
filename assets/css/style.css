@@ -165,10 +165,17 @@ main {
 .chart_section,
 .market_info,
 .about_info,
-.NYnews_section {
+.NYnews_section,
+.modal-card-head,
+.modal-card-body,
+.modal-card-foot {
   background: rgba(255, 255, 255, 0.1);
   color: rgb(38, 192, 199);
 }
+.modal-card-title {
+  color: rgb(38, 192, 199);
+}
+
 .company_section {
   /* background: rgba(38, 192, 199, 0.8); */
   /* background-color: rgb(38, 192, 199); */
@@ -178,9 +185,7 @@ main {
   color: white;
   /* background-color: rgb(181, 181, 181); */
 }
-.NYnews_section {
-  z-index: 100;
-}
+
 .chart_section {
   width: 100%;
 }
