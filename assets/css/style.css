@@ -76,7 +76,7 @@ main {
   /* height: 170px; */
 }
 #cards {
-  height: 105vh;
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -159,6 +159,14 @@ main {
   text-decoration: none;
 }
 
+.market_info{
+  height: fit-content;
+}
+
+.about_info,.market_info{
+  height: fit-content;
+}
+
 @media screen and (max-width: 768px) {
   header {
     display: flex;
@@ -177,6 +185,7 @@ main {
 .NYnews_section {
   background: rgba(255, 255, 255, 0.1);
   color: rgb(38, 192, 199);
+  border-radius: 16px;
 }
 .company_section {
   /* background: rgba(38, 192, 199, 0.8); */
