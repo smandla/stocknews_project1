@@ -1,15 +1,29 @@
-// =============== Variables ===============
+// ====Stock Keys====
 //apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
+//apikey4: 4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L
 
-var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
+// ====Yahoo Keys====
+// 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp
+// 2:AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW
 
-var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+// ====News Keys====
+// 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
+
+// ====Info Keys====
+// 1:973dd69ad729bc5ec99c97d881b85c04
+// 2:5c90c4482d1038a42bbb2e5903207658
+
+// =============== Keys ===============
+var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
 var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
+
+// =============== Variables ===============
 var stockEod;
 var stockRtd;
-var numOfDays = 14;
 
 var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
@@ -22,48 +36,6 @@ var titleNewsEl = $("#news_title_section");
 var symbol;
 var companyName;
 var companyList = [];
-var dData = [
-  {
-    date: 1657036800,
-    open: 137.77,
-    high: 141.61,
-    low: 136.93,
-    close: 141.56,
-    volume: 73429641,
-  },
-  {
-    date: 1656691200,
-    open: 136.04,
-    high: 139.04,
-    low: 135.66,
-    close: 138.93,
-    volume: 71051552,
-  },
-  {
-    date: 1656604800,
-    open: 137.25,
-    high: 138.37,
-    low: 133.77,
-    close: 136.72,
-    volume: 98964467,
-  },
-  {
-    date: 1656518400,
-    open: 137.46,
-    high: 140.67,
-    low: 136.67,
-    close: 139.23,
-    volume: 66242411,
-  },
-  {
-    date: 1656432000,
-    open: 142.13,
-    high: 143.42,
-    low: 137.32,
-    close: 137.44,
-    volume: 67315328,
-  },
-];
 
 var arr = new Array();
 
@@ -79,7 +51,6 @@ const fetchStockEODHistorical = async (companySymbols) => {
   );
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
-  console.log(stockEod);
   var indexArr = [];
   if (arr !== []) {
     arr = [];
@@ -96,9 +67,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
 
     indexArr = [];
   }
-  console.log(arr);
   chart(arr);
-  console.log(arr);
 };
 
 /**
@@ -171,13 +140,11 @@ const getTicker = async (input) => {
  * @param {*} input - Takes company name and fetches NYTimes articles
  */
 const getNewsData = async (input) => {
-  console.log(input);
   let newsDataResponse = await fetch(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
   );
   let newsData = await newsDataResponse.json();
   let articles = newsData.response.docs;
-  console.log(newsData.response.docs);
   showNewsData(articles);
 };
 
@@ -186,7 +153,6 @@ const getNewsData = async (input) => {
  * @param {*} articles - Takes array of articles
  */
 function showNewsData(articles) {
-  console.log(articles);
   titleNewsEl.text(companyName + " News");
   cardsEl.html("");
   for (let i = 0; i < articles.length; i++) {
@@ -243,12 +209,11 @@ function showNewsData(articles) {
 }
 
 /**
- * exchange, ceo, sector, website, ipoDate
+ * Writes Company info to page
+ * @param {*} input - Takes stock ticker input for api call
  */
-var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
 const getInfo = async (input) => {
-  console.log(input);
   let infoResponse = await fetch(
     `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
   );
@@ -267,22 +232,17 @@ const getInfo = async (input) => {
       infoData[0].website +
       "</a>"
   );
-  // console.log(infoData[0]);
-  // console.log("Exchange: " + infoData[0].exchangeShortName);
-  // console.log("Sector: " + infoData[0].sector);
-  // console.log("Industry: " + infoData[0].industry);
-  // console.log("CEO: " + infoData[0].ceo);
-  // console.log("IPO Date: " + infoData[0].ipoDate);
-  // console.log("Website: " + infoData[0].website);
 };
 
-// Uses highcharts to display fetched historical EOD data
+/**
+ * Uses highcharts to display fetched historical EOD data
+ * @param {*} data - array data from historical EOD
+ */
 function chart(data) {
   Highcharts.getJSON(
     "https://demo-live-data.highcharts.com/aapl-ohlc.json",
     function (data) {
-      // create the chart
-      console.log("im in chart");
+      // create the chart;
       Highcharts.stockChart("candlestick", {
         rangeSelector: {
           selected: 11,

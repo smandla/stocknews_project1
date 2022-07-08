@@ -65,13 +65,18 @@ main {
   top: 10px;
   padding: 20px;
 }
+
+#banner{
+  max-height: 200px;
+}
+
 #news_section {
   /* overflow: scroll; */
   /* position: relative; */
   /* height: 170px; */
 }
 #cards {
-  height: 105vh;
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -154,11 +159,23 @@ main {
   text-decoration: none;
 }
 
+.market_info{
+  height: fit-content;
+}
+
+.about_info,.market_info{
+  height: fit-content;
+}
+
 @media screen and (max-width: 768px) {
   header {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  #banner{
+    height: 300px;
+    margin-bottom: 5rem;
   }
 }
 .company_section,
@@ -168,6 +185,7 @@ main {
 .NYnews_section {
   background: rgba(255, 255, 255, 0.1);
   color: rgb(38, 192, 199);
+  border-radius: 16px;
 }
 .company_section {
   /* background: rgba(38, 192, 199, 0.8); */
@@ -178,9 +196,7 @@ main {
   color: white;
   /* background-color: rgb(181, 181, 181); */
 }
-.NYnews_section {
-  z-index: 100;
-}
+
 .chart_section {
   width: 100%;
 }
