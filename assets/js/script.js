@@ -314,11 +314,6 @@ Highcharts.getJSON(
  */
 function writeHistory() {
   dropdownContent.innerHTML = "";
-  var historyEl = document.createElement("p");
-  historyEl.setAttribute(
-    "class",
-    "dropdown-item has-text-centered pb-0 pt-0 has-text-weight-bold"
-  );
   for (var i = 0; i < companyList.length; i++) {
     var pEl = document.createElement("p");
     pEl.setAttribute("class", "dropdown-item");
