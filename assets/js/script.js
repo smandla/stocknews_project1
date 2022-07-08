@@ -4,7 +4,7 @@
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-
+var yahooAPIKey = "HWNAd3ijyo3YelxWUfAln7FZFi75aUJGagKGA7uX"
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
@@ -12,10 +12,15 @@ var numOfDays = 14;
 var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
+
+
+var dropdownContent = document.querySelector(".dropdown-content")
+
 var titleNewsEl = $("#news_title_section");
+
 var symbol;
 var companyName;
-
+var companyList = []
 var dData = [
   {
     date: 1657036800,
@@ -139,7 +144,7 @@ const getTicker = async (input) => {
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
-        "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
+        "x-api-key": `${yahooAPIKey}`,
       },
     }
 
@@ -147,6 +152,18 @@ const getTicker = async (input) => {
     const data = await response.json();
     symbol = data.ResultSet.Result[0].symbol;
     companyName = data.ResultSet.Result[0].name;
+    if (companyList.includes (companyName) === false) {
+      companyList.push (companyName)
+      localStorage.setItem(companyName, symbol)
+      if (companyList.length > 4) {
+        companyList.shift()
+        localStorage.removeItem(companyList[0])
+        localStorage.setItem ("companyList", JSON.stringify(companyList))
+      } else {
+      localStorage.setItem ("companyList", JSON.stringify(companyList))
+      writeHistory()
+      }
+    }
     getNewsData(companyName);
     fetchStockRealTime(symbol)
     fetchStockEODHistorical(symbol);
@@ -284,19 +301,59 @@ Highcharts.getJSON(
 }
 );
 
-// =============== Event ===============
 /**
+ * Writes search history to search history box
+ */
+function writeHistory() {
+  dropdownContent.innerHTML = ""
+  var historyEl = document.createElement("p");
+  historyEl.setAttribute("class", "dropdown-item has-text-centered pb-0 pt-0 has-text-weight-bold")
+  for (var i = 0; i < companyList.length ; i++) {
+    var pEl = document.createElement("p");
+    pEl.setAttribute("class", "dropdown-item")
+    pEl.setAttribute("id", `search${i}`)
+    pEl.textContent = companyList[i]
+    var hrEl = document.createElement("hr")
+    hrEl.setAttribute("class", "dropdown-divider")
+    dropdownContent.appendChild(hrEl)
+    dropdownContent.appendChild(pEl);
+}
+}
+
+// =============== Event ===============
+/**  
  * add event listener for search button and get data for newspaper on submit
  */
 formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
-  getTicker(inputVal);
+
+  searchInputEl.val("")
+    getTicker(inputVal);
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+dropdownContent.addEventListener("click", function (e) {
+  console.log("clicked")
+  for (var i = 0; i < companyList.length ; i++) {
+    if (e.target.matches(`#search${i}`)) {
+      getNewsData(companyList[i]);
+      fetchStockEODHistorical(localStorage.getItem(companyList[i]));
+      fetchStockRealTime(localStorage.getItem(companyList[i]))
+      console.log(companyList[i])
+      }
+  }
+})
+
+// =============== On Load ===============
   /**
    * On page load function
    */
-  function init() {}
+  function init() {
+    if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
+    companyList = JSON.parse(localStorage.getItem("companyList"));
+    }
+    writeHistory()
+  }
   init();
+
