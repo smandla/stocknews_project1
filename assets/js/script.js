@@ -3,13 +3,18 @@
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
 
+var formEl = $("#search_form");
+var searchInputEl = $("#search_input");
+var cardsEl = $("#cards");
+
 var symbol;
 var companyName;
-//[]
 
 var dData = [
   {
@@ -52,22 +57,24 @@ var dData = [
     close: 137.44,
     volume: 67315328,
   },
-];
-//[[],[],[]                 ]
+]
+
 var arr = new Array();
 
 // =============== Fetch Functions ===============
+
+/**
+ * Fetches historical end-of-day stock data 
+ * @param {*} companySymbols - ticker name for the companies searched
+ */
 const fetchStockEODHistorical = async (companySymbols) => {
   // let stockEODHistoricalresponse = await fetch(
+
   // `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
+
   // );
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
-  console.log(stockEod);
-  //date, open, high, low, close
-
-  //[[(00),(01)]]
-  //[( 10),(01)]
   var indexArr = [];
   for (let i = 250; i >= 0; i--) {
     let date = stockEod[i].date;
@@ -81,41 +88,22 @@ const fetchStockEODHistorical = async (companySymbols) => {
 
     indexArr = [];
   }
-  console.log(arr);
-  // console.log(arr);
-  // for (let i = stockEod.length - 1; i >= 0; i--) {
-  //   var dataDate = stockEod[i].date;
-  //   console.log(dataDate);
-
-  //   console.log(Date.parse(dataDate) / 1000);
-  //   // arr[i][0] = Date.parse(dataDate) / 1000;
-  //   indexArr[0] = Date.parse(dataDate) / 1000;
-  //   indexArr[1] = stockEod[i].open;
-  //   arr.push(indexArr);
-
-  //   // arr[i][1] = stockEod[i].open;
-  //   // arr[i][2] = stockEod[i].high;
-  //   // arr[i][3] = stockEod[i].low;
-  //   // arr[i][4] = stockEod[i].close;
-  //   // console.log(indexArr);
-  // }
-  // console.log(arr);
-  // console.log(indexArr);
-  // arr.push(indexArr);
-  // console.log(arr);
-  // for (var i = 0; i < numOfDays; i++) {
   //   console.log("date", stockEod.data[i].date);
   //   console.log("close", stockEod.data[i].close);
   //   console.log("high", stockEod.data[i].high);
   //   console.log("low", stockEod.data[i].low);
   //   console.log("open", stockEod.data[i].open);
   //   console.log("volume", stockEod.data[i].volume);
-  // }
 };
 
+
+/**
+ * Fetches real time stock data for display 
+ * @param {*} companySymbols - ticker name for the company searched
+ */
 const fetchStockRealTime = async (companySymbols) => {
   // let stockRealTimeresponse = await fetch(
-  //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
+    //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   // );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
@@ -126,35 +114,12 @@ const fetchStockRealTime = async (companySymbols) => {
   console.log("day low:", stockRtd.data[0].day_low);
   console.log("day open", stockRtd.data[0].day_open);
   console.log("price:", stockRtd.data[0].price);
-
-  // let stockEODHistoricalresponse = await fetch(
-  //   `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
-  // );
-  console.log(stockEODHistoricalresponse);
-  let eodData = await stockEODHistoricalresponse.json();
-  console.log(eodData);
 };
 
-fetchStockEODHistorical("AAPL");
-// fetchStockRealTime("AAPL");
-
 /**
- * add event listener for search button and get data for newspaper on submit
+ * Calls functions to fetch data for the rest of the page
+ * @param {*} input - Takes company user is searching for to return ticker name
  */
-var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var formEl = $("#search_form");
-var searchInputEl = $("#search_input");
-formEl.on("submit", function (e) {
-  e.preventDefault();
-  console.log(searchInputEl.val());
-  var inputVal = searchInputEl.val();
-
-  //getTicker()
-
-  getTicker(inputVal);
-  // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
-  //   getNewsData(inputVal);
-});
 const getTicker = async (input) => {
   const response = await fetch(
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
@@ -163,13 +128,18 @@ const getTicker = async (input) => {
         "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
       },
     }
-  );
-  const data = await response.json();
-  symbol = data.ResultSet.Result[0].symbol;
-  companyName = data.ResultSet.Result[0].name;
-  getNewsData(companyName);
-  // console.log(data.ResultSet.Result[0]);
-};
+    );
+    const data = await response.json();
+    symbol = data.ResultSet.Result[0].symbol;
+    companyName = data.ResultSet.Result[0].name;
+    getNewsData(companyName);
+    fetchStockEODHistorical(symbol);
+  };
+
+/**
+ * Fetches and calls function to display articles 
+ * @param {*} input - Takes company name and fetches NYTimes articles
+ */
 const getNewsData = async (input) => {
   console.log(input);
   let newsDataResponse = await fetch(
@@ -180,7 +150,11 @@ const getNewsData = async (input) => {
   console.log(newsData.response.docs);
   showNewsData(articles);
 };
-var cardsEl = $("#cards");
+
+/**
+ * Writes articles to page 
+ * @param {*} articles - Takes array of articles
+ */
 function showNewsData(articles) {
   for (let i = 0; i < articles.length; i++) {
     var cardEl = $("<div>").addClass("card is-three-quarters");
@@ -216,17 +190,7 @@ function showNewsData(articles) {
   }
 }
 
-function init() {}
-init();
-
-// console.log(newdata());
-
-/**
- *[[1594128600000,93.85,94.65,93.06,93.17],
-   [1594215000000,94.18,95.38,94.09,95.34],
-   [1594301400000,96.26,96.32,94.67,95.75]]
- *
- */
+// Uses highcharts to display fetched historical EOD data
 Highcharts.getJSON(
   "https://demo-live-data.highcharts.com/aapl-ohlc.json",
   function (data) {
@@ -235,16 +199,14 @@ Highcharts.getJSON(
       rangeSelector: {
         selected: 11,
       },
-
       title: {
         text: "Stock Price",
       },
-
       series: [
         {
           type: "candlestick",
           name: "AAPL Stock Price",
-          data: arr,
+          data: dData,
           dataGrouping: {
             units: [
               [
@@ -259,3 +221,20 @@ Highcharts.getJSON(
     });
   }
 );
+
+    // =============== Event ===============
+    /**
+     * add event listener for search button and get data for newspaper on submit
+     */
+    formEl.on("submit", function (e) {
+      e.preventDefault();
+      var inputVal = searchInputEl.val();  
+      getTicker(inputVal);
+      // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
+    });
+
+  /**
+   * On page load function
+   */
+  function init() {}
+  init();
