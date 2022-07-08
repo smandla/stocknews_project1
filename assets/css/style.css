@@ -38,7 +38,7 @@ header {
 .dropdown-divider {
   background-color: var(--border);
 }
-.input:focus ~ #dropdown {
+.input:focus-within ~ #dropdown {
   display:inline-block;
 }
 

@@ -268,11 +268,13 @@ formEl.on("submit", function (e) {
 });
 
 dropdownContent.addEventListener("click", function (e) {
+  console.log("clicked")
   for (var i = 0; i < companyList.length ; i++) {
     if (e.target.matches(`#search${i}`)) {
       getNewsData(companyList[i]);
       fetchStockEODHistorical(localStorage.getItem(companyList[i]));
       fetchStockRealTime(localStorage.getItem(companyList[i]))
+      console.log(companyList[i])
       }
   }
 })
