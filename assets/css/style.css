@@ -53,9 +53,6 @@ header {
 .dropdown-divider {
   background-color: var(--border);
 }
-.input:focus-within ~ #dropdown {
-  display: inline-block;
-}
 
 header h1 {
   /* font-size: 2rem; */

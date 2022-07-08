@@ -304,11 +304,6 @@ function chart(data){
  */
 function writeHistory() {
   dropdownContent.innerHTML = "";
-  var historyEl = document.createElement("p");
-  historyEl.setAttribute(
-    "class",
-    "dropdown-item has-text-centered pb-0 pt-0 has-text-weight-bold"
-  );
   for (var i = 0; i < companyList.length; i++) {
     var pEl = document.createElement("p");
     pEl.setAttribute("class", "dropdown-item");
@@ -334,6 +329,16 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+document.querySelector("#search_input").addEventListener("blur", function (){
+  setTimeout (function () {
+    document.querySelector("#dropdown").setAttribute("style","display:none;")
+  }, 200)
+})
+
+document.querySelector("#search_input").addEventListener("focus", function (){
+  document.querySelector("#dropdown").setAttribute("style","display:inline-block;")
+})
+
 dropdownContent.addEventListener("click", function (e) {
   console.log("clicked");
   for (var i = 0; i < companyList.length; i++) {
@@ -344,6 +349,7 @@ dropdownContent.addEventListener("click", function (e) {
       console.log(companyList[i]);
     }
   }
+  document.querySelector("#dropdown").setAttribute("style","display:none;")
 });
 
 // =============== On Load ===============
