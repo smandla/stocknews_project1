@@ -13,6 +13,8 @@ var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
 
+var dropdownContent = document.querySelector(".dropdown-content")
+
 var symbol;
 var companyName;
 var companyList = []
@@ -141,6 +143,7 @@ const getTicker = async (input) => {
         localStorage.setItem ("companyList", JSON.stringify(companyList))
       } else {
       localStorage.setItem ("companyList", JSON.stringify(companyList))
+      writeHistory()
       }
     }
     getNewsData(companyName);
@@ -233,30 +236,49 @@ Highcharts.getJSON(
   }
 );
 
-    // =============== Event ===============
-    /**
-     * add event listener for search button and get data for newspaper on submit
-     */
-    formEl.on("submit", function (e) {
-      e.preventDefault();
-      var inputVal = searchInputEl.val();
-      searchInputEl.val("")
-      if (companyList.includes(inputVal)) {
-        getNewsData(inputVal);
-        fetchStockEODHistorical(localStorage.getItem(inputVal));
-      } else {
-      getTicker(inputVal);
-      }
-      // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
-    });
+/**
+ * Writes search history to search history box
+ */
+function writeHistory() {
+  dropdownContent.innerHTML = ""
+  var historyEl = document.createElement("p");
+  historyEl.setAttribute("class", "dropdown-item has-text-centered pb-0 pt-0 has-text-weight-bold")
+  for (var i = 0; i < companyList.length ; i++) {
+    var pEl = document.createElement("p");
+    pEl.setAttribute("class", "dropdown-item")
+    pEl.setAttribute("id", `search${i}`)
+    pEl.textContent = companyList[i]
+    var hrEl = document.createElement("hr")
+    hrEl.setAttribute("class", "dropdown-divider")
+    dropdownContent.appendChild(hrEl)
+    dropdownContent.appendChild(pEl);
+}
+}
+
+// =============== Event ===============
+/**  
+ * add event listener for search button and get data for newspaper on submit
+ */
+formEl.on("submit", function (e) {
+  e.preventDefault();
+  var inputVal = searchInputEl.val();
+  searchInputEl.val("")
+  if (companyList.includes(inputVal)) {
+    getNewsData(inputVal);
+    fetchStockEODHistorical(localStorage.getItem(inputVal));
+  } else {
+  getTicker(inputVal);
+  }
+  // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
+});
 
   /**
    * On page load function
    */
   function init() {
-    
-    if (Boolean(JSON.parse(localStorage.getItem(companyList))) !== false) {
-    companyList = localStorageCompanyList;
+    if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
+    companyList = JSON.parse(localStorage.getItem("companyList"));
     }
+    writeHistory()
   }
   init();
