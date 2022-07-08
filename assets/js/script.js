@@ -4,7 +4,7 @@
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-
+var yahooAPIKey = "HWNAd3ijyo3YelxWUfAln7FZFi75aUJGagKGA7uX"
 var stockEod;
 var stockRtd;
 var numOfDays = 14;
@@ -125,16 +125,16 @@ const getTicker = async (input) => {
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
-        "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
+        "x-api-key": `${yahooAPIKey}`,
       },
     }
     );
     const data = await response.json();
     symbol = data.ResultSet.Result[0].symbol;
     companyName = data.ResultSet.Result[0].name;
-    if (!companyList.includes([companyName,symbol]) && companyList.length < 8) {
-      companyList.push ([companyName, symbol])
-      localStorage.setItem("Companies", JSON.stringify(companyList))
+    if (companyList.includes (companyName) === false) {
+      companyList.push (companyName)
+      localStorage.setItem(companyName, symbol)
     }
     getNewsData(companyName);
     fetchStockEODHistorical(symbol);
@@ -232,7 +232,8 @@ Highcharts.getJSON(
      */
     formEl.on("submit", function (e) {
       e.preventDefault();
-      var inputVal = searchInputEl.val();  
+      var inputVal = searchInputEl.val();
+      searchInputEl.val("")
       getTicker(inputVal);
       // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
     });
@@ -240,5 +241,7 @@ Highcharts.getJSON(
   /**
    * On page load function
    */
-  function init() {}
+  function init() {
+
+  }
   init();
