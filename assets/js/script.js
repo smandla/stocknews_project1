@@ -15,7 +15,7 @@ var cardsEl = $("#cards");
 
 var symbol;
 var companyName;
-
+var companyList = []
 var dData = [
   {
     date: 1657036800,
@@ -132,6 +132,10 @@ const getTicker = async (input) => {
     const data = await response.json();
     symbol = data.ResultSet.Result[0].symbol;
     companyName = data.ResultSet.Result[0].name;
+    if (!companyList.includes([companyName,symbol]) && companyList.length < 8) {
+      companyList.push ([companyName, symbol])
+      localStorage.setItem("Companies", JSON.stringify(companyList))
+    }
     getNewsData(companyName);
     fetchStockEODHistorical(symbol);
   };
