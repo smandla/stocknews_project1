@@ -85,5 +85,28 @@ main {
 }
 
 #search_input::placeholder {
-  color: var(--border);
+ color: var(--border);
+
 }
+/*
+  color: rgb(33, 173, 178);
+} */
+.more_info p {
+  /* text-decoration: underline; */
+  /* padding-bottom: 1px */
+  /* background-color: red; */
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.current_price {
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 100%;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
+.current_price p {
+  font-size: 30px;
+  text-align: center;
+}
+
