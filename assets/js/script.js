@@ -102,9 +102,9 @@ const fetchStockEODHistorical = async (companySymbols) => {
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
-  let stockRealTimeresponse = await fetch(
-       `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
-   );
+  // let stockRealTimeresponse = await fetch(
+  //      `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
+  //  );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
   $('#name').text(stockRtd.data[0].name)
