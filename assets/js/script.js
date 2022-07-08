@@ -113,13 +113,13 @@ const fetchStockRealTime = async (companySymbols) => {
   stockRtd = realTimeData;
   $("#name").text(stockRtd.data[0].name);
   $("#ticker").text("(" + stockRtd.data[0].ticker + ")");
-  $("#change").text("Day Change:" + stockRtd.data[0].day_change);
+  $("#change").html("Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>");
   if (stockRtd.data[0].day_change < 0) {
-    $("#change").addClass("has-background-danger");
+    $("#change").addClass("red");
   } else if (stockRtd.data[0].day_change >= 0) {
     $("#change")
-      .removeClass("has-background-danger")
-      .addClass(has - background - success);
+      .removeClass("red")
+      .addClass("green");
   }
   $("#price").text("Current Price: $" + stockRtd.data[0].price);
   $("#prevClose").text(
