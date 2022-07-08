@@ -344,6 +344,11 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+document.querySelector("#search_input").addEventListener("focus", function (){
+  console.log("focus")
+  document.querySelector("#dropdown").setAttribute("style","display:inline-block;")
+})
+
 dropdownContent.addEventListener("click", function (e) {
   console.log("clicked");
   for (var i = 0; i < companyList.length; i++) {
@@ -354,6 +359,7 @@ dropdownContent.addEventListener("click", function (e) {
       console.log(companyList[i]);
     }
   }
+  document.querySelector("#dropdown").setAttribute("style","display:none;")
 });
 
 // =============== On Load ===============
