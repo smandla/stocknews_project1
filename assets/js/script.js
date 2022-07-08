@@ -339,9 +339,18 @@ formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
-  getTicker(inputVal);
+  if (inputVal === "") {
+    console.log("empty")
+    $(".modal").addClass ("is-active")
+  } else {
+    getTicker(inputVal);
+  }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
+
+$(".modal-button").click (function () {
+  $(".modal").removeClass ("is-active")
+})
 
 document.querySelector("#search_input").addEventListener("blur", function (){
   setTimeout (function () {
