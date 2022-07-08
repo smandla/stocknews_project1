@@ -2,7 +2,7 @@
 //apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
-var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var yahooAPIKey = "Ztrai9erbS9aPeUHuug2h4Cb6M0hVrBx90fcGFLM";
 var stockEod;
@@ -77,10 +77,11 @@ const fetchStockEODHistorical = async (companySymbols) => {
   );
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
+  console.log(stockEod)
   var indexArr = [];
-  for (let i = 250; i >= 0; i--) {
-    let date = stockEod[i].date;
-    indexArr[0] = Date.parse(date);
+  for (let i = stockEod.length-1; i >= 0; i--) {
+    let days = stockEod[i].date;
+    indexArr[0] = Date.parse(days);
     // indexArr[0] = date*1000;
     indexArr[1] = stockEod[i].open;
     indexArr[2] = stockEod[i].high;
@@ -90,12 +91,8 @@ const fetchStockEODHistorical = async (companySymbols) => {
 
     indexArr = [];
   }
-  //   console.log("date", stockEod.data[i].date);
-  //   console.log("close", stockEod.data[i].close);
-  //   console.log("high", stockEod.data[i].high);
-  //   console.log("low", stockEod.data[i].low);
-  //   console.log("open", stockEod.data[i].open);
-  //   console.log("volume", stockEod.data[i].volume);
+  console.log(arr)
+  chart(arr)
 };
 
 /**
@@ -120,17 +117,6 @@ const fetchStockRealTime = async (companySymbols) => {
   $("#dayH").text("Day High: $" + stockRtd.data[0].day_high);
   $("#yearL").text("52 Week Low: $" + stockRtd.data[0]["52_week_low"]);
   $("#yearH").text("52 Week High: $" + stockRtd.data[0]["52_week_high"]);
-  // console.log(stockRtd);
-  // console.log("Name :", stockRtd.data[0].name);
-  // console.log("Ticker:", stockRtd.data[0].ticker);
-  // console.log("Day Change:", stockRtd.data[0].day_change);
-  // console.log("price:", stockRtd.data[0].price);
-  // console.log("Previous Close Price:", stockRtd.data[0].previous_close_price);
-  // console.log("day open", stockRtd.data[0].day_open);
-  // console.log("day low:", stockRtd.data[0].day_low);
-  // console.log("day high:", stockRtd.data[0].day_high);
-  // console.log("52 week low:", stockRtd.data[0]["52_week_low"]);
-  // console.log("52 week high:", stockRtd.data[0]["52_week_high"]);
 };
 
 /**
@@ -275,39 +261,40 @@ const getInfo = async (input) => {
   // console.log("IPO Date: " + infoData[0].ipoDate);
   // console.log("Website: " + infoData[0].website);
 };
-getInfo("AAPL");
 
 // Uses highcharts to display fetched historical EOD data
-Highcharts.getJSON(
-  "https://demo-live-data.highcharts.com/aapl-ohlc.json",
-  function (data) {
-    // create the chart
-    Highcharts.stockChart("candlestick", {
-      rangeSelector: {
-        selected: 11,
-      },
-      title: {
-        text: "Stock Price",
-      },
-      series: [
-        {
-          type: "candlestick",
-          name: "AAPL Stock Price",
-          data: dData,
-          dataGrouping: {
-            units: [
-              [
-                "week", // unit name
-                [1], // allowed multiples
-              ],
-              ["month", [1, 2, 3, 4, 6]],
-            ],
-          },
+function chart(data){
+  Highcharts.getJSON(
+    "https://demo-live-data.highcharts.com/aapl-ohlc.json",
+    function (data) {
+      // create the chart
+      console.log("im in chart")
+      Highcharts.stockChart("candlestick", {
+        rangeSelector: {
+          selected: 11,
         },
-      ],
-    });
-  }
-);
+        title: {
+          text: "Stock Price",
+        },
+        series: [
+          {
+            type: "candlestick",
+            name: "Stock Price",
+            data: arr,
+            dataGrouping: {
+              units: [
+                [
+                  "week", // unit name
+                  [1], // allowed multiples
+                ],
+                ["month", [1, 2, 3, 4, 6]],
+              ],
+            },
+          },
+        ],
+      });
+    }
+  );}
 
 /**
  * Writes search history to search history box
