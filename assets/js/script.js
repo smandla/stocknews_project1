@@ -102,21 +102,22 @@ const fetchStockEODHistorical = async (companySymbols) => {
  */
 const fetchStockRealTime = async (companySymbols) => {
   // let stockRealTimeresponse = await fetch(
-
   //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   // );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  $('#name').text(stockRtd.data[0].name)
-  $('#ticker').text('(' + stockRtd.data[0].ticker + ')')
-  $('#change').text("Day Change:" + stockRtd.data[0].day_change)
-  $('#price').text("Current Price: $"+stockRtd.data[0].price)
-  $('#prevClose').text("Previous Close Price: $"+stockRtd.data[0].previous_close_price)
-  $('#open').text("Day Open: $"+stockRtd.data[0].day_open)
-  $('#dayL').text("Day Low: $"+stockRtd.data[0].day_low)
-  $('#dayH').text("Day High: $"+stockRtd.data[0].day_high)
-  $('#yearL').text("52 Week Low: $"+stockRtd.data[0]["52_week_low"])
-  $('#yearH').text("52 Week High: $"+stockRtd.data[0]["52_week_high"])
+  $("#name").text(stockRtd.data[0].name);
+  $("#ticker").text("(" + stockRtd.data[0].ticker + ")");
+  $("#change").text("Day Change:" + stockRtd.data[0].day_change);
+  $("#price").text("Current Price: $" + stockRtd.data[0].price);
+  $("#prevClose").text(
+    "Previous Close Price: $" + stockRtd.data[0].previous_close_price
+  );
+  $("#open").text("Day Open: $" + stockRtd.data[0].day_open);
+  $("#dayL").text("Day Low: $" + stockRtd.data[0].day_low);
+  $("#dayH").text("Day High: $" + stockRtd.data[0].day_high);
+  $("#yearL").text("52 Week Low: $" + stockRtd.data[0]["52_week_low"]);
+  $("#yearH").text("52 Week High: $" + stockRtd.data[0]["52_week_high"]);
   // console.log(stockRtd);
   // console.log("Name :", stockRtd.data[0].name);
   // console.log("Ticker:", stockRtd.data[0].ticker);
@@ -135,23 +136,21 @@ const fetchStockRealTime = async (companySymbols) => {
  * @param {*} input - Takes company user is searching for to return ticker name
  */
 const getTicker = async (input) => {
-  const response = await fetch(
-    `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
-    {
-      headers: {
-        "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
-      },
-    }
-
-    );
-    const data = await response.json();
-    symbol = data.ResultSet.Result[0].symbol;
-    companyName = data.ResultSet.Result[0].name;
-    getNewsData(companyName);
-    fetchStockRealTime(symbol)
-    fetchStockEODHistorical(symbol);
-  };
-
+  // const response = await fetch(
+  //   `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
+  //   {
+  //     headers: {
+  //       "x-api-key": "HWNAd3ijyo3YelxWUfAln7FZFi75aUJGagKGA7uX",
+  //     },
+  //   }
+  // );
+  const data = await response.json();
+  symbol = data.ResultSet.Result[0].symbol;
+  companyName = data.ResultSet.Result[0].name;
+  getNewsData(companyName);
+  fetchStockRealTime(symbol);
+  fetchStockEODHistorical(symbol);
+};
 
 /**
  * Fetches and calls function to display articles
@@ -267,9 +266,8 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-  /**
-   * On page load function
-   */
-  function init() {}
-  init();
-
+/**
+ * On page load function
+ */
+function init() {}
+init();
