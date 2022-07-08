@@ -12,7 +12,7 @@ var numOfDays = 14;
 var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
-
+var titleNewsEl = $("#news_title_section");
 var symbol;
 var companyName;
 
@@ -57,14 +57,14 @@ var dData = [
     close: 137.44,
     volume: 67315328,
   },
-]
+];
 
 var arr = new Array();
 
 // =============== Fetch Functions ===============
 
 /**
- * Fetches historical end-of-day stock data 
+ * Fetches historical end-of-day stock data
  * @param {*} companySymbols - ticker name for the companies searched
  */
 const fetchStockEODHistorical = async (companySymbols) => {
@@ -96,14 +96,13 @@ const fetchStockEODHistorical = async (companySymbols) => {
   //   console.log("volume", stockEod.data[i].volume);
 };
 
-
 /**
- * Fetches real time stock data for display 
+ * Fetches real time stock data for display
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
   // let stockRealTimeresponse = await fetch(
-    //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
+  //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   // );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
@@ -128,16 +127,16 @@ const getTicker = async (input) => {
         "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
       },
     }
-    );
-    const data = await response.json();
-    symbol = data.ResultSet.Result[0].symbol;
-    companyName = data.ResultSet.Result[0].name;
-    getNewsData(companyName);
-    fetchStockEODHistorical(symbol);
-  };
+  );
+  const data = await response.json();
+  symbol = data.ResultSet.Result[0].symbol;
+  companyName = data.ResultSet.Result[0].name;
+  getNewsData(companyName);
+  fetchStockEODHistorical(symbol);
+};
 
 /**
- * Fetches and calls function to display articles 
+ * Fetches and calls function to display articles
  * @param {*} input - Takes company name and fetches NYTimes articles
  */
 const getNewsData = async (input) => {
@@ -152,22 +151,35 @@ const getNewsData = async (input) => {
 };
 
 /**
- * Writes articles to page 
+ * Writes articles to page
  * @param {*} articles - Takes array of articles
  */
 function showNewsData(articles) {
+  console.log(articles);
+  titleNewsEl.text(companyName + " News");
   for (let i = 0; i < articles.length; i++) {
     var cardEl = $("<div>").addClass("card is-three-quarters");
     var cardImageDivEl = $("<div>").addClass("card-image");
     cardImageDivEl.appendTo(cardEl);
     var figureEl = $("<figure>").addClass("image is-4by3");
     figureEl.appendTo(cardImageDivEl);
-    var imgEl = $("<img>").attr(
-      "src",
-      "https://bulma.io/images/placeholders/1280x960.png"
-    );
+    var imgEl = $("<img>");
+    // console.log(articles[i].multimedia);
+    if (articles[i].multimedia[0] === undefined) {
+      imgEl.attr(
+        "src",
+        "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
+      );
+    } else {
+      console.log(articles[i].multimedia[0]);
+      imgEl.attr(
+        "src",
+        `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
+      );
+    }
     imgEl.appendTo(figureEl);
 
+    //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
     /**card content */
     var cardContentEl = $("<div>").addClass("card-content");
 
@@ -175,14 +187,18 @@ function showNewsData(articles) {
     mediaDivEl.appendTo(cardContentEl);
     var TitleDivEl = $("<div>").addClass("media-content");
 
-    var titleEl = $("<p>").addClass("title is-4").text("Title");
+    var titleEl = $("<p>")
+      .addClass("title is-4")
+      .text(articles[i].headline.main);
     titleEl.appendTo(TitleDivEl);
-
+    //   <p class="subtitle is-6">@johnsmith</p>
+    var subEl = $("<p>")
+      .addClass("subtitle is-6")
+      .text(articles[i].byline.original);
+    subEl.appendTo(TitleDivEl);
     var contentDivEl = $("<div>")
       .addClass("content")
-      .html(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elite. Phasellus nec iaculis mauris."
-      );
+      .html(articles[i].lead_paragraph);
     contentDivEl.appendTo(cardContentEl);
     TitleDivEl.appendTo(mediaDivEl);
     cardContentEl.appendTo(cardEl);
@@ -222,19 +238,19 @@ Highcharts.getJSON(
   }
 );
 
-    // =============== Event ===============
-    /**
-     * add event listener for search button and get data for newspaper on submit
-     */
-    formEl.on("submit", function (e) {
-      e.preventDefault();
-      var inputVal = searchInputEl.val();  
-      getTicker(inputVal);
-      // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
-    });
+// =============== Event ===============
+/**
+ * add event listener for search button and get data for newspaper on submit
+ */
+formEl.on("submit", function (e) {
+  e.preventDefault();
+  var inputVal = searchInputEl.val();
+  getTicker(inputVal);
+  // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
+});
 
-  /**
-   * On page load function
-   */
-  function init() {}
-  init();
+/**
+ * On page load function
+ */
+function init() {}
+init();
