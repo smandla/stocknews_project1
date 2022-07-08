@@ -323,7 +323,7 @@ function writeHistory() {
     var pEl = document.createElement("p");
     pEl.setAttribute("class", "dropdown-item");
     pEl.setAttribute("id", `search${i}`);
-    pEl.textContent = companyList[i];
+    pEl.textContent = companyList[i].split(",")[0];
     var hrEl = document.createElement("hr");
     hrEl.setAttribute("class", "dropdown-divider");
     dropdownContent.appendChild(hrEl);
