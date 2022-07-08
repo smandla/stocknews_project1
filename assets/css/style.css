@@ -3,11 +3,28 @@
   margin-left: 2.5px;
   --background-color: #212121;
   --border: #21adb2;
+  font-family: "Poppins";
+  text-decoration: none;
 }
 body {
   background-color: var(--background-color);
-}
+  text-decoration: none;
 
+  /* height: 100vh; */
+}
+main {
+  position: relative;
+  top: 10px;
+  padding: 20px;
+  /* height: 100vh; */
+  text-decoration: none;
+}
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.card-content a {
+  text-decoration: none;
+}
 /* Header */
 header {
   /* height: 80px;
@@ -16,8 +33,6 @@ header {
   border-bottom: 1px solid #ddd;
   padding: 20px;
   /* border-bottom: 1px solid #21adb2; */
-
-
 }
 
 #dropdown {
@@ -31,7 +46,7 @@ header {
 }
 
 .dropdown-item:hover {
-  cursor:pointer;
+  cursor: pointer;
   background-color: aliceblue;
 }
 
@@ -39,9 +54,7 @@ header {
   background-color: var(--border);
 }
 .input:focus-within ~ #dropdown {
-  display:inline-block;
-
-
+  display: inline-block;
 }
 
 header h1 {
@@ -52,6 +65,7 @@ header h1 {
 main {
   position: relative;
   top: 10px;
+  padding: 20px;
 }
 #news_section {
   /* overflow: scroll; */
@@ -59,7 +73,7 @@ main {
   /* height: 170px; */
 }
 #cards {
-  height: 80vh;
+  height: 105vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -77,6 +91,12 @@ main {
 
 .card {
   margin: 10px;
+  border-radius: 16px;
+}
+.card-image img {
+  border-radius: 16px 16px 16px 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 #search_input {
   background-color: #303134;
@@ -85,8 +105,7 @@ main {
 }
 
 #search_input::placeholder {
- color: var(--border);
-
+  color: var(--border);
 }
 /*
   color: rgb(33, 173, 178);
@@ -109,4 +128,16 @@ main {
   font-size: 30px;
   text-align: center;
 }
-
+#candlestick {
+  width: 100%;
+}
+#news_title_section {
+  overflow: hidden;
+  text-decoration: none;
+}
+.news_section {
+  overflow: hidden;
+}
+.subtitle {
+  text-decoration: none;
+}

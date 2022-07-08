@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <link
+    href="https://fonts.googleapis.com/css?family=Poppins"
+    rel="stylesheet"
+  />
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
@@ -46,8 +49,8 @@
     </header>
     <main>
       <div class="tile is-ancestor">
-        <div class="tile is-primary is-9 " >
-          <div class="tile is-parent is-vertical" >
+        <div class="tile is-vertical is-9">
+          <div class="tile">
             <div class="tile is-parent is-primary">
               <article class="tile is-child notification is-primary">
                 <div class="columns">
@@ -55,56 +58,57 @@
                 <p id="name" class="title">Company Name</p>
                 <p id="ticker" class="subtitle">Ticker</p>
                 <div class="columns" >
-                  <div class="column">  <p id="change" class="subtitle">Day Change 8.42</p></div>
+                  <div class="column">  <p id="change" class="subtitle">Day Change </p></div>
                 </div>
                
                 </div>
                 <div class="column">
-                  <div class=" current_price"> <p id="price" class="subtitle">Current Price</p> <p class="price_current">$106.34</p></div>
-                <!-- <p id="ticker" class="subtitle">Ticker</p>
-                <p id="change" class="subtitle">Day Change</p>
-                -->
+                  <div class=" current_price"> <p id="price" class="subtitle">Current Price</p> <p class="price_current"></p></div>
+              
               </div>
               </div>
               </article>
             </div>
-            <div class="tile is-parent is-primary">
+            
+          </div>
+          <div class="tile is-parent is-primary">
+            <article class="tile is-child notification is-primary">
+              <p class="title" id="chart_title">Charts API</p>
+              <p class="subtitle" id="candlestick">Top tile</p>
+            </article>
+          </div>
+          <!-- <div class="tile is-parent is-primary">
+            <article class="tile is-child notification is-primary">
+              <p class="title">Vertical...</p>
+              <p class="subtitle">Top tile</p>
+            </article>
+          </div>  -->
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
               <article class="tile is-child notification is-primary">
-                <p class="title" id="chart_title">Charts API</p>
-                <p class="subtitle" id="candlestick">Top tile</p>
+                <p class="title">More Information</p>
+                <div class="columns more_info">
+                  <div class="column">
+                    <p id="prevClose" class="subtitle">Prev Day close</p>
+                    <p id="dayL" class="subtitle">Day Low</p>
+                    <p id="yearL" class="subtitle">52 Wk Low</p>
+                
+                  </div>
+                  <div class="column ">
+                    <p id="open" class="subtitle">Market Open</p>
+                    <p id="dayH" class="subtitle">Day High</p>
+                    <p id="yearH" class="subtitle">52 Wk High</p>
+                  </div>
+                 <!-- <p id="prevClose" class="subtitle">Previous Day close</p>
+                <p id="open" class="subtitle">Market Open</p>
+                <p id="dayL" class="subtitle">Day Low</p>
+                <p id="dayH" class="subtitle">Day High</p>
+                <p id="yearL" class="subtitle">52 week Low</p>
+                <p id="yearH" class="subtitle">52 week High</p>  -->
               </article>
             </div>
-            <!-- <div class="tile is-parent is-primary">
-              <article class="tile is-child notification is-primary">
-                <p class="title">Vertical...</p>
-                <p class="subtitle">Top tile</p>
-              </article>
-            </div> -->
-            <div class="tile" ">
-              <div class="tile is-parent is-vertical">
-                <article class="tile is-child notification is-primary">
-                  <p class="title">More Information</p>
-                  <div class="columns more_info">
-                    <div class="column">
-                      <p id="prevClose" class="subtitle">Prev Day close</p>
-                      <p id="dayL" class="subtitle">Day Low</p>
-                      <p id="yearL" class="subtitle">52 Wk Low</p>
-                  
-                    </div>
-                    <div class="column ">
-                      <p id="open" class="subtitle">Market Open</p>
-                      <p id="dayH" class="subtitle">Day High</p>
-                      <p id="yearH" class="subtitle">52 Wk High</p>
-                    </div>
-                  <!-- <p id="prevClose" class="subtitle">Previous Day close</p>
-                  <p id="open" class="subtitle">Market Open</p>
-                  <p id="dayL" class="subtitle">Day Low</p>
-                  <p id="dayH" class="subtitle">Day High</p>
-                  <p id="yearL" class="subtitle">52 week Low</p>
-                  <p id="yearH" class="subtitle">52 week High</p> -->
-                </article>
-              </div>
-              <div class="tile is-parent">
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-info">
                 <article class="tile is-child notification is-info">
                   <p class="title">About</p>
                   <p id="exchange" class="subtitle">Exchange</p>
@@ -114,25 +118,23 @@
                   <p id="ipo" class="subtitle">IPO Date</p>
                   <p id="site" class="subtitle">Site</p>
                 </article>
-              </div>
-              
+              </article>
             </div>
-          
+            
           </div>
-         
+       
         </div>
-        <div class="tile is-parent is-3"  id="news_section">
+        <div class="tile is-parent">
           <article class="tile is-child notification is-success">
-            <div class="content">
+            <div class="content news_section">
               <p class="title"id="news_title_section">Tall tile</p>
               <p class="subtitle">With even more content</p>
               <p class="content" id="cards">
              </p>
             </div>
+            </div>
           </article>
         </div>
-
-       
       </div>
     </main>
 
