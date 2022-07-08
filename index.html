@@ -25,17 +25,34 @@
               style="height: 60px"
             />
           </p>
-      
+          <div class="dropdown is-active">
           <p class="level-item has-text-centered ">
               <form id="search_form">
                   <input
-            class="input is-primary"
+            class="input is-primary dropdown-trigger"
             type="text"
             placeholder="Search..."
             id="search_input"
           />
             </form>
+            <div class="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a href="#" class="dropdown-item">
+                  Dropdown item
+                </a>
+                <a class="dropdown-item">
+                  Other dropdown item
+                </a>
+                <a href="#" class="dropdown-item is-active">
+                  Active dropdown item
+                </a>
+                <a href="#" class="dropdown-item">
+                  Other dropdown item
+                </a>
+              </div>
+            </div>
           </p>
+          </div>
         </nav>
       </nav>
     </header>
