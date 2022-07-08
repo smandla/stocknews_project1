@@ -102,17 +102,32 @@ const fetchStockEODHistorical = async (companySymbols) => {
  */
 const fetchStockRealTime = async (companySymbols) => {
   // let stockRealTimeresponse = await fetch(
+
   //   `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   // );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  console.log(stockRtd);
-  console.log("52 week high:", stockRtd.data[0]["52_week_high"]);
-  console.log("52 week low:", stockRtd.data[0]["52_week_low"]);
-  console.log("day high:", stockRtd.data[0].day_high);
-  console.log("day low:", stockRtd.data[0].day_low);
-  console.log("day open", stockRtd.data[0].day_open);
-  console.log("price:", stockRtd.data[0].price);
+  $('#name').text(stockRtd.data[0].name)
+  $('#ticker').text('(' + stockRtd.data[0].ticker + ')')
+  $('#change').text("Day Change:" + stockRtd.data[0].day_change)
+  $('#price').text("Current Price: $"+stockRtd.data[0].price)
+  $('#prevClose').text("Previous Close Price: $"+stockRtd.data[0].previous_close_price)
+  $('#open').text("Day Open: $"+stockRtd.data[0].day_open)
+  $('#dayL').text("Day Low: $"+stockRtd.data[0].day_low)
+  $('#dayH').text("Day High: $"+stockRtd.data[0].day_high)
+  $('#yearL').text("52 Week Low: $"+stockRtd.data[0]["52_week_low"])
+  $('#yearH').text("52 Week High: $"+stockRtd.data[0]["52_week_high"])
+  // console.log(stockRtd);
+  // console.log("Name :", stockRtd.data[0].name);
+  // console.log("Ticker:", stockRtd.data[0].ticker);
+  // console.log("Day Change:", stockRtd.data[0].day_change);
+  // console.log("price:", stockRtd.data[0].price);
+  // console.log("Previous Close Price:", stockRtd.data[0].previous_close_price);
+  // console.log("day open", stockRtd.data[0].day_open);
+  // console.log("day low:", stockRtd.data[0].day_low);
+  // console.log("day high:", stockRtd.data[0].day_high);
+  // console.log("52 week low:", stockRtd.data[0]["52_week_low"]);
+  // console.log("52 week high:", stockRtd.data[0]["52_week_high"]);
 };
 
 /**
@@ -127,13 +142,16 @@ const getTicker = async (input) => {
         "x-api-key": " AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW",
       },
     }
-  );
-  const data = await response.json();
-  symbol = data.ResultSet.Result[0].symbol;
-  companyName = data.ResultSet.Result[0].name;
-  getNewsData(companyName);
-  fetchStockEODHistorical(symbol);
-};
+
+    );
+    const data = await response.json();
+    symbol = data.ResultSet.Result[0].symbol;
+    companyName = data.ResultSet.Result[0].name;
+    getNewsData(companyName);
+    fetchStockRealTime(symbol)
+    fetchStockEODHistorical(symbol);
+  };
+
 
 /**
  * Fetches and calls function to display articles
@@ -249,8 +267,9 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-/**
- * On page load function
- */
-function init() {}
-init();
+  /**
+   * On page load function
+   */
+  function init() {}
+  init();
+
