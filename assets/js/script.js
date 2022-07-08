@@ -241,6 +241,10 @@ Highcharts.getJSON(
       e.preventDefault();
       var inputVal = searchInputEl.val();
       searchInputEl.val("")
+      if (companyList.includes(inputVal)) {
+        getNewsData(inputVal);
+        fetchStockEODHistorical(localStorage.getItem(inputVal));
+      }
       getTicker(inputVal);
       // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
     });
