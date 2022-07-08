@@ -150,9 +150,10 @@ const getTicker = async (input) => {
     getNewsData(companyName);
     fetchStockRealTime(symbol)
     fetchStockEODHistorical(symbol);
+    getInfo(symbol)
   };
-
-
+  
+  
 /**
  * Fetches and calls function to display articles
  * @param {*} input - Takes company name and fetches NYTimes articles
@@ -161,68 +162,95 @@ const getNewsData = async (input) => {
   console.log(input);
   let newsDataResponse = await fetch(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
-  );
-  let newsData = await newsDataResponse.json();
-  let articles = newsData.response.docs;
-  console.log(newsData.response.docs);
-  showNewsData(articles);
-};
-
-/**
- * Writes articles to page
- * @param {*} articles - Takes array of articles
- */
-function showNewsData(articles) {
-  console.log(articles);
-  titleNewsEl.text(companyName + " News");
-  for (let i = 0; i < articles.length; i++) {
-    var cardEl = $("<div>").addClass("card is-three-quarters");
-    var cardImageDivEl = $("<div>").addClass("card-image");
-    cardImageDivEl.appendTo(cardEl);
-    var figureEl = $("<figure>").addClass("image is-4by3");
-    figureEl.appendTo(cardImageDivEl);
-    var imgEl = $("<img>");
-    // console.log(articles[i].multimedia);
-    if (articles[i].multimedia[0] === undefined) {
-      imgEl.attr(
-        "src",
-        "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
-      );
-    } else {
-      console.log(articles[i].multimedia[0]);
-      imgEl.attr(
-        "src",
-        `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
-      );
-    }
-    imgEl.appendTo(figureEl);
-
-    //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-    /**card content */
-    var cardContentEl = $("<div>").addClass("card-content");
-
-    var mediaDivEl = $("<div>").addClass("media");
-    mediaDivEl.appendTo(cardContentEl);
-    var TitleDivEl = $("<div>").addClass("media-content");
-
-    var titleEl = $("<p>")
-      .addClass("title is-4")
-      .text(articles[i].headline.main);
-    titleEl.appendTo(TitleDivEl);
-    //   <p class="subtitle is-6">@johnsmith</p>
-    var subEl = $("<p>")
-      .addClass("subtitle is-6")
-      .text(articles[i].byline.original);
+    );
+    let newsData = await newsDataResponse.json();
+    let articles = newsData.response.docs;
+    console.log(newsData.response.docs);
+    showNewsData(articles);
+  };
+  
+  /**
+   * Writes articles to page
+   * @param {*} articles - Takes array of articles
+   */
+  function showNewsData(articles) {
+    console.log(articles);
+    titleNewsEl.text(companyName + " News");
+    for (let i = 0; i < articles.length; i++) {
+      var cardEl = $("<div>").addClass("card is-three-quarters");
+      var cardImageDivEl = $("<div>").addClass("card-image");
+      cardImageDivEl.appendTo(cardEl);
+      var figureEl = $("<figure>").addClass("image is-4by3");
+      figureEl.appendTo(cardImageDivEl);
+      var imgEl = $("<img>");
+      // console.log(articles[i].multimedia);
+      if (articles[i].multimedia[0] === undefined) {
+        imgEl.attr(
+          "src",
+          "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
+          );
+        } else {
+          console.log(articles[i].multimedia[0]);
+          imgEl.attr(
+            "src",
+            `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
+            );
+          }
+          imgEl.appendTo(figureEl);
+          
+          //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          /**card content */
+          var cardContentEl = $("<div>").addClass("card-content");
+          
+          var mediaDivEl = $("<div>").addClass("media");
+          mediaDivEl.appendTo(cardContentEl);
+          var TitleDivEl = $("<div>").addClass("media-content");
+          
+          var titleEl = $("<p>")
+          .addClass("title is-4")
+          .text(articles[i].headline.main);
+          titleEl.appendTo(TitleDivEl);
+          //   <p class="subtitle is-6">@johnsmith</p>
+          var subEl = $("<p>")
+          .addClass("subtitle is-6")
+    .text(articles[i].byline.original);
     subEl.appendTo(TitleDivEl);
     var contentDivEl = $("<div>")
-      .addClass("content")
-      .html(articles[i].lead_paragraph);
+    .addClass("content")
+    .html(articles[i].lead_paragraph);
     contentDivEl.appendTo(cardContentEl);
     TitleDivEl.appendTo(mediaDivEl);
     cardContentEl.appendTo(cardEl);
     cardEl.appendTo(cardsEl);
   }
 }
+  
+/**
+ * exchange, ceo, sector, website, ipoDate
+ */
+var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04"
+
+const getInfo = async (input) => {
+  console.log(input);
+  let infoResponse = await fetch(
+    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
+    );
+    let infoData = await infoResponse.json();
+    $('#exchange').text("Exchange: " + infoData[0].exchangeShortName)
+    $('#sector').text("Sector: " + infoData[0].sector)
+    $('#industry').text("Industry: " + infoData[0].industry)
+    $('#ceo').text("CEO: " + infoData[0].ceo)
+    $('#ipo').text("IPO Date: " + infoData[0].ipoDate)
+    $('#site').html("Website: " + '<a href="'+ infoData[0].website + '" target="_blank">'+infoData[0].website+'</a>')
+    // console.log(infoData[0]);
+    // console.log("Exchange: " + infoData[0].exchangeShortName);
+    // console.log("Sector: " + infoData[0].sector);
+    // console.log("Industry: " + infoData[0].industry);
+    // console.log("CEO: " + infoData[0].ceo);
+    // console.log("IPO Date: " + infoData[0].ipoDate);
+    // console.log("Website: " + infoData[0].website);
+}
+getInfo("AAPL")
 
 // Uses highcharts to display fetched historical EOD data
 Highcharts.getJSON(
@@ -236,24 +264,24 @@ Highcharts.getJSON(
       title: {
         text: "Stock Price",
       },
-      series: [
-        {
-          type: "candlestick",
-          name: "AAPL Stock Price",
-          data: dData,
-          dataGrouping: {
-            units: [
-              [
-                "week", // unit name
-                [1], // allowed multiples
-              ],
-              ["month", [1, 2, 3, 4, 6]],
+    series: [
+      {
+        type: "candlestick",
+        name: "AAPL Stock Price",
+        data: dData,
+        dataGrouping: {
+          units: [
+            [
+              "week", // unit name
+              [1], // allowed multiples
             ],
-          },
+            ["month", [1, 2, 3, 4, 6]],
+          ],
         },
-      ],
-    });
-  }
+      },
+    ],
+  });
+}
 );
 
 // =============== Event ===============
@@ -272,4 +300,3 @@ formEl.on("submit", function (e) {
    */
   function init() {}
   init();
-
