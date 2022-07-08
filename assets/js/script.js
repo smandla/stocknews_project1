@@ -339,8 +339,13 @@ formEl.on("submit", function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+document.querySelector("#search_input").addEventListener("blur", function (){
+  setTimeout (function () {
+    document.querySelector("#dropdown").setAttribute("style","display:none;")
+  }, 200)
+})
+
 document.querySelector("#search_input").addEventListener("focus", function (){
-  console.log("focus")
   document.querySelector("#dropdown").setAttribute("style","display:inline-block;")
 })
 
