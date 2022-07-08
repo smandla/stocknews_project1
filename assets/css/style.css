@@ -66,7 +66,7 @@ main {
   padding: 20px;
 }
 
-#banner{
+#banner {
   max-height: 200px;
 }
 
@@ -150,6 +150,7 @@ main {
 }
 #news_title_section {
   overflow: hidden;
+  padding: 1.25rem;
   /* text-decoration: none; */
 }
 .news_section {
@@ -159,11 +160,12 @@ main {
   text-decoration: none;
 }
 
-.market_info{
+.market_info {
   height: fit-content;
 }
 
-.about_info,.market_info{
+.about_info,
+.market_info {
   height: fit-content;
 }
 
@@ -173,7 +175,7 @@ main {
     justify-content: center;
     align-items: center;
   }
-  #banner{
+  #banner {
     height: 300px;
     margin-bottom: 5rem;
   }
@@ -212,4 +214,11 @@ main {
 }
 .site_name {
   color: var(--border);
+}
+/* .notification {
+  padding: 0;
+} */
+
+.NYnews_section {
+  padding: 0;
 }
