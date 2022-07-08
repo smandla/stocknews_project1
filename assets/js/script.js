@@ -179,6 +179,7 @@ const getNewsData = async (input) => {
 function showNewsData(articles) {
   console.log(articles);
   titleNewsEl.text(companyName + " News");
+  cardsEl.html('')
   for (let i = 0; i < articles.length; i++) {
     var cardEl = $("<div>").addClass(
       "card has-background-dark has-text-grey-light pt-5"
@@ -278,6 +279,9 @@ function chart(data){
         },
         title: {
           text: companyName + " Price History",
+        },
+        credits:{
+          enabled:false
         },
         series: [
           {
