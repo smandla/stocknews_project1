@@ -16,10 +16,10 @@
 // 2:5c90c4482d1038a42bbb2e5903207658
 
 // =============== Keys ===============
-var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
-var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+// var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
+// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
+// var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
 // =============== Variables ===============
 var stockEod;
@@ -300,23 +300,23 @@ formEl.on("submit", function (e) {
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
   if (inputVal === "") {
-    console.log("empty")
-    $(".modal").addClass ("is-active")
+    console.log("empty");
+    $(".modal").addClass("is-active");
   } else {
     getTicker(inputVal);
   }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-$(".modal-button").click (function () {
-  $(".modal").removeClass ("is-active")
-})
+$(".modal-button").click(function () {
+  $(".modal").removeClass("is-active");
+});
 
-document.querySelector("#search_input").addEventListener("blur", function (){
-  setTimeout (function () {
-    document.querySelector("#dropdown").setAttribute("style","display:none;")
-  }, 200)
-})
+document.querySelector("#search_input").addEventListener("blur", function () {
+  setTimeout(function () {
+    document.querySelector("#dropdown").setAttribute("style", "display:none;");
+  }, 200);
+});
 
 document.querySelector("#search_input").addEventListener("focus", function () {
   document
@@ -328,11 +328,11 @@ dropdownContent.addEventListener("click", function (e) {
   console.log("clicked");
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
-      companyName = companyList[i]
+      companyName = companyList[i];
       getNewsData(companyList[i]);
       fetchStockEODHistorical(localStorage.getItem(companyList[i]));
       fetchStockRealTime(localStorage.getItem(companyList[i]));
-      getInfo(localStorage.getItem(companyList[i]));    
+      getInfo(localStorage.getItem(companyList[i]));
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
