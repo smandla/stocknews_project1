@@ -2,7 +2,7 @@
 //apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
 //apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
-var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var yahooAPIKey = "Ztrai9erbS9aPeUHuug2h4Cb6M0hVrBx90fcGFLM";
 var stockEod;
@@ -79,6 +79,9 @@ const fetchStockEODHistorical = async (companySymbols) => {
   var stockEod = eodData.data;
   console.log(stockEod)
   var indexArr = [];
+  if (arr !== []){
+    arr = []
+  }
   for (let i = stockEod.length-1; i >= 0; i--) {
     let days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
@@ -93,6 +96,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
   }
   console.log(arr)
   chart(arr)
+  console.log(arr)
 };
 
 /**
@@ -191,7 +195,6 @@ function showNewsData(articles) {
         "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1491958734/bqp32una36b06hmbulla.png"
       );
     } else {
-      console.log(articles[i].multimedia[0]);
       imgEl.attr(
         "src",
         `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
@@ -274,12 +277,12 @@ function chart(data){
           selected: 11,
         },
         title: {
-          text: "Stock Price",
+          text: companyName + " Price History",
         },
         series: [
           {
             type: "candlestick",
-            name: "Stock Price",
+            name: "Price",
             data: arr,
             dataGrouping: {
               units: [
