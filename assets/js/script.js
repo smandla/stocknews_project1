@@ -15,13 +15,13 @@
 // 1:973dd69ad729bc5ec99c97d881b85c04
 // 2:5c90c4482d1038a42bbb2e5903207658
 
-// =============== Keys ===============
+// ======================================= Keys =======================================
 // var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
 // var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
-// =============== Variables ===============
+// ======================================= Variables =======================================
 var stockEod;
 var stockRtd;
 
@@ -39,7 +39,7 @@ var companyList = [];
 
 var arr = new Array();
 
-// =============== Fetch Functions ===============
+// ======================================= Fetch Functions =======================================
 
 /**
  * Fetches historical end-of-day stock data
@@ -300,7 +300,7 @@ function writeHistory() {
   }
 }
 
-// =============== Event ===============
+// ======================================= Event =======================================
 /**
  * add event listener for search button and get data for newspaper on submit
  */
@@ -325,7 +325,7 @@ formEl.on("submit", async function (e) {
 });
 
 
-//Modals 
+//Modals - close button functionality
 $("#empty-search-button").click (function () {
   $("#empty-search").removeClass ("is-active")
 })
@@ -338,7 +338,7 @@ $("#402-status-button").click (function () {
   $("#402-status").removeClass ("is-active")
 })
 
-
+// Sets search history to appear when in focus and dissapear shortly after it loses focus
 document.querySelector("#search_input").addEventListener("blur", function () {
   setTimeout(function () {
     document.querySelector("#dropdown").setAttribute("style", "display:none;");
@@ -351,6 +351,9 @@ document.querySelector("#search_input").addEventListener("focus", function () {
   .setAttribute("style", "display:inline-block;");
 });
 
+/**
+ * Fetches information based on what search history element was clicked
+ */
 dropdownContent.addEventListener("click", async function (e) {
   $(".spin").attr("style", "display:block;")
   console.log ("ok")
@@ -372,7 +375,7 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
-// =============== On Load ===============
+// ======================================= On Load =======================================
 /**
  * On page load function
  */
