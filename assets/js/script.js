@@ -289,14 +289,14 @@ function chart(data) {
 function writeHistory() {
   dropdownContent.innerHTML = "";
   for (var i = 0; i < companyList.length; i++) {
-    var pEl = document.createElement("p");
-    pEl.setAttribute("class", "dropdown-item");
-    pEl.setAttribute("id", `search${i}`);
-    pEl.textContent = companyList[i].split(",")[0];
-    var hrEl = document.createElement("hr");
-    hrEl.setAttribute("class", "dropdown-divider");
-    dropdownContent.appendChild(hrEl);
-    dropdownContent.appendChild(pEl);
+    var pEl = $("<p></p>")
+    $(pEl).attr("class", "dropdown-item");
+    $(pEl).attr("id", `search${i}`);
+    $(pEl).text(companyList[i].split(",")[0]);
+    var hrEl = $("<hr></hr>");
+    $(hrEl).attr("class", "dropdown-divider");
+    $(dropdownContent).append(hrEl);
+    $(dropdownContent).append(pEl);
   }
 }
 
