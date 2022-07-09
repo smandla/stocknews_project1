@@ -17,7 +17,7 @@
 
 // =============== Keys ===============
 // var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
-var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
@@ -140,6 +140,8 @@ const getTicker = async (input) => {
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
   getInfo(symbol);
+  for (var i = 0; i < 100000000 ; i++) {
+  }
 };
 
 /**
@@ -306,10 +308,10 @@ formEl.on("submit", async function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
-  $(".spin").attr("style", "display: block'")
+  $(".spin").attr("style", "display: block")
+  // $(".spin").removeAttr("style", "display: none")
   if (inputVal === "") {    
     $("#empty-search").addClass ("is-active")
-    
   } else {
     try {
       await getTicker(inputVal);
@@ -346,18 +348,25 @@ document.querySelector("#search_input").addEventListener("blur", function () {
 document.querySelector("#search_input").addEventListener("focus", function () {
   document
   .querySelector("#dropdown")
-    .setAttribute("style", "display:inline-block;");
+  .setAttribute("style", "display:inline-block;");
 });
 
-dropdownContent.addEventListener("click", function (e) {
-  console.log("clicked");
+dropdownContent.addEventListener("click", async function (e) {
+  $(".spin").attr("style", "display:block;")
+  console.log ("ok")
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
       companyName = companyList[i];
-      getNewsData(companyList[i]);
-      fetchStockEODHistorical(localStorage.getItem(companyList[i]));   
-      fetchStockRealTime(localStorage.getItem(companyList[i]));
-      getInfo(localStorage.getItem(companyList[i]));
+      try {
+        const a = getNewsData(companyList[i]);
+        const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));   
+        const c = fetchStockRealTime(localStorage.getItem(companyList[i]));
+        const d = getInfo(localStorage.getItem(companyList[i]));
+        await Promise.all([a,b,c,d])     
+      } catch (error) {
+        console.log(error)
+      }
+      $(".spin").attr("style", "display:none;")
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
@@ -368,7 +377,6 @@ dropdownContent.addEventListener("click", function (e) {
  * On page load function
  */
 function init() {
-  $(".spin").attr("style", "display:none;")
   if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
     companyList = JSON.parse(localStorage.getItem("companyList"));
   }

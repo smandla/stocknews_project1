@@ -3,6 +3,7 @@
   margin-left: 2.5px;
   --background-color: #212121;
   --border: rgb(33, 173, 178);
+  --loadcolor: rgba(255, 255, 255, 1);
   font-family: "Poppins";
   text-decoration: none;
 }
@@ -172,8 +173,8 @@ main {
   animation: 2s linear infinite spinner1;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: #8a1984;
-  border-top-color: #8a1984 ;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
@@ -191,8 +192,8 @@ main {
   animation: 2s linear infinite spinner2;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: #8a1984;
-  border-top-color: #8a1984;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
@@ -210,8 +211,8 @@ main {
   animation: 2s linear infinite spinner3;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: #8a1984;
-  border-top-color: #8a1984;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
@@ -229,8 +230,8 @@ main {
   animation: 2s linear infinite spinner4;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: #8a1984;
-  border-top-color: #8a1984;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
