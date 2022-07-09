@@ -306,6 +306,7 @@ formEl.on("submit", function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
+  
   if (inputVal === "") {
 
     $("#empty-search").addClass ("is-active")
