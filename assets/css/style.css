@@ -168,7 +168,7 @@ main {
 .market_info {
   height: fit-content;
 }
-.spin::before {
+#spinmain::before {
   animation: 2s linear infinite spinner1;
   animation-play-state: inherit;
   border: solid 5px #000000;
@@ -187,7 +187,7 @@ main {
   will-change: transform;
 }
 
-.smallspin::before {
+#smallspin::before {
   animation: 2s linear infinite spinner2;
   animation-play-state: inherit;
   border: solid 5px #000000;
@@ -206,7 +206,7 @@ main {
   will-change: transform;
 }
 
-.smallerspin::before {
+#smallerspin::before {
   animation: 2s linear infinite spinner3;
   animation-play-state: inherit;
   border: solid 5px #000000;
@@ -225,7 +225,7 @@ main {
   will-change: transform;
 }
 
-.smallestspin::before {
+#smallestspin::before {
   animation: 2s linear infinite spinner4;
   animation-play-state: inherit;
   border: solid 5px #000000;

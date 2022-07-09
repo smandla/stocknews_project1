@@ -17,7 +17,7 @@
 
 // =============== Keys ===============
 // var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
-// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
@@ -302,20 +302,21 @@ function writeHistory() {
 /**
  * add event listener for search button and get data for newspaper on submit
  */
-formEl.on("submit", function (e) {
+formEl.on("submit", async function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
-  
-  if (inputVal === "") {
-
+  $(".spin").attr("style", "display: block'")
+  if (inputVal === "") {    
     $("#empty-search").addClass ("is-active")
-
+    
   } else {
     try {
-    getTicker(inputVal);
+      await getTicker(inputVal);
+      $(".spin").attr("style", "display:none;")
     } catch (error) {
       console.log ("error:", error)
+      $(".spin").attr("style", "display:none;")
     }
   }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
@@ -344,7 +345,7 @@ document.querySelector("#search_input").addEventListener("blur", function () {
 
 document.querySelector("#search_input").addEventListener("focus", function () {
   document
-    .querySelector("#dropdown")
+  .querySelector("#dropdown")
     .setAttribute("style", "display:inline-block;");
 });
 
@@ -367,6 +368,7 @@ dropdownContent.addEventListener("click", function (e) {
  * On page load function
  */
 function init() {
+  $(".spin").attr("style", "display:none;")
   if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
     companyList = JSON.parse(localStorage.getItem("companyList"));
   }
