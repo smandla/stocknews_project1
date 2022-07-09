@@ -29,13 +29,7 @@
               alt=""
               style="height: 60px;"
             />
-         
           <div class="level-item site_name" style="font-size:40px">
-            <!-- <img
-              src="./assets/images/stockwatch.png"
-              alt=""
-              style="height: 45px"
-            /> -->
           STOCKWATCH
             </div>
           <div class="dropdown is-active">
@@ -48,7 +42,7 @@
             id="search_input"
           />
           <div class="dropdown-menu" id="dropdown" role="menu">
-            <div class="dropdown-content">
+            <div class="dropdown-content" id="dropdown-content">
             </div>
             </form>
             </div>
@@ -83,8 +77,8 @@
           </div>
           <div class="tile is-parent">
             <article class="tile is-child notification chart_section">
-              <p class="title" id="chart_title">Chart</p>
-              <p class="subtitle" id="candlestick">Top tile</p>
+              <p class="title" id="chart_title">Price History</p>
+              <p class="subtitle" id="candlestick"></p>
             </article>
           </div>
           <!-- <div class="tile is-parent is-primary">
@@ -99,15 +93,15 @@
                 <p class="title">Market Information</p>
                 <div class="columns more_info">
                   <div class="column">
-                    <p id="prevClose" class="subtitle">Prev Day close</p>
-                    <p id="dayL" class="subtitle">Day Low</p>
-                    <p id="yearL" class="subtitle">52 Wk Low</p>
+                    <p class="subtitle">Prev Day Close:<span id="prevClose" class="r"></span></p>
+                    <p  class="subtitle">Day Low:<span id="dayL" class="r"></span></p>
+                    <p class="subtitle">52 Wk Low:<span id="yearL" class="r"></span></p>
                 
                   </div>
                   <div class="column ">
-                    <p id="open" class="subtitle">Market Open</p>
-                    <p id="dayH" class="subtitle">Day High</p>
-                    <p id="yearH" class="subtitle">52 Wk High</p>
+                    <p class="subtitle">Market Open: <span id="open" class="r"></span></p>
+                    <p class="subtitle">Day High: <span  id="dayH" class="r"></span></p>
+                    <p class="subtitle">52 Wk High: <span id="yearH"  class="r"></span></p>
                   </div>
                  <!-- <p id="prevClose" class="subtitle">Previous Day close</p>
                 <p id="open" class="subtitle">Market Open</p>
@@ -122,15 +116,15 @@
                   <p class="title">About <span id="company_name_aboutsection"></span></p>
                   <div class="columns more_info">
                     <div class="column">
-                      <p id="exchange" class="subtitle">Exchange</p>
-                      <p id="sector" class="subtitle">Sector</p>
-                      <p id="industry" class="subtitle">Industry</p>
+                      <p class="subtitle">Exchange: <span id="exchange" class="r"></span></p>
+                      <p class="subtitle">Sector: <span id="sector"  class="r"></span></p>
+                      <p class="subtitle">Industry: <span id="industry" class="r"></span></p>
                   
                     </div>
                     <div class="column ">
-                      <p id="ceo" class="subtitle">CEO</p>
-                      <p id="ipo" class="subtitle">IPO Date</p>
-                      <p id="site" class="subtitle">Site</p>
+                      <p class="subtitle">CEO:<span  id="ceo" class="r"></span></p>
+                      <p class="subtitle">IPO Date:<span id="ipo" class="r"></span></p>
+                      <p class="subtitle">Site:<span id="site" class="r"></span></p>
                     </div>
                   
          
@@ -144,7 +138,7 @@
           <article class="tile is-child notification NYnews_section">
             <div class="content news_section">
               <p class="title"id="news_title_section">News</p>
-              <p class="content" id="cards">
+              <p class="content topGradient" id="cards">
              </p>
             </div>
             </div>
