@@ -95,6 +95,7 @@ main {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 1em;
   /* width: 200px; */
   /* background: green; */
   overflow: scroll;
@@ -104,8 +105,19 @@ main {
     inset 0 90px 0px 0px rgb(255, 255, 255);
   z-index: 1000000; */
 }
+
+
+#news-wrapper {
+  background-color: rgba(181, 181, 181, 0.2); 
+  border-radius: 16px;
+  padding-bottom: 2px;
+  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
+  margin-right: 6px;
+}
+
 .container {
 }
+
 #cards::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
@@ -370,7 +382,8 @@ main {
   /* background-color: rgb(38, 192, 199); */
 }
 .card_section {
-  background: rgba(181, 181, 181, 0.2);
+  background-color: #383838;
+  /* background: rgba(181, 181, 181, 0.2); */
   color: white;
   /* background-color: rgb(181, 181, 181); */
 }
