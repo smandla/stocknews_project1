@@ -9,7 +9,7 @@
 }
 /* added html selector to always keep width and height at 100% no matter size of the screen */
 html {
-  /* height: fit-content; */
+  /* height: 100%; */
   width: 100%;
   background-color: var(--background-color);
 }
@@ -19,7 +19,7 @@ body {
   height: 100%;
   position: relative;
   width: 100%;
-  /* padding: 20px; */
+
   /* height: 100vh; */
 }
 main {
@@ -85,20 +85,16 @@ main {
   max-height: 200px;
 }
 
-
-/* News Feed Box */
 #news_section {
   /* overflow: scroll; */
   /* position: relative; */
   /* height: 170px; */
 }
-
 #cards {
   height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 1em;
   /* width: 200px; */
   /* background: green; */
   overflow: scroll;
@@ -108,62 +104,21 @@ main {
     inset 0 90px 0px 0px rgb(255, 255, 255);
   z-index: 1000000; */
 }
-
-#news-wrapper {
-  background-color: rgba(181, 181, 181, 0.2); 
-  border-radius: 16px;
-  padding-bottom: 2px;
-  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
-  margin-right: 6px;
-}
-
 .container {
 }
 #cards::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
-.card_section {
-  background-color: #383838;
-  /* background: rgba(181, 181, 181, 0.2); */
-  color: white;
-  /* background-color: rgb(181, 181, 181); */
-}
 .card {
   margin: 10px;
   border-radius: 16px;
 }
-img {
-  /* object-fit: cover; */
-  /* width: fit-content; */
-  /* height: fit-content; */
-  /* overflow: hidden; */
-  /* border-radius: 16px; */
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  /* border-top-left-radius: 16px; */
-  /* border-top-right-radius: 100px; */
+.card-image img {
+  border-radius: 16px 16px 16px 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
-
-#news_title_section {
-  overflow: hidden;
-  padding: 1.25rem;
-  /* padding-left: 1.25rem; */
-  
-  /* bottom: 0; */
-  /* border-bottom: 1px solid #ffffff; */
-
-  margin: 0;
-  /* text-decoration: none; */
-  /* background: red; */
-}
-.news_section {
-  overflow: hidden;
-}
-.subtitle {
-  text-decoration: none;
-}
-
 #search_input {
   background-color: #303134;
   border: 1px solid var(--border);
@@ -176,7 +131,6 @@ img {
 /*
   color: rgb(33, 173, 178);
 } */
-
 .more_info p {
   /* text-decoration: underline; */
   /* padding-bottom: 1px */
@@ -184,7 +138,6 @@ img {
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-
 .current_price {
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
@@ -213,6 +166,24 @@ img {
   width: 99%;
   /* padding: 10px; */
 }
+#news_title_section {
+  overflow: hidden;
+  padding: 1.25rem;
+  /* padding-left: 1.25rem; */
+
+  /* bottom: 0; */
+  /* border-bottom: 1px solid #ffffff; */
+
+  margin: 0;
+  /* text-decoration: none; */
+  /* background: red; */
+}
+.news_section {
+  overflow: hidden;
+}
+.subtitle {
+  text-decoration: none;
+}
 
 .market_info {
   height: fit-content;
@@ -230,14 +201,9 @@ img {
 
 .headlines span {
   display: inline-block;
-  animation: horizontal_slide 20s linear infinite;
-  animation-delay: 2.5s;
+  animation: horizontal_slide 25s linear infinite;
 }
-img {
-  /* border-radius: 16px; */
-  /* width: fit-content; */
-  /* border-top-left-radius: 16px; */
-}
+
 @keyframes horizontal_slide {
   0% {
     transform: translate(0, 0);
@@ -250,26 +216,11 @@ img {
   font-weight: bolder;
 }
 .positive {
-  color: rgb(191, 255, 118);
+  color: green;
 }
 .negative {
-  color: rgb(153, 0, 71);
+  color: red;
 }
-
-/* Modal Stylings */
-.modal-card-head,
-.modal-card-body,
-.modal-card-foot {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ab4df4;
-}
-
-.modal-card-title {
-  color: #ab4df4;
-}
-
-/* Loading animation */
-
 #spinmain::before {
   animation: 2s linear infinite spinner1;
   animation-play-state: inherit;
@@ -403,10 +354,25 @@ img {
   border-radius: 16px;
 }
 
+.modal-card-head,
+.modal-card-body,
+.modal-card-foot {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ab4df4;
+}
+
+.modal-card-title {
+  color: #ab4df4;
+}
 
 .company_section {
   /* background: rgba(38, 192, 199, 0.8); */
   /* background-color: rgb(38, 192, 199); */
+}
+.card_section {
+  background: rgba(181, 181, 181, 0.2);
+  color: white;
+  /* background-color: rgb(181, 181, 181); */
 }
 
 .chart_section {
