@@ -2,6 +2,7 @@
   padding: 0;
   margin-left: 2.5px;
   --background-color: #212121;
+  --loadcolor: rgba(255, 255, 255, 1);
   --border: #ab4df4;
   font-family: "Poppins";
   text-decoration: none;
@@ -178,6 +179,118 @@ main {
 .about_info,
 .market_info {
   height: fit-content;
+}
+#spinmain::before {
+  animation: 2s linear infinite spinner1;
+  animation-play-state: inherit;
+  border: solid 5px #000000;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
+  border-left-color: rgba(0, 0, 0, 0);
+  border-right-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  content: "";
+  height: 9em;
+  width: 9em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
+#smallspin::before {
+  animation: 2s linear infinite spinner2;
+  animation-play-state: inherit;
+  border: solid 5px #000000;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
+  border-left-color: rgba(0, 0, 0, 0);
+  border-right-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  content: "";
+  height: 7em;
+  width: 7em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-30%, -30%, 0);
+  will-change: transform;
+}
+
+#smallerspin::before {
+  animation: 2s linear infinite spinner3;
+  animation-play-state: inherit;
+  border: solid 5px #000000;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
+  border-left-color: rgba(0, 0, 0, 0);
+  border-right-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  content: "";
+  height: 5em;
+  width: 5em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-30%, -30%, 0);
+  will-change: transform;
+}
+
+#smallestspin::before {
+  animation: 2s linear infinite spinner4;
+  animation-play-state: inherit;
+  border: solid 5px #000000;
+  border-bottom-color: var(--loadcolor);
+  border-top-color: var(--loadcolor);
+  border-left-color: rgba(0, 0, 0, 0);
+  border-right-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  content: "";
+  height: 3em;
+  width: 3em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-30%, -30%, 0);
+  will-change: transform;
+}
+
+
+@keyframes spinner1 {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+@keyframes spinner2 {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+}
+
+@keyframes spinner3 {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+@keyframes spinner4 {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
 }
 
 @media screen and (max-width: 768px) {
