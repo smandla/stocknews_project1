@@ -9,7 +9,7 @@
 }
 /* added html selector to always keep width and height at 100% no matter size of the screen */
 html {
-  height: 100%;
+  /* height: fit-content; */
   width: 100%;
 }
 body {
@@ -18,7 +18,7 @@ body {
   height: 100%;
   position: relative;
   width: 100%;
-
+  /* padding: 20px; */
   /* height: 100vh; */
 }
 main {
@@ -46,7 +46,10 @@ header {
 
   /* border-bottom: 1px solid #21adb2; */
 }
-
+footer {
+  position: fixed;
+  bottom: 0;
+}
 #dropdown {
   display: none;
 }
@@ -110,10 +113,16 @@ main {
   margin: 10px;
   border-radius: 16px;
 }
-.card-image img {
-  border-radius: 16px 16px 16px 16px;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+img {
+  /* object-fit: cover; */
+  /* width: fit-content; */
+  /* height: fit-content; */
+  /* overflow: hidden; */
+  /* border-radius: 16px; */
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  /* border-top-left-radius: 16px; */
+  /* border-top-right-radius: 100px; */
 }
 #search_input {
   background-color: #303134;
@@ -188,6 +197,39 @@ main {
 .about_info,
 .market_info {
   height: fit-content;
+}
+
+.headlines {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.headlines span {
+  display: inline-block;
+  animation: horizontal_slide 20s linear infinite;
+  animation-delay: 2.5s;
+}
+img {
+  /* border-radius: 16px; */
+  /* width: fit-content; */
+  /* border-top-left-radius: 16px; */
+}
+@keyframes horizontal_slide {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+.bold {
+  font-weight: bolder;
+}
+.positive {
+  color: rgb(191, 255, 118);
+}
+.negative {
+  color: rgb(153, 0, 71);
 }
 #spinmain::before {
   animation: 2s linear infinite spinner1;
@@ -317,9 +359,9 @@ main {
 .market_info,
 .about_info,
 .NYnews_section {
-background: rgba(255, 255, 255, 0.1);
-color: #ab4df4;
-border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ab4df4;
+  border-radius: 16px;
 }
 
 .modal-card-head,

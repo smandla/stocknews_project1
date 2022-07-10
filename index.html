@@ -4,154 +4,182 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-    href="https://fonts.googleapis.com/css?family=Poppins"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
-    integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+      integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="icon" href="./assets/images/logo2.png"/>
+    <link rel="icon" href="./assets/images/logo2.png" />
     <title>Stockwatch | Search by Company</title>
-
   </head>
   <body>
     <header>
-        <nav class="level ">
-          <!-- <div class="level-item logo_image"> -->
-            <img
-            
-              src="./assets/images/logo2.png"
-              alt=""
-              style="height: 60px;"
-            />
-          <div class="level-item site_name" style="font-size:40px">
-          STOCKWATCH
-            </div>
-          <div class="dropdown is-active">
-          <p class="level-item has-text-centered ">
-              <form id="search_form" autocomplete="off">
-                  <input
-            class="input is-primary dropdown-trigger"
-            type="text"
-            placeholder="Search..."
-            id="search_input"
+      <nav class="level ">
+        <!-- <div class="level-item logo_image"> -->
+          <img
+          
+            src="./assets/images/logo2.png"
+            alt=""
+            style="height: 60px;"
           />
-          <div class="dropdown-menu" id="dropdown" role="menu">
-            <div class="dropdown-content" id="dropdown-content">
-            </div>
-            </form>
-            </div>
-          </p>
+        <div class="level-item site_name" style="font-size:40px">
+        STOCKWATCH
           </div>
-        </nav>
-      </nav>
-    </header>
-    <main>
-      <div class="tile is-ancestor">
-        <div class="tile is-vertical is-9">
-          <div id="banner" class="tile">
-            <div class="tile is-parent">
-              <article class="tile is-child notification company_section">
-                <div class="columns">
-                  <div class="column is-9" >
-                <p id="name" class="title">Company Name</p>
-                <p id="ticker" class="subtitle">Ticker</p>
-                <div class="columns" >
-                  <div class="column">  <p id="change" class="subtitle">Day Change </p></div>
+        <div class="dropdown is-active">
+        <p class="level-item has-text-centered ">
+            <form id="search_form" autocomplete="off">
+                <input class="input is-primary dropdown-trigger" type="text" placeholder="Search..." id="search_input"/>
+                <div class="dropdown-menu" id="dropdown" role="menu">
+                  <div class="dropdown-content" id="dropdown-content"></div>
                 </div>
-               
-                </div>
-                <div class="column">
-                  <div class=" current_price"> <p id="price" class="subtitle">Current Price</p> <p class="price_current"></p></div>
-              
-              </div>
-              </div>
-              </article>
-            </div>
-            
-          </div>
+              </form>
+            </p>
+        </div>
+    </nav>
+  </header>
+  <main>
+    <div class="tile is-ancestor" >
+      <div class="tile headlines">
+        <p class="marquee">
+          <span>
+            <span id="dow" class="bold">DOW </span>
+            <span> 31,338.15</span>
+            <span id="val" class="positive">▲-46.6</span>
+            <span id="">(-0.15%)▼</span>
+          </span>
+          <span>
+            <span  class="bold">NASDAQ </span>
+            <span> 31,338.15</span>
+            <span id="val" class="positive">▲-46.6</span>
+            <span id="">(-0.15%)</span>
+          </span>
+          <span>
+            <span  class="bold">NASDAQ </span>
+            <span> 31,338.15</span>
+            <span id="val" class="negative">▼-46.6</span>
+            <span id="">(-0.15%)▼</span>
+          </span>
+          <span>
+            <span  class="bold">NASDAQ </span>
+            <span> 31,338.15</span>
+            <span id="val" class="negative">▼-46.6</span>
+            <span id="">(-0.15%)▼</span>
+          </span>
+          <span>
+            <span  class="bold">NASDAQ </span>
+            <span> 31,338.15</span>
+            <span id="val" class="negative">▼-46.6</span>
+            <span id="">(-0.15%)▼</span>
+          </span>
+          
+       
+  
+      </p></div></div>
+    <div class="tile is-ancestor" >
+
+      <div class="tile is-vertical is-9">
+
+        <div id="banner" class="tile">
           <div class="tile is-parent">
-            <article class="tile is-child notification chart_section">
-              <p class="title" id="chart_title">Price History</p>
-              <p class="subtitle" id="candlestick"></p>
-            </article>
-          </div>
-          <!-- <div class="tile is-parent is-primary">
-            <article class="tile is-child notification is-primary">
-              <p class="title">Vertical...</p>
-              <p class="subtitle">Top tile</p>
-            </article>
-          </div>  -->
-          <div class="tile">
-            <div class="tile is-parent">
-              <article class="tile is-child notification market_info">
-                <p class="title">Market Information</p>
-                <div class="columns more_info">
-                  <div class="column">
-                    <p class="subtitle">Prev Day Close:<span id="prevClose" class="r"></span></p>
-                    <p  class="subtitle">Day Low:<span id="dayL" class="r"></span></p>
-                    <p class="subtitle">52 Wk Low:<span id="yearL" class="r"></span></p>
-                
-                  </div>
-                  <div class="column ">
-                    <p class="subtitle">Market Open: <span id="open" class="r"></span></p>
-                    <p class="subtitle">Day High: <span  id="dayH" class="r"></span></p>
-                    <p class="subtitle">52 Wk High: <span id="yearH"  class="r"></span></p>
-                  </div>
-                 <!-- <p id="prevClose" class="subtitle">Previous Day close</p>
-                <p id="open" class="subtitle">Market Open</p>
-                <p id="dayL" class="subtitle">Day Low</p>
-                <p id="dayH" class="subtitle">Day High</p>
-                <p id="yearL" class="subtitle">52 week Low</p>
-                <p id="yearH" class="subtitle">52 week High</p>  -->
-              </article>
+            <article class="tile is-child notification company_section">
+              <div class="columns">
+                <div class="column is-9" >
+              <p id="name" class="title">Company Name</p>
+              <p id="ticker" class="subtitle">Ticker</p>
+              <div class="columns" >
+                <div class="column">  <p id="change" class="subtitle">Day Change </p></div>
+              </div>
+              </div>
+              <div class="column">
+                <div class=" current_price"> <p id="price" class="subtitle">Current Price</p> <p class="price_current"></p></div>
             </div>
-            <div class="tile is-parent">
-              <article class="tile is-child notification about_info">
-                  <p class="title">About <span id="company_name_aboutsection"></span></p>
-                  <div class="columns more_info">
-                    <div class="column">
-                      <p class="subtitle">Exchange: <span id="exchange" class="r"></span></p>
-                      <p class="subtitle">Sector: <span id="sector"  class="r"></span></p>
-                      <p class="subtitle">Industry: <span id="industry" class="r"></span></p>
-                  
-                    </div>
-                    <div class="column ">
-                      <p class="subtitle">CEO:<span  id="ceo" class="r"></span></p>
-                      <p class="subtitle">IPO Date:<span id="ipo" class="r"></span></p>
-                      <p class="subtitle">Site:<span id="site" class="r"></span></p>
-                    </div>
-              </article>
             </div>
+            </article>
           </div>
         </div>
         <div class="tile is-parent">
-          <article class="tile is-child notification NYnews_section">
-            <div class="content news_section">
-              <p class="title"id="news_title_section">News</p>
-              <p class="content topGradient" id="cards">
-             </p>
-            </div>
-            </div>
+          <article class="tile is-child notification chart_section">
+            <p class="title" id="chart_title">Price History</p>
+            <p class="subtitle" id="candlestick"></p>
           </article>
         </div>
-      </div>
-    </main>
+        <!-- <div class="tile is-parent is-primary">
+          <article class="tile is-child notification is-primary">
+            <p class="title">Vertical...</p>
+            <p class="subtitle">Top tile</p>
+          </article>
+        </div>  -->
+        <div class="tile">
+          <div class="tile is-parent">
+            <article class="tile is-child notification market_info">
+              <p class="title">Market Information</p>
+              <div class="columns more_info">
+                <div class="column">
+                  <p class="subtitle">Prev Day Close:<span id="prevClose" class="r"></span></p>
+                  <p  class="subtitle">Day Low:<span id="dayL" class="r"></span></p>
+                  <p class="subtitle">52 Wk Low:<span id="yearL" class="r"></span></p>
 
-    <div class="spin" id="spinmain" style="display: none;">
+                </div>
+                <div class="column ">
+                  <p class="subtitle">Market Open: <span id="open" class="r"></span></p>
+                  <p class="subtitle">Day High: <span  id="dayH" class="r"></span></p>
+                  <p class="subtitle">52 Wk High: <span id="yearH"  class="r"></span></p>
+                </div>
+               <!-- <p id="prevClose" class="subtitle">Previous Day close</p>
+              <p id="open" class="subtitle">Market Open</p>
+              <p id="dayL" class="subtitle">Day Low</p>
+              <p id="dayH" class="subtitle">Day High</p>
+              <p id="yearL" class="subtitle">52 week Low</p>
+              <p id="yearH" class="subtitle">52 week High</p>  -->
+            </article>
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child notification about_info">
+                <p class="title">About <span id="company_name_aboutsection"></span></p>
+                <div class="columns more_info">
+                  <div class="column">
+                    <p class="subtitle">Exchange: <span id="exchange" class="r"></span></p>
+                    <p class="subtitle">Sector: <span id="sector"  class="r"></span></p>
+                    <p class="subtitle">Industry: <span id="industry" class="r"></span></p>
+
+                  </div>
+                  <div class="column ">
+                    <p class="subtitle">CEO:<span  id="ceo" class="r"></span></p>
+                    <p class="subtitle">IPO Date:<span id="ipo" class="r"></span></p>
+                    <p class="subtitle">Site:<span id="site" class="r"></span></p>
+                  </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification NYnews_section">
+          <div class="content news_section">
+            <p class="title"id="news_title_section">News</p>
+            <p class="content topGradient" id="cards"></p>
+          </div>
+         
+        </article>
+      </div>
+      </div>
+    </div>
+  </main>
+
+    <!-- <div class="spin" id="spinmain" style="display: none;">
       <div class="spin" id="smallspin">
         <div class="spin" id="smallerspin">
           <div class="spin" id="smallestspin"></div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="modal" id="empty-search">
+    <!-- <div class="modal" id="empty-search">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -161,26 +189,31 @@
           Please search for a company name
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success modal-button" id="empty-search-button">Close</button>
+          <button
+            class="button is-success modal-button"
+            id="empty-search-button"
+          >
+            Close
+          </button>
         </footer>
       </div>
-    </div>
-
+    </div> -->
+    <!-- 
     <div class="modal" id="bad-search">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Oops, we couldn't find that company!</p>
         </header>
-        <section class="modal-card-body">
-          Please try again. 
-        </section>
+        <section class="modal-card-body">Please try again.</section>
         <footer class="modal-card-foot">
-          <button class="button is-success modal-button" id="bad-search-button">Close</button>
+          <button class="button is-success modal-button" id="bad-search-button">
+            Close
+          </button>
         </footer>
       </div>
-    </div>
-
+    </div> -->
+    <!-- 
     <div class="modal" id="402-status">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -188,13 +221,16 @@
           <p class="modal-card-title">Fetch Requests Exceeded</p>
         </header>
         <section class="modal-card-body">
-          Sorry, we have a limited number of searches per day. Please try again later. 
+          Sorry, we have a limited number of searches per day. Please try again
+          later.
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success modal-button" id="402-status-button">Close</button>
+          <button class="button is-success modal-button" id="402-status-button">
+            Close
+          </button>
         </footer>
       </div>
-    </div>
+    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -202,6 +238,6 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
     <script src="./assets/js/script.js"></script>
-    
   </body>
+  <footer><h5>ede</h5></footer>
 </html>
