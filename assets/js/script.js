@@ -28,11 +28,21 @@ var stockRtd;
 var formEl = $("#search_form");
 var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
-
+var modal402El = $("#402-status");
+var badSearchModalEl = $("#bad-search");
 var dropdownContent = document.querySelector(".dropdown-content");
 
+var nameEl = $("#name");
+var tickerEl = $("#ticker");
+var dayChangeEl = $("#change");
 var titleNewsEl = $("#news_title_section");
-
+var priceEl = $("#price");
+var prevCloseEl = $("#prevClose");
+var openEl = $("#open");
+var dayLEl = $("#dayL");
+var dayHEl = $("#dayH");
+var yearLEl = $("#yearL");
+var yearHEl = $("#yearH");
 var symbol;
 var companyName;
 var companyList = [];
@@ -50,7 +60,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
   if (stockEODHistoricalresponse.status === 402) {
-    $("#402-status").addClass ("is-active")
+    modal402El.addClass("is-active");
   }
   let eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
@@ -83,25 +93,23 @@ const fetchStockRealTime = async (companySymbols) => {
   );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  $("#name").text(stockRtd.data[0].name);
-  $("#ticker").text("(" + stockRtd.data[0].ticker + ")");
-  $("#change").html(
+  nameEl.text(stockRtd.data[0].name);
+  tickerEl.text("(" + stockRtd.data[0].ticker + ")");
+  dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
   );
   if (stockRtd.data[0].day_change < 0) {
-    $("#change").addClass("red");
+    dayChangeEl.addClass("red");
   } else if (stockRtd.data[0].day_change >= 0) {
-    $("#change").removeClass("red").addClass("green");
+    dayChangeEl.removeClass("red").addClass("green");
   }
-  $("#price").text("Current Price: $" + stockRtd.data[0].price);
-  $("#prevClose").text(
-    "Previous Close Price: $" + stockRtd.data[0].previous_close_price
-  );
-  $("#open").text("Day Open: $" + stockRtd.data[0].day_open);
-  $("#dayL").text("Day Low: $" + stockRtd.data[0].day_low);
-  $("#dayH").text("Day High: $" + stockRtd.data[0].day_high);
-  $("#yearL").text("52 Week Low: $" + stockRtd.data[0]["52_week_low"]);
-  $("#yearH").text("52 Week High: $" + stockRtd.data[0]["52_week_high"]);
+  priceEl.text("Current Price: $" + stockRtd.data[0].price);
+  prevCloseEl.text("$" + stockRtd.data[0].previous_close_price);
+  openEl.text("$" + stockRtd.data[0].day_open);
+  dayLEl.text("$" + stockRtd.data[0].day_low);
+  dayHEl.text("$" + stockRtd.data[0].day_high);
+  yearLEl.text("$" + stockRtd.data[0]["52_week_low"]);
+  yearHEl.text("$" + stockRtd.data[0]["52_week_high"]);
 };
 
 /**
@@ -120,7 +128,7 @@ const getTicker = async (input) => {
   const data = await response.json();
 
   if (data.ResultSet.Result[0] === undefined) {
-    $("#bad-search").addClass ("is-active")
+    badSearchModalEl.addClass("is-active");
   }
   symbol = data.ResultSet.Result[0].symbol;
   companyName = data.ResultSet.Result[0].name;
@@ -227,15 +235,22 @@ const getInfo = async (input) => {
     `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
   );
   let infoData = await infoResponse.json();
-  $("#company_name_aboutsection").text(companyName);
-  $("#exchange").text("Exchange: " + infoData[0].exchangeShortName);
-  $("#sector").text("Sector: " + infoData[0].sector);
-  $("#industry").text("Industry: " + infoData[0].industry);
-  $("#ceo").text("CEO: " + infoData[0].ceo);
-  $("#ipo").text("IPO Date: " + infoData[0].ipoDate);
-  $("#site").html(
-    "Website: " +
-      '<a href="' +
+  var companyNameAboutEl = $("#company_name_aboutsection");
+  var exchangeEl = $("#exchange");
+  var sectorEl = $("#sector");
+  var industryEl = $("#industry");
+  var ceoEl = $("#ceo");
+  var ipoEl = $("#ipo");
+  var siteEl = $("#site");
+  companyNameAboutEl.text(companyName);
+
+  exchangeEl.text(infoData[0].exchangeShortName);
+  sectorEl.text(infoData[0].sector);
+  industryEl.text(infoData[0].industry);
+  ceoEl.text(infoData[0].ceo);
+  ipoEl.text(infoData[0].ipoDate);
+  siteEl.html(
+    '<a href="' +
       infoData[0].website +
       '" target="_blank">' +
       infoData[0].website +
@@ -257,7 +272,7 @@ function chart(data) {
           selected: 11,
         },
         title: {
-          text: companyName + " Price History",
+          text: companyName,
         },
         credits: {
           enabled: false,
@@ -287,7 +302,7 @@ function chart(data) {
  * Writes search history to search history box
  */
 function writeHistory() {
-  dropdownContent.innerHTML = "";
+  // dropdownContent.html("");
   for (var i = 0; i < companyList.length; i++) {
     var pEl = $("<p></p>")
     $(pEl).attr("class", "dropdown-item");
@@ -319,11 +334,16 @@ formEl.on("submit", async function (e) {
     } catch (error) {
       console.log ("error:", error)
       $(".spin").attr("style", "display:none;")
+
     }
   }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
+//Modals
+$("#empty-search-button").click(function () {
+  $("#empty-search").removeClass("is-active");
+});
 
 //Modals - close button functionality
 $("#empty-search-button").click (function () {
@@ -384,5 +404,11 @@ function init() {
     companyList = JSON.parse(localStorage.getItem("companyList"));
   }
   writeHistory();
+  companyName = "Apple Inc.";
+  symbol = "AAPL";
+  getNewsData(companyName);
+  fetchStockRealTime(symbol);
+  fetchStockEODHistorical(symbol);
+  getInfo(symbol);
 }
 init();
