@@ -187,16 +187,20 @@ main {
   width: fit-content;
   border-radius: 16px;
 }
+
 .current_price p {
   font-size: 30px;
   text-align: center;
 }
+
 .green span {
   background-color: rgba(85, 201, 22, 0.65);
 }
+
 .red span {
   background-color: rgba(233, 11, 11, 0.744);
 }
+
 #candlestick {
   /* display: flex; */
   justify-content: center;
@@ -348,6 +352,7 @@ main {
     height: 300px;
     margin-bottom: 5rem;
   }
+  
 }
 .company_section,
 .chart_section,
