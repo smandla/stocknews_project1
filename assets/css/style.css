@@ -85,11 +85,6 @@ main {
   max-height: 200px;
 }
 
-#news_section {
-  /* overflow: scroll; */
-  /* position: relative; */
-  /* height: 170px; */
-}
 #cards {
   height: 80vh;
   width: 100%;
@@ -106,13 +101,17 @@ main {
   z-index: 1000000; */
 }
 
-
 #news-wrapper {
-  background-color: rgba(181, 181, 181, 0.2); 
+  background-color: rgba(181, 181, 181, 0.2);
   border-radius: 16px;
-  padding-bottom: 2px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  /* padding-bottom: 10px; */
+  /* padding-bottom: 2px; */
   /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
-  margin-right: 6px;
+  /* margin-right: -8px; */
 }
 
 .container {
@@ -130,6 +129,48 @@ main {
   border-radius: 16px 16px 16px 16px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+}
+.cards_section {
+  margin: 0;
+  padding: 0;
+  /* background-color: red; */
+  /* margin-left: -1px; */
+}
+
+.cards_section::before {
+  border-radius: 16px;
+  /* margin: 0 10px; */
+  /* margin-left: -5px; */
+  /* display: flex; */
+  content: "";
+  justify-content: center;
+  position: absolute;
+  width: 85%;
+  /* top: 2px;*/
+  /* margin: 0 auto; */
+  height: 60px;
+  background: linear-gradient(to top, transparent 10%, rgba(81, 81, 81) 80%);
+  /* background: red; */
+  /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
+  z-index: 1000;
+}
+.cards_section::after {
+  border-radius: 16px;
+  /* margin: 0 10px; */
+  /* margin-left: -5px; */
+  /* display: flex; */
+  content: "";
+  /* justify-content: center; */
+  position: absolute;
+  width: 85%;
+  bottom: 10px;
+  /* top: 2px;*/
+  margin: 0 auto;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent 10%, rgba(81, 81, 81) 80%);
+  /* background: red; */
+  /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
+  z-index: 1000;
 }
 #search_input {
   background-color: #303134;
@@ -403,40 +444,4 @@ main {
 
 .NYnews_section {
   padding: 0;
-}
-#cards {
-  /* width: 300px; */
-  /* height: 200px; */
-  /* background-color: rgba(81, 81, 81); */
-  /* box-shadow: inset 0px 50px 40px rgba(56, 56, 56), */
-  /* inset 0 90px 0px 0px rgba(56, 56, 56); */
-  /* width: 300px; */
-  /* height: 200px; */
-  /* background-color: red; */
-  /* box-shadow: 0px 60px 10px -10px #000 inset; */
-  /* box-shadow: inset 0px 30px 25px 0 rgba(38, 38, 38), */
-  /* inset 0 99px 5px 0px rgba(56, 56, 56); */
-  /* border-top:  */
-  z-index: 10000000;
-}
-.card {
-  /* width: 300px; */
-  /* height: 200px; */
-  /* background-color: rgba(56, 56, 56); */
-  /* box-shadow: inset 0px 30px 25px 0 rgba(38, 38, 38), */
-  /* inset 0 99px 5px 0px rgba(56, 56, 56); */
-}
-.cards_section::before {
-  /* border-radius: 16px; */
-  margin: 0 10px;
-  display: flex;
-  content: "";
-  justify-content: center;
-  position: absolute;
-  width: 94.6%;
-  /* margin: 0 auto; */
-  height: 100px;
-  background: linear-gradient(rgb(81, 81, 81), transparent);
-  /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
-  z-index: 1;
 }
