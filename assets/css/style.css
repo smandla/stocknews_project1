@@ -7,9 +7,17 @@
   font-family: "Poppins";
   text-decoration: none;
 }
+/* added html selector to always keep width and height at 100% no matter size of the screen */
+html {
+  height: 100%;
+  width: 100%;
+}
 body {
   background-color: var(--background-color);
   text-decoration: none;
+  height: 100%;
+  position: relative;
+  width: 100%;
 
   /* height: 100vh; */
 }
@@ -21,6 +29,7 @@ main {
   text-decoration: none;
   background-color: var(--background-color);
 }
+
 body::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
@@ -255,7 +264,6 @@ main {
   transform: translate3d(-30%, -30%, 0);
   will-change: transform;
 }
-
 
 @keyframes spinner1 {
   0% {
