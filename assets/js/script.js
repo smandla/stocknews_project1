@@ -17,7 +17,7 @@
 
 // ======================================= Keys =======================================
 // var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
-// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+// var yahooAPIKey = "CEnweTupuq82y0Cqspc6626VwBnVCoDq8QCmdIzP";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
@@ -121,7 +121,7 @@ const getTicker = async (input) => {
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
-        "x-api-key": `${yahooAPIKey}`,
+        // "x-api-key": `${yahooAPIKey}`,
       },
     }
   );
@@ -148,8 +148,7 @@ const getTicker = async (input) => {
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
   getInfo(symbol);
-  for (var i = 0; i < 100000000 ; i++) {
-  }
+  // for (var i = 0; i < 100000000; i++) {}
 };
 
 /**
@@ -258,6 +257,67 @@ const getInfo = async (input) => {
   );
 };
 
+const getIndexData = async () => {
+  let indexResponse = await fetch(
+    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
+    {
+      headers: {
+        "x-api-key": `${yahooAPIKey}`,
+      },
+    }
+  );
+  let data = await indexResponse.json();
+  let indexData = data.marketSummaryResponse.result;
+  showIndexData(indexData);
+};
+var headlinesEl = $("#headlines");
+// var snpTitleEl = $("#snp");
+// var snpMarketPriceEl = $("#snp_mrktprice");
+// var snpMarketChangeEl = $("#snp_mrktchnge");
+// var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
+const showIndexData = (indexData) => {
+  for (let i = 0; i < indexData.length; i++) {
+    var spanEl = $("<span>");
+    spanEl.appendTo(headlinesEl);
+    var titleEl = $("<span>")
+      .attr("id", indexData[i].exchange)
+      .addClass("bold")
+      .text(indexData[i].shortName);
+    titleEl.appendTo(spanEl);
+    var marketPriceEl = $("<span>")
+      .attr("id", indexData[i].regularMarketPrice.fmt)
+      .text(`$${indexData[i].regularMarketPrice.fmt}`);
+    marketPriceEl.appendTo(spanEl);
+
+    var marketChangeEl = $("<span>").attr(
+      "id",
+      indexData[i].regularMarketChange.fmt
+    );
+    if (indexData[i].regularMarketChange.raw < 0) {
+      marketChangeEl
+        .addClass("negative")
+        .text(`▼ ${indexData[i].regularMarketChange.fmt}`);
+    } else if (indexData[i].regularMarketChange.raw >= 0) {
+      marketChangeEl
+        .addClass("positive")
+        .text(`▲ ${indexData[i].regularMarketChange.fmt}`);
+    }
+    marketChangeEl.appendTo(spanEl);
+    var marketChangePercentEl = $("<span>")
+      .attr("id", indexData[i].regularMarketChangePercent.fmt)
+      .text(indexData[i].regularMarketChangePercent.fmt);
+    marketChangePercentEl.appendTo(spanEl);
+    /**
+     *    <span>
+          <span id="snp" class="bold"></span>
+          <span id="snp_mrktprice"></span>
+          <span id="snp_mrktchnge"></span>
+          <span id="snp_mrktchngeprcnt"></span>
+        </span>
+     */
+  }
+};
+
 /**
  * Uses highcharts to display fetched historical EOD data
  * @param {*} data - array data from historical EOD
@@ -304,7 +364,7 @@ function chart(data) {
 function writeHistory() {
   // dropdownContent.html("");
   for (var i = 0; i < companyList.length; i++) {
-    var pEl = $("<p></p>")
+    var pEl = $("<p></p>");
     $(pEl).attr("class", "dropdown-item");
     $(pEl).attr("id", `search${i}`);
     $(pEl).text(companyList[i].split(",")[0]);
@@ -323,18 +383,17 @@ formEl.on("submit", async function (e) {
   e.preventDefault();
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
-  $(".spin").attr("style", "display: block")
+  $(".spin").attr("style", "display: block");
   // $(".spin").removeAttr("style", "display: none")
-  if (inputVal === "") {    
-    $("#empty-search").addClass ("is-active")
+  if (inputVal === "") {
+    $("#empty-search").addClass("is-active");
   } else {
     try {
       await getTicker(inputVal);
-      $(".spin").attr("style", "display:none;")
+      $(".spin").attr("style", "display:none;");
     } catch (error) {
-      console.log ("error:", error)
-      $(".spin").attr("style", "display:none;")
-
+      console.log("error:", error);
+      $(".spin").attr("style", "display:none;");
     }
   }
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
@@ -346,17 +405,17 @@ $("#empty-search-button").click(function () {
 });
 
 //Modals - close button functionality
-$("#empty-search-button").click (function () {
-  $("#empty-search").removeClass ("is-active")
-})
+$("#empty-search-button").click(function () {
+  $("#empty-search").removeClass("is-active");
+});
 
-$("#bad-search-button").click (function () {
-  $("#bad-search").removeClass ("is-active")
-})
+$("#bad-search-button").click(function () {
+  $("#bad-search").removeClass("is-active");
+});
 
-$("#402-status-button").click (function () {
-  $("#402-status").removeClass ("is-active")
-})
+$("#402-status-button").click(function () {
+  $("#402-status").removeClass("is-active");
+});
 
 // Sets search history to appear when in focus and dissapear shortly after it loses focus
 document.querySelector("#search_input").addEventListener("blur", function () {
@@ -367,29 +426,29 @@ document.querySelector("#search_input").addEventListener("blur", function () {
 
 document.querySelector("#search_input").addEventListener("focus", function () {
   document
-  .querySelector("#dropdown")
-  .setAttribute("style", "display:inline-block;");
+    .querySelector("#dropdown")
+    .setAttribute("style", "display:inline-block;");
 });
 
 /**
  * Fetches information based on what search history element was clicked
  */
 dropdownContent.addEventListener("click", async function (e) {
-  $(".spin").attr("style", "display:block;")
-  console.log ("ok")
+  $(".spin").attr("style", "display:block;");
+  console.log("ok");
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
       companyName = companyList[i];
       try {
         const a = getNewsData(companyList[i]);
-        const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));   
+        const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
         const c = fetchStockRealTime(localStorage.getItem(companyList[i]));
         const d = getInfo(localStorage.getItem(companyList[i]));
-        await Promise.all([a,b,c,d])     
+        await Promise.all([a, b, c, d]);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      $(".spin").attr("style", "display:none;")
+      $(".spin").attr("style", "display:none;");
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
@@ -410,5 +469,6 @@ function init() {
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
   getInfo(symbol);
+  getIndexData();
 }
 init();

@@ -53,12 +53,12 @@
     </header>
     <main>
       <div class="tile is-ancestor" >
-      <div class="tile headlines"><p class="marquee">
+      <div class="tile headlines" id="headlines"><p>
         <span>
-          <span id="dow" class="bold">DOW </span>
-          <span> 31,338.15</span>
-          <span id="val" class="positive">▲-46.6</span>
-          <span id="">(-0.15%)▼</span>
+          <span id="snp" class="bold"></span>
+          <span id="snp_mrktprice"></span>
+          <span id="snp_mrktchnge"></span>
+          <span id="snp_mrktchngeprcnt"></span>
         </span>
         <span>
 
@@ -147,12 +147,17 @@
           <article class="tile is-child notification NYnews_section">
             <div class="content news_section">
               <p class="title"id="news_title_section">News</p>
+
+              <div class="cards_section">
+
               <div id="news-wrapper">
+
               <p class="content topGradient" id="cards">
              </p>
              </div>
             </div>
             </div>
+           
           </article>
         </div>
       </div>
