@@ -85,16 +85,20 @@ main {
   max-height: 200px;
 }
 
+
+/* News Feed Box */
 #news_section {
   /* overflow: scroll; */
   /* position: relative; */
   /* height: 170px; */
 }
+
 #cards {
   height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 1em;
   /* width: 200px; */
   /* background: green; */
   overflow: scroll;
@@ -104,12 +108,27 @@ main {
     inset 0 90px 0px 0px rgb(255, 255, 255);
   z-index: 1000000; */
 }
+
+#news-wrapper {
+  background-color: rgba(181, 181, 181, 0.2); 
+  border-radius: 16px;
+  padding-bottom: 2px;
+  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
+  margin-right: 6px;
+}
+
 .container {
 }
 #cards::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
+.card_section {
+  background-color: #383838;
+  /* background: rgba(181, 181, 181, 0.2); */
+  color: white;
+  /* background-color: rgb(181, 181, 181); */
+}
 .card {
   margin: 10px;
   border-radius: 16px;
@@ -125,6 +144,26 @@ img {
   /* border-top-left-radius: 16px; */
   /* border-top-right-radius: 100px; */
 }
+
+#news_title_section {
+  overflow: hidden;
+  padding: 1.25rem;
+  /* padding-left: 1.25rem; */
+  
+  /* bottom: 0; */
+  /* border-bottom: 1px solid #ffffff; */
+
+  margin: 0;
+  /* text-decoration: none; */
+  /* background: red; */
+}
+.news_section {
+  overflow: hidden;
+}
+.subtitle {
+  text-decoration: none;
+}
+
 #search_input {
   background-color: #303134;
   border: 1px solid var(--border);
@@ -137,6 +176,7 @@ img {
 /*
   color: rgb(33, 173, 178);
 } */
+
 .more_info p {
   /* text-decoration: underline; */
   /* padding-bottom: 1px */
@@ -144,6 +184,7 @@ img {
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .current_price {
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
@@ -171,24 +212,6 @@ img {
   justify-content: center;
   width: 99%;
   /* padding: 10px; */
-}
-#news_title_section {
-  overflow: hidden;
-  padding: 1.25rem;
-  /* padding-left: 1.25rem; */
-
-  /* bottom: 0; */
-  /* border-bottom: 1px solid #ffffff; */
-
-  margin: 0;
-  /* text-decoration: none; */
-  /* background: red; */
-}
-.news_section {
-  overflow: hidden;
-}
-.subtitle {
-  text-decoration: none;
 }
 
 .market_info {
@@ -232,6 +255,21 @@ img {
 .negative {
   color: rgb(153, 0, 71);
 }
+
+/* Modal Stylings */
+.modal-card-head,
+.modal-card-body,
+.modal-card-foot {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ab4df4;
+}
+
+.modal-card-title {
+  color: #ab4df4;
+}
+
+/* Loading animation */
+
 #spinmain::before {
   animation: 2s linear infinite spinner1;
   animation-play-state: inherit;
@@ -365,25 +403,10 @@ img {
   border-radius: 16px;
 }
 
-.modal-card-head,
-.modal-card-body,
-.modal-card-foot {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ab4df4;
-}
-
-.modal-card-title {
-  color: #ab4df4;
-}
 
 .company_section {
   /* background: rgba(38, 192, 199, 0.8); */
   /* background-color: rgb(38, 192, 199); */
-}
-.card_section {
-  background: rgba(181, 181, 181, 0.2);
-  color: white;
-  /* background-color: rgb(181, 181, 181); */
 }
 
 .chart_section {
