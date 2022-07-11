@@ -206,7 +206,8 @@ function showNewsData(articles) {
     var cardContentEl = $("<div>").addClass("card-content");
     var aTagEl = $("<a>")
       .css("textDecoration", " none")
-      .attr("href", articles[i].web_url);
+      .attr("href", articles[i].web_url)
+      .attr('target', '="_blank"');
     var mediaDivEl = $("<div>").addClass("media");
     mediaDivEl.appendTo(cardContentEl);
     var TitleDivEl = $("<div>")
