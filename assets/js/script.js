@@ -4,13 +4,16 @@
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 //apikey4: 4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L
 //apikey5: xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
-//apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK x
+//apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK
+//apikey7: kmL8fQ0udH795aLBeHF8LgfSGft1kwkRI2efNlLL
 
 // ====Yahoo Keys====
 // 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp
 // 2:AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW x
 // 3:gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY
 // 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
+// 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1
+// 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -20,6 +23,8 @@
 // 2:5c90c4482d1038a42bbb2e5903207658
 // 3:aa4a803775e72d3de3a4d7ec275113d2
 // 4:d9a06ad75e28929230f1da93aca4cb17
+// 5:5278c2342f937c25cfe3a2aa31f460d4
+// 6:9e1c1223806cfd0cd57977689e3d930d
 
 // ======================================= Keys =======================================
 
