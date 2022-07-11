@@ -28,10 +28,10 @@
 
 // ======================================= Keys =======================================
 
-// var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
-// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-// var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
+var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -117,7 +117,7 @@ const fetchStockRealTime = async (companySymbols) => {
   tickerEl.text("(" + stockRtd.data[0].ticker + ")");
   dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
-    );
+  );
   if (stockRtd.data[0].day_change < 0) {
     dayChangeEl.addClass("negative");
   } else if (stockRtd.data[0].day_change >= 0) {
@@ -184,16 +184,15 @@ const getTicker = async (input) => {
  */
 const getNewsData = async (input) => {
   var newsDataResponse = await fetch(
-
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
-    );
-    var newsData = await newsDataResponse.json();
-    var articles = newsData.response.docs;
-    await showNewsData(articles);
-  };
-  
-  /**
-   * Get data for market index headline
+  );
+  var newsData = await newsDataResponse.json();
+  var articles = newsData.response.docs;
+  await showNewsData(articles);
+};
+
+/**
+ * Get data for market index headline
  */
 const getIndexData = async () => {
   var indexResponse = await fetch(
@@ -244,7 +243,6 @@ const getInfo = async (input) => {
   console.log(newsData);
   let articles = newsData.response.docs;
   await showNewsData(articles);
-
 };
 
 // ======================================= Display to Page Functions =======================================
