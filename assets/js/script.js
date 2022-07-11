@@ -130,7 +130,7 @@ const fetchStockRealTime = async (companySymbols) => {
  */
 const getTicker = async (input) => {
   var response = await fetch(
-    `https://yfapi.net/v6/finance/autocompvare?region=US&lang=en&query=${input}`,
+    `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
         "x-api-key": `${yahooAPIKey}`,
