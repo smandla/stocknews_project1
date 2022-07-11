@@ -17,7 +17,7 @@ html {
 body {
   background-color: var(--background-color);
   text-decoration: none;
-  height: 100%;
+  height: 100vh;
   position: relative;
   width: 100%;
 
@@ -87,7 +87,7 @@ main {
 }
 
 #cards {
-  height: 80vh;
+  height: 85vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -458,7 +458,7 @@ main {
 
 .NYnews_section {
   padding: 0;
-  height: 90vh;
+  height: 100%;
 }
 .blue_title {
   position: absolute;
