@@ -23,10 +23,10 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+var stockAPIKey = "MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK";
 var yahooAPIKey = "gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
+var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
 
 // ======================================= Variables =======================================
