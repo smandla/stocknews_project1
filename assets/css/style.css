@@ -8,6 +8,7 @@
   font-family: "Poppins";
   text-decoration: none;
   /* border: 1px solid red; */
+  overflow-x: hidden;
 }
 
 /* added html selector to always keep width and height at 100% no matter size of the screen */
