@@ -261,18 +261,13 @@ main {
 
 .headlines {
   white-space: nowrap;
-  /* overflow: hidden; */
   color: rgb(175, 169, 169);
-  /* font-weight: thin; */
-}
-
-.headlines {
-  display: inline-block;
   animation: horizontal_slide 55s linear infinite;
 }
 
-.headlines span span {
+.headlines span {
   /* animation-delay: 5s; */
+  overflow: hidden;
 }
 @keyframes horizontal_slide {
   0% {
@@ -467,13 +462,16 @@ main {
   justify-content: left;
 }
 .site_name {
-  color: var(--border);
+  color: #29c8e5;
 }
-/* .notification {
-  padding: 0;
-} */
 
 .NYnews_section {
   padding: 0;
   height: 90vh;
+}
+.blue_title {
+  position: absolute;
+  transform: translate(-2px, -2%);
+  /* right: 1px; */
+  color: #ab4df4;
 }
