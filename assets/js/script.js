@@ -17,8 +17,8 @@
 
 // ======================================= Keys =======================================
 // var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
-// var yahooAPIKey = "CEnweTupuq82y0Cqspc6626VwBnVCoDq8QCmdIzP";
-var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+// var yahooAPIKey = "AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW";
+// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
 // ======================================= Variables =======================================
@@ -121,7 +121,7 @@ const getTicker = async (input) => {
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
-        // "x-api-key": `${yahooAPIKey}`,
+        "x-api-key": `${yahooAPIKey}`,
       },
     }
   );
@@ -277,16 +277,22 @@ var headlinesEl = $("#headlines");
 // var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
 const showIndexData = (indexData) => {
   for (let i = 0; i < indexData.length; i++) {
+    console.log(indexData[i].shortName);
+
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
     var titleEl = $("<span>")
       .attr("id", indexData[i].exchange)
-      .addClass("bold")
-      .text(indexData[i].shortName);
+      .addClass("bold");
+    if (indexData[i].shortName) {
+      titleEl.text(indexData[i].shortName);
+    } else {
+      titleEl.text(indexData[i].exchange);
+    }
     titleEl.appendTo(spanEl);
     var marketPriceEl = $("<span>")
       .attr("id", indexData[i].regularMarketPrice.fmt)
-      .text(`$${indexData[i].regularMarketPrice.fmt}`);
+      .text(` $${indexData[i].regularMarketPrice.fmt}`);
     marketPriceEl.appendTo(spanEl);
 
     var marketChangeEl = $("<span>").attr(
@@ -296,17 +302,18 @@ const showIndexData = (indexData) => {
     if (indexData[i].regularMarketChange.raw < 0) {
       marketChangeEl
         .addClass("negative")
-        .text(`▼ ${indexData[i].regularMarketChange.fmt}`);
+        .text(`▼${indexData[i].regularMarketChange.fmt}`);
     } else if (indexData[i].regularMarketChange.raw >= 0) {
       marketChangeEl
         .addClass("positive")
-        .text(`▲ ${indexData[i].regularMarketChange.fmt}`);
+        .text(`▲${indexData[i].regularMarketChange.fmt}`);
     }
     marketChangeEl.appendTo(spanEl);
     var marketChangePercentEl = $("<span>")
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
-      .text(indexData[i].regularMarketChangePercent.fmt);
+      .text(`(${indexData[i].regularMarketChangePercent.fmt}) | `);
     marketChangePercentEl.appendTo(spanEl);
+
     /**
      *    <span>
           <span id="snp" class="bold"></span>
@@ -323,6 +330,37 @@ const showIndexData = (indexData) => {
  * @param {*} data - array data from historical EOD
  */
 function chart(data) {
+  // Highcharts.theme = {
+  //   colors: ["#ab4df4"],
+  //   chart: {
+  //     backgroundColor: {
+  //       linearGradient: [0, 0, 500, 500],
+  //       stops: [[0, "rgba(81,81,81,0.9)"]],
+  //     },
+  //   },
+  //   title: {
+  //     style: {
+  //       color: "#ab4df4",
+  //       font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',
+  //     },
+  //   },
+  //   subtitle: {
+  //     style: {
+  //       color: "#ab4df4",
+  //       font: 'bold 12px "Trebuchet MS", Verdana, sans-serif',
+  //     },
+  //   },
+  //   legend: {
+  //     itemStyle: {
+  //       font: "9pt Trebuchet MS, Verdana, sans-serif",
+  //       color: "black",
+  //     },
+  //     itemHoverStyle: {
+  //       color: "gray",
+  //     },
+  //   },
+  // };
+  // Highcharts.setOptions(Highcharts.theme);
   Highcharts.getJSON(
     "https://demo-live-data.highcharts.com/aapl-ohlc.json",
     function (data) {
@@ -389,6 +427,7 @@ formEl.on("submit", async function (e) {
     $("#empty-search").addClass("is-active");
   } else {
     try {
+      console.log("in try");
       await getTicker(inputVal);
       $(".spin").attr("style", "display:none;");
     } catch (error) {
