@@ -2,7 +2,7 @@
   padding: 0;
   margin-left: 2.5px;
   --background-color: #212121;
-  --loadcolor: rgba(black, 1);
+  --loadcolor: #29c8e5;
   --border: #ab4df4;
   font-family: "Poppins";
   text-decoration: none;
@@ -298,11 +298,12 @@ main {
   color: red;
 }
 #spinmain::before {
-  animation: 2s linear infinite spinner1;
+  animation: 1s infinite spinner1;
+  animation-timing-function: ease-in-out;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: var(--loadcolor);
-  border-top-color: var(--loadcolor);
+  border-bottom-color: var(--border);
+  border-top-color: var(--border);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
@@ -317,7 +318,8 @@ main {
 }
 
 #smallspin::before {
-  animation: 2s linear infinite spinner2;
+  animation: 1s infinite spinner4;
+  animation-timing-function: ease-in-out;
   animation-play-state: inherit;
   border: solid 5px #000000;
   border-bottom-color: var(--loadcolor);
@@ -336,11 +338,12 @@ main {
 }
 
 #smallerspin::before {
-  animation: 2s linear infinite spinner3;
+  animation: 1s infinite spinner3;
+  animation-timing-function: ease-in-out;
   animation-play-state: inherit;
   border: solid 5px #000000;
-  border-bottom-color: var(--loadcolor);
-  border-top-color: var(--loadcolor);
+  border-bottom-color: var(--border);
+  border-top-color: var(--border);
   border-left-color: rgba(0, 0, 0, 0);
   border-right-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
@@ -355,7 +358,8 @@ main {
 }
 
 #smallestspin::before {
-  animation: 2s linear infinite spinner4;
+  animation: 1s infinite spinner4;
+  animation-timing-function: ease-in-out;
   animation-play-state: inherit;
   border: solid 5px #000000;
   border-bottom-color: var(--loadcolor);
@@ -406,23 +410,6 @@ main {
   }
   100% {
     transform: translate3d(-50%, -50%, 0) rotate(0deg);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #banner {
-    height: 300px;
-    margin-bottom: 5rem;
-  }
-}
-@media screen and (max-width: 490px) {
-  #banner {
-    margin-bottom: 10rem;
   }
 }
 .company_section,
@@ -478,4 +465,27 @@ main {
   transform: translate(-2px, -2%);
   /* right: 1px; */
   color: #ab4df4;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+  }
+
+  .header-wrappers {
+    display:flex;
+    justify-content: center;
+  }
+  
+  #banner {
+    height: 300px;
+    margin-bottom: 5rem;
+  }
+}
+@media screen and (max-width: 490px) {
+  #banner {
+    margin-bottom: 10rem;
+  }
 }
