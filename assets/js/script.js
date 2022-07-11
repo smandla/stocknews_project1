@@ -17,9 +17,9 @@
 
 // ======================================= Keys =======================================
 // var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
-var yahooAPIKey = "AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW";
+// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 // var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-// var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
+// var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -169,14 +169,14 @@ const getNewsData = async (input) => {
   );
   let newsData = await newsDataResponse.json();
   let articles = newsData.response.docs;
-  showNewsData(articles);
+  await showNewsData(articles);
 };
 
 /**
  * Writes articles to page
  * @param {*} articles - Takes array of articles
  */
-function showNewsData(articles) {
+async function showNewsData(articles) {
   titleNewsEl.text(companyName + " News");
   cardsEl.html("");
   for (let i = 0; i < articles.length; i++) {
@@ -434,6 +434,7 @@ formEl.on("submit", async function (e) {
   // $(".spin").removeAttr("style", "display: none")
   if (inputVal === "") {
     $("#empty-search").addClass("is-active");
+    $(".spin").attr("style", "display:none;");
   } else {
     try {
       console.log("in try");
@@ -482,16 +483,15 @@ document.querySelector("#search_input").addEventListener("focus", function () {
  * Fetches information based on what search history element was clicked
  */
 dropdownContent.addEventListener("click", async function (e) {
-  $(".spin").attr("style", "display:block;");
   console.log("ok");
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
+      $(".spin").attr("style", "display:block;");
       companyName = companyList[i];
       try {
         const a = getNewsData(companyList[i]);
         const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
         const c = fetchStockRealTime(localStorage.getItem(companyList[i]));
-        console.log(c);
         const d = getInfo(localStorage.getItem(companyList[i]));
         await Promise.all([a, b, c, d]);
       } catch (error) {
@@ -507,17 +507,26 @@ dropdownContent.addEventListener("click", async function (e) {
 /**
  * On page load function
  */
-function init() {
+async function init() {
+  setTimeout(function (){
+    $(".spin").attr("style", "display:none;")
+  }, 500);
   if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
     companyList = JSON.parse(localStorage.getItem("companyList"));
   }
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
-  getNewsData(companyName);
-  fetchStockRealTime(symbol);
-  fetchStockEODHistorical(symbol);
-  getInfo(symbol);
-  getIndexData();
+  try {
+  const a = getNewsData(companyName);
+  const b = fetchStockRealTime(symbol);
+  const c = fetchStockEODHistorical(symbol);
+  const d = getInfo(symbol);
+  const e = getIndexData();
+  await Promise.all ([a, b, c, d, e])
+  } catch (error) {
+    console.log (error)
+  }
+  $(".spin").attr("style", "display:none;");
 }
 init();
