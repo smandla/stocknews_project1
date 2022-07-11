@@ -1,3 +1,4 @@
+/* ======================================= General ======================================= */ 
 * {
   padding: 0;
   margin-left: 2.5px;
@@ -8,50 +9,91 @@
   text-decoration: none;
   /* border: 1px solid red; */
 }
+
 /* added html selector to always keep width and height at 100% no matter size of the screen */
 html {
   /* height: 100%; */
   width: 100%;
   background-color: var(--background-color);
 }
+
 body {
   background-color: var(--background-color);
   text-decoration: none;
   height: 100vh;
   position: relative;
   width: 100%;
-
   /* height: 100vh; */
 }
-main {
-  position: relative;
-  top: 10px;
-  padding: 20px;
-  height: 100%;
-  text-decoration: none;
-  background-color: var(--background-color);
-}
 
-body::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-.card-content a {
-  text-decoration: none;
-}
-/* Header */
+/* ======================================= Header ======================================= */
 header {
   /* height: 80px;
   width: 100%;
   margin: 0 auto;*/
   border-bottom: 2px solid rgba(90, 17, 119, 0.4);
   padding: 20px;
-
   /* border-bottom: 1px solid #21adb2; */
 }
-footer {
-  position: fixed;
-  bottom: 0;
+
+.logo_image {
+  justify-content: left;
 }
+
+.site_name {
+  color: #29c8e5;
+}
+
+.blue_title {
+  position: absolute;
+  transform: translate(-2px, -2%);
+  /* right: 1px; */
+  color: #ab4df4;
+}
+
+#search_input {
+  background-color: #303134;
+  border: 1px solid var(--border);
+  color: var(--border);
+}
+
+#search_input::placeholder {
+  color: var(--border);
+}
+
+/* Headline/Animations */
+.headlines {
+  width: 100%;
+  white-space: nowrap;
+  color: rgb(175, 169, 169);
+  /* overflow-x: hidden; */
+  display: inline-block;
+  animation: horizontal_slide 55s linear infinite;
+}
+
+.positive {
+  color: rgba(85, 201, 22, 0.65);
+
+}
+.negative {
+  color: red;
+}
+
+.headlines span {
+  /* overflow: hidden; */
+  /* animation-delay: 5s; */
+}
+
+@keyframes horizontal_slide {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+/* Dropdown */
 #dropdown {
   display: none;
 }
@@ -75,15 +117,157 @@ header h1 {
   /* font-size: 2rem; */
 }
 
-/* Main */
+/* ======================================= Main ======================================= */
 main {
   position: relative;
   top: 10px;
   padding: 20px;
+  height: 100%;
+  text-decoration: none;
+  background-color: var(--background-color);
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 #banner {
   max-height: 200px;
+}
+
+.company_section,
+.chart_section,
+.market_info,
+.about_info,
+.NYnews_section {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ab4df4;
+  border-radius: 16px;
+}
+
+.subtitle {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.title {
+  font-weight: 400;
+  /* text-decoration: underline; */
+}
+
+/* ======================================= Company Info ======================================= */
+.company_section {
+  /* background: rgba(38, 192, 199, 0.8); */
+  /* background-color: rgb(38, 192, 199); */
+}
+
+.current_price {
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  /* float: right; */
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 0;
+  width: fit-content;
+  border-radius: 16px;
+}
+
+.current_price p {
+  font-size: 30px;
+  text-align: center;
+}
+
+.positive span {
+  color: rgba(85, 201, 22, 0.65);
+}
+.negative span {
+  color: red;
+}
+
+/* ======================================= Chart ======================================= */
+#candlestick {
+  /* display: flex; */
+  justify-content: center;
+  width: 99%;
+  /* padding: 10px; */
+}
+
+.chart_section {
+  width: 100%;
+}
+
+/* ======================================= Market Information ======================================= */
+.r {
+  display: flex;
+  align-items: center;
+  float: right;
+  font-size: 13px;
+}
+
+.more_info p {
+  /* text-decoration: underline; */
+  /* padding-bottom: 1px */
+  /* background-color: red; */
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.about_info,
+.market_info {
+  height: fit-content;
+}
+
+/* ======================================= News Feed ======================================= */
+.NYnews_section {
+  padding: 0;
+  height: 100%;
+}
+
+.news_section {
+  /* height: 90vh; */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#news_title_section {
+  overflow: hidden;
+  padding: 1.25rem;
+  /* padding-left: 1.25rem; */
+  
+  /* bottom: 0; */
+  /* border-bottom: 1px solid #ffffff; */
+
+  margin: 0;
+  /* text-decoration: none; */
+  /* background: red; */
+}
+
+#news-wrapper {
+  background-color: rgba(181, 181, 181, 0.2);
+  border-radius: 16px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  /* padding-bottom: 10px; */
+  /* padding-bottom: 2px; */
+  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
+  /* margin-right: -8px; */
+}
+
+.cards_section {
+  margin: 0;
+  padding: 0;
+  /* background-color: red; */
+  /* margin-left: -1px; */
 }
 
 #cards {
@@ -98,27 +282,8 @@ main {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
   /* box-shadow: inset 0 90px 40px 0 rgb(0, 0, 0),
-    inset 0 90px 0px 0px rgb(255, 255, 255);
+  inset 0 90px 0px 0px rgb(255, 255, 255);
   z-index: 1000000; */
-}
-.news_section {
-  /* height: 90vh; */
-  border-radius: 16px;
-}
-#news-wrapper {
-  background-color: rgba(181, 181, 181, 0.2);
-  border-radius: 16px;
-  width: 90%;
-  margin: 0 auto;
-  padding: 0 10px;
-  margin-bottom: 10px;
-  /* padding-bottom: 10px; */
-  /* padding-bottom: 2px; */
-  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
-  /* margin-right: -8px; */
-}
-
-.container {
 }
 
 #cards::-webkit-scrollbar {
@@ -129,18 +294,25 @@ main {
   margin: 10px;
   border-radius: 16px;
 }
+
+.card_section {
+  background-color: #383838;
+  /* background: rgba(181, 181, 181, 0.2); */
+  color: white;
+  /* background-color: rgb(181, 181, 181); */
+}
+
 .card-image img {
   border-radius: 16px 16px 16px 16px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
-.cards_section {
-  margin: 0;
-  padding: 0;
-  /* background-color: red; */
-  /* margin-left: -1px; */
+
+.card-content a {
+  text-decoration: none;
 }
 
+/* Linear Gradient */
 .cards_section::before {
   border-radius: 16px;
   /* margin: 0 10px; */
@@ -159,6 +331,7 @@ main {
   /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
   z-index: 1;
 }
+
 /* .cards_section::after {
   border-radius: 16px;
   /* margin: 0 10px; 
@@ -177,126 +350,13 @@ main {
   /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); 
   z-index: 1000;
 } */
-#search_input {
-  background-color: #303134;
-  border: 1px solid var(--border);
-  color: var(--border);
-}
 
-#search_input::placeholder {
-  color: var(--border);
-}
 /*
-  color: rgb(33, 173, 178);
+color: rgb(33, 173, 178);
 } */
-.more_info p {
-  /* text-decoration: underline; */
-  /* padding-bottom: 1px */
-  /* background-color: red; */
-  padding: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.r {
-  display: flex;
-  align-items: center;
 
-  float: right;
-  font-size: 13px;
-}
-.current_price {
-  background-color: rgba(0, 0, 0, 0.2);
-  height: 100%;
-  /* float: right; */
-  font-size: 30px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin: 0;
-  width: fit-content;
-  border-radius: 16px;
-}
-.current_price p {
-  font-size: 30px;
-  text-align: center;
-}
-.green span {
-  color: rgba(85, 201, 22, 0.65);
-}
-.red span {
-  color: rgba(233, 11, 11, 0.744);
-}
-#candlestick {
-  /* display: flex; */
-  justify-content: center;
-  width: 99%;
-  /* padding: 10px; */
-}
-#news_title_section {
-  overflow: hidden;
-  padding: 1.25rem;
-  /* padding-left: 1.25rem; */
 
-  /* bottom: 0; */
-  /* border-bottom: 1px solid #ffffff; */
-
-  margin: 0;
-  /* text-decoration: none; */
-  /* background: red; */
-}
-.news_section {
-  overflow: hidden;
-}
-.subtitle {
-  text-decoration: none;
-  font-size: 15px;
-}
-
-.market_info {
-  height: fit-content;
-}
-
-.about_info,
-.market_info {
-  height: fit-content;
-}
-
-.headlines {
-  width: 100%;
-  white-space: nowrap;
-  color: rgb(175, 169, 169);
-  /* overflow-x: hidden; */
-  display: inline-block;
-  animation: horizontal_slide 55s linear infinite;
-}
-
-.headlines span {
-  /* overflow: hidden; */
-  /* animation-delay: 5s; */
-}
-@keyframes horizontal_slide {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100%, 0);
-  }
-}
-.bold {
-  font-weight: bolder;
-}
-.title {
-  font-weight: 400;
-  /* text-decoration: underline; */
-}
-.subtitle {
-  font-weight: 100;
-}
-.positive {
-  color: green;
-}
-.negative {
-  color: red;
-}
+/* ======================================= Loading Animation ======================================= */
 #spinmain::before {
   animation: 1s infinite spinner1;
   animation-timing-function: ease-in-out;
@@ -412,16 +472,9 @@ main {
     transform: translate3d(-50%, -50%, 0) rotate(0deg);
   }
 }
-.company_section,
-.chart_section,
-.market_info,
-.about_info,
-.NYnews_section {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ab4df4;
-  border-radius: 16px;
-}
 
+
+/* ======================================= Modals ======================================= */
 .modal-card-head,
 .modal-card-body,
 .modal-card-foot {
@@ -435,50 +488,19 @@ main {
   color: #ab4df4;
 }
 
-.company_section {
-  /* background: rgba(38, 192, 199, 0.8); */
-  /* background-color: rgb(38, 192, 199); */
-}
-.card_section {
-  background-color: #383838;
-  /* background: rgba(181, 181, 181, 0.2); */
-  color: white;
-  /* background-color: rgb(181, 181, 181); */
-}
-
-.chart_section {
-  width: 100%;
-}
-.logo_image {
-  justify-content: left;
-}
-.site_name {
-  color: #29c8e5;
-}
-
-.NYnews_section {
-  padding: 0;
-  height: 100%;
-}
-.blue_title {
-  position: absolute;
-  transform: translate(-2px, -2%);
-  /* right: 1px; */
-  color: #ab4df4;
-}
-
+/* ======================================= Media Querys ======================================= */
 @media screen and (max-width: 768px) {
   header {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
+  
   .header-wrappers {
     display: flex;
     justify-content: center;
   }
-
+  
   #banner {
     height: 300px;
     margin-bottom: 5rem;

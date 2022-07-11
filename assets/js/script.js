@@ -111,9 +111,9 @@ const fetchStockRealTime = async (companySymbols) => {
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
     );
   if (stockRtd.data[0].day_change < 0) {
-    dayChangeEl.addClass("red");
+    dayChangeEl.addClass("negative");
   } else if (stockRtd.data[0].day_change >= 0) {
-    dayChangeEl.removeClass("red").addClass("green");
+    dayChangeEl.removeClass("negative").addClass("positive");
   }
   priceEl.text("Current Price: $" + stockRtd.data[0].price);
   prevCloseEl.text("$" + stockRtd.data[0].previous_close_price);
@@ -334,7 +334,6 @@ const showIndexData = (indexData) => {
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
       .text(`(${indexData[i].regularMarketChangePercent.fmt}) | `);
     marketChangePercentEl.appendTo(spanEl);
-
     /**
      *    <span>
           <span id="snp" class="bold"></span>
