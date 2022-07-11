@@ -1,12 +1,16 @@
 // ====Stock Keys====
-//apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0
-//apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD
+//apikey1: K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0 x
+//apikey2: U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD x
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 //apikey4: 4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L
+//apikey5: xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
+//apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK
 
 // ====Yahoo Keys====
 // 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp
-// 2:AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW
+// 2:AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW x
+// 3:gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY
+// 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -14,12 +18,16 @@
 // ====Info Keys====
 // 1:973dd69ad729bc5ec99c97d881b85c04
 // 2:5c90c4482d1038a42bbb2e5903207658
+// 3:aa4a803775e72d3de3a4d7ec275113d2
+// 4:d9a06ad75e28929230f1da93aca4cb17
 
 // ======================================= Keys =======================================
-// var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
-// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
-// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-// var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
+
+var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+var yahooAPIKey = "gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
+
 
 // ======================================= Variables =======================================
 var stockEod;
