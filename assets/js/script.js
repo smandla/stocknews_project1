@@ -109,7 +109,7 @@ const fetchStockRealTime = async (companySymbols) => {
   tickerEl.text("(" + stockRtd.data[0].ticker + ")");
   dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
-  );
+    );
   if (stockRtd.data[0].day_change < 0) {
     dayChangeEl.addClass("red");
   } else if (stockRtd.data[0].day_change >= 0) {
@@ -173,11 +173,63 @@ const getTicker = async (input) => {
 const getNewsData = async (input) => {
   var newsDataResponse = await fetch(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
+    );
+    var newsData = await newsDataResponse.json();
+    var articles = newsData.response.docs;
+    await showNewsData(articles);
+  };
+  
+  /**
+   * Get data for market index headline
+ */
+const getIndexData = async () => {
+  var indexResponse = await fetch(
+    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
+    {
+      headers: {
+        "x-api-key": `${yahooAPIKey}`,
+      },
+    }
   );
-  var newsData = await newsDataResponse.json();
-  var articles = newsData.response.docs;
-  await showNewsData(articles);
+  var data = await indexResponse.json();
+  var indexData = data.marketSummaryResponse.result;
+  showIndexData(indexData);
 };
+
+/**
+ * Writes Company info to page
+ * @param {*} input - Takes stock ticker input for api call
+ */
+
+const getInfo = async (input) => {
+  var infoResponse = await fetch(
+    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
+  );
+  var infoData = await infoResponse.json();
+  var companyNameAboutEl = $("#company_name_aboutsection");
+  var exchangeEl = $("#exchange");
+  var sectorEl = $("#sector");
+  var industryEl = $("#industry");
+  var ceoEl = $("#ceo");
+  var ipoEl = $("#ipo");
+  var siteEl = $("#site");
+  companyNameAboutEl.text(companyName);
+
+  exchangeEl.text(infoData[0].exchangeShortName);
+  sectorEl.text(infoData[0].sector);
+  industryEl.text(infoData[0].industry);
+  ceoEl.text(infoData[0].ceo);
+  ipoEl.text(infoData[0].ipoDate);
+  siteEl.html(
+    '<a href="' +
+      infoData[0].website +
+      '" target="_blank">' +
+      infoData[0].website +
+      "</a>"
+  );
+};
+
+// ======================================= Display to Page Functions =======================================
 
 /**
  * Writes articles to page
@@ -240,52 +292,6 @@ async function showNewsData(articles) {
   }
 }
 
-/**
- * Writes Company info to page
- * @param {*} input - Takes stock ticker input for api call
- */
-
-const getInfo = async (input) => {
-  var infoResponse = await fetch(
-    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
-  );
-  var infoData = await infoResponse.json();
-  var companyNameAboutEl = $("#company_name_aboutsection");
-  var exchangeEl = $("#exchange");
-  var sectorEl = $("#sector");
-  var industryEl = $("#industry");
-  var ceoEl = $("#ceo");
-  var ipoEl = $("#ipo");
-  var siteEl = $("#site");
-  companyNameAboutEl.text(companyName);
-
-  exchangeEl.text(infoData[0].exchangeShortName);
-  sectorEl.text(infoData[0].sector);
-  industryEl.text(infoData[0].industry);
-  ceoEl.text(infoData[0].ceo);
-  ipoEl.text(infoData[0].ipoDate);
-  siteEl.html(
-    '<a href="' +
-      infoData[0].website +
-      '" target="_blank">' +
-      infoData[0].website +
-      "</a>"
-  );
-};
-
-const getIndexData = async () => {
-  var indexResponse = await fetch(
-    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
-    {
-      headers: {
-        "x-api-key": `${yahooAPIKey}`,
-      },
-    }
-  );
-  var data = await indexResponse.json();
-  var indexData = data.marketSummaryResponse.result;
-  showIndexData(indexData);
-};
 var headlinesEl = $("#headlines");
 // var snpTitleEl = $("#snp");
 // var snpMarketPriceEl = $("#snp_mrktprice");
@@ -294,7 +300,6 @@ var headlinesEl = $("#headlines");
 const showIndexData = (indexData) => {
   for (var i = 0; i < indexData.length; i++) {
     // console.log(indexData[i].shortName);
-
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
     var titleEl = $("<span>")
@@ -429,7 +434,7 @@ function writeHistory() {
   }
 }
 
-// ======================================= Event =======================================
+// ======================================= Event Listeners =======================================
 /**
  * add event listener for search button and get data for newspaper on submit
  */
