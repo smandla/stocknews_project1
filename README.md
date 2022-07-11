@@ -1,12 +1,8 @@
 # StockWatch
----
----
-### [Deployed Link](https://smandla.github.io/stockwatch/).
 
+### [Live Page](https://smandla.github.io/stockwatch/)
 
 ## Table of Contents
-
-
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -15,12 +11,15 @@
 
 ## Description 
 
-The stock market is a constantly changing stream of data that requires a careful watch. Whether you have shares in a company or are just trying to get a sense of the economy, you’ll need some place to quickly check the basic information of the stock market. It’s not only important to keep an eye on the basic information such as the big-name indexes everyone relies on, but also the specific information of the companies you might be heavily invested in. Their stock price (highs and lows), and volume sold need to be accessible at a glance, as well as how that information changes over time. Perhaps most critically, any prospective stock watcher needs to keep an eye on the breaking news for companies they are invested in. 
+This site provides an easy-to-navigate dashboard of current stock market data for a searched company along with historical data back 1 year. This includes the day change, the current price, the previous day's close, today's open, the day's high and low, and the 52 week high and low.
 
-With all the basic information plus the ability to search for specific companies’ vital stock market data and news headlines, this site provides a way for users to quickly and conveniently get caught up on what’s happening in the market, and what might be happening in the future. Of course, more specific data analysis might be needed, but Stock Watch provides a visually clean way to keep up to date on the most crucial information. 
+General company information includes the exchange, the CEO, the sector, the IPO date, the industry, and a link to the company's website.
 
-The site makes use of stockdata.com API for its site data, processes it into a convenient candle chart with the Highcharts library, and provides current news on searched companies with the New York Times API. 
+A banner of common indexes also scrolls at the top of the page providing a quick refrence for more general market information. 
 
+Stock data is drawn from a variety of APIs (see [Credits](#credits))
+
+Alongside the stock market data top headlines for the searched company to provide users with an idea of current events. Currently, this news feed is drawn from the New York Times.  
 
 ## Installation
 
@@ -28,12 +27,13 @@ Clone repository and run on local machine or use deployed link above
 
 
 Provide instructions and examples for use. Include screenshots as needed. 
+
 ## Usage 
 
 On page initialization, the page will look like the following:
 ![alt text](assets/images/screenshot.png)
 
-To use this application, please use search bar to search fro either a US based stock ticker or company.  
+To use this application, please use search bar to search for either a US based stock ticker or company.  
 Upon searching, the webpage will pull information from the Yahoo API to earch for the appropriate ticker/names
 ```ruby
 const getTicker = async (input) => {
@@ -92,12 +92,12 @@ It will also locally keep a record of your recent searches. For the news section
 ### Logo from:  
 [Tailor Brands](https://www.tailorbrands.com/)
 
-### Documentation:z
+### Documentation:
 [MDN Web docs](https://developer.mozilla.org/en-US/) | 
 [W3 Schools](https://www.w3schools.com/) | 
 [Stack Overflow](https://stackoverflow.com/) |
 
 ---
-## License
+## [License](./LICENSE)
 
 MIT License
