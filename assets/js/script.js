@@ -30,7 +30,7 @@
 
 // var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
 // var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
-// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
 // ======================================= Variables =======================================
@@ -491,9 +491,14 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
-$('default').on("click", function(){
-  defaultName = localStorage.getItem(companyList[companyList.length-1])
-  defaultSymbol = localStorage.getItem(companyList[companyList.length-1])
+var defaultKey = []
+$('#default').on("click", function(){
+  var findName = (companyList[companyList.length-1])
+  var findSymbol = localStorage.getItem(companyList[companyList.length-1])
+  console.log(findName)
+  console.log(findSymbol)
+  defaultKey = [findName, findSymbol]
+  localStorage.setItem('defaultKey', JSON.stringify(defaultKey))
 })
 
 // ======================================= On Load =======================================
@@ -510,6 +515,15 @@ async function init() {
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
+  console.log(!localStorage.getItem('defaultKey'))
+  console.log(JSON.parse(localStorage.getItem('defaultKey')))
+  if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
+    defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
+    companyName = defaultKey[0]
+    symbol = defaultKey[1]
+  }
+  console.log(companyName)
+  console.log(symbol)
   try {
     var a = getNewsData(companyName);
     var b = fetchStockRealTime(symbol);
