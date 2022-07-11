@@ -87,7 +87,7 @@ main {
 }
 
 #cards {
-  height: 85vh;
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -421,6 +421,11 @@ main {
     margin-bottom: 5rem;
   }
 }
+@media screen and (max-width: 490px) {
+  #banner {
+    margin-bottom: 10rem;
+  }
+}
 .company_section,
 .chart_section,
 .market_info,
@@ -470,5 +475,5 @@ main {
 
 .NYnews_section {
   padding: 0;
-  height: 100vh;
+  height: 90vh;
 }

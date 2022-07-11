@@ -16,7 +16,7 @@
 // 2:5c90c4482d1038a42bbb2e5903207658
 
 // ======================================= Keys =======================================
-// var stockAPIKey = "4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L";
+// var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
 // var yahooAPIKey = "AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW";
 // var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
@@ -88,11 +88,17 @@ const fetchStockEODHistorical = async (companySymbols) => {
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
+  console.log(companySymbols);
   let stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
   let realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
+  console.log(stockRtd.data);
+  if (stockRtd.data[0] === undefined) {
+    console.log("no data");
+    badSearchModalEl.addClass("is-active");
+  }
   nameEl.text(stockRtd.data[0].name);
   tickerEl.text("(" + stockRtd.data[0].ticker + ")");
   dayChangeEl.html(
@@ -126,19 +132,22 @@ const getTicker = async (input) => {
     }
   );
   const data = await response.json();
-
+  console.log(data);
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
   }
   symbol = data.ResultSet.Result[0].symbol;
   companyName = data.ResultSet.Result[0].name;
+  console.log(companyName, symbol);
   if (companyList.includes(companyName) === false) {
     companyList.push(companyName);
+
     localStorage.setItem(companyName, symbol);
     if (companyList.length > 4) {
       companyList.shift();
       localStorage.removeItem(companyList[0]);
       localStorage.setItem("companyList", JSON.stringify(companyList));
+      writeHistory();
     } else {
       localStorage.setItem("companyList", JSON.stringify(companyList));
       writeHistory();
@@ -277,7 +286,7 @@ var headlinesEl = $("#headlines");
 // var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
 const showIndexData = (indexData) => {
   for (let i = 0; i < indexData.length; i++) {
-    console.log(indexData[i].shortName);
+    // console.log(indexData[i].shortName);
 
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
@@ -400,7 +409,7 @@ function chart(data) {
  * Writes search history to search history box
  */
 function writeHistory() {
-  // dropdownContent.html("");
+  dropdownContent.innerHTML = "";
   for (var i = 0; i < companyList.length; i++) {
     var pEl = $("<p></p>");
     $(pEl).attr("class", "dropdown-item");
@@ -482,6 +491,7 @@ dropdownContent.addEventListener("click", async function (e) {
         const a = getNewsData(companyList[i]);
         const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
         const c = fetchStockRealTime(localStorage.getItem(companyList[i]));
+        console.log(c);
         const d = getInfo(localStorage.getItem(companyList[i]));
         await Promise.all([a, b, c, d]);
       } catch (error) {
