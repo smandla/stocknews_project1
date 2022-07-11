@@ -4,7 +4,7 @@
 //apikey3: eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8
 //apikey4: 4aRhyidl5C5gq9mPktjw8qqjPMeOG4IdYgvL218L
 //apikey5: xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
-//apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK
+//apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK x
 
 // ====Yahoo Keys====
 // 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp
@@ -23,10 +23,10 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK";
-var yahooAPIKey = "gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY";
-var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
+// var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+// var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -159,6 +159,7 @@ const getTicker = async (input) => {
       writeHistory();
     }
   }
+  console.log(companyName);
   getNewsData(companyName);
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
@@ -172,6 +173,7 @@ const getTicker = async (input) => {
  */
 const getNewsData = async (input) => {
   var newsDataResponse = await fetch(
+
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
     );
     var newsData = await newsDataResponse.json();
@@ -227,6 +229,11 @@ const getInfo = async (input) => {
       infoData[0].website +
       "</a>"
   );
+  let newsData = await newsDataResponse.json();
+  console.log(newsData);
+  let articles = newsData.response.docs;
+  await showNewsData(articles);
+
 };
 
 // ======================================= Display to Page Functions =======================================
@@ -254,7 +261,7 @@ async function showNewsData(articles) {
     } else {
       imgEl.attr(
         "src",
-        `https://static01.nyt.com/${articles[i].multimedia[0].legacy.xlarge}`
+        `https://static01.nyt.com/${articles[i].multimedia[0].url}`
       );
     }
     imgEl.appendTo(figureEl);
@@ -298,8 +305,7 @@ var headlinesEl = $("#headlines");
 // var snpMarketChangeEl = $("#snp_mrktchnge");
 // var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
 const showIndexData = (indexData) => {
-  for (var i = 0; i < indexData.length; i++) {
-    // console.log(indexData[i].shortName);
+  for (let i = 0; i < indexData.length; i++) {
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
     var titleEl = $("<span>")
@@ -349,71 +355,31 @@ const showIndexData = (indexData) => {
  * Uses highcharts to display fetched historical EOD data
  * @param {*} data - array data from historical EOD
  */
-function chart(data) {
-  // Highcharts.theme = {
-  //   colors: ["#ab4df4"],
-  //   chart: {
-  //     backgroundColor: {
-  //       linearGradient: [0, 0, 500, 500],
-  //       stops: [[0, "rgba(81,81,81,0.9)"]],
-  //     },
-  //   },
-  //   title: {
-  //     style: {
-  //       color: "#ab4df4",
-  //       font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',
-  //     },
-  //   },
-  //   subtitle: {
-  //     style: {
-  //       color: "#ab4df4",
-  //       font: 'bold 12px "Trebuchet MS", Verdana, sans-serif',
-  //     },
-  //   },
-  //   legend: {
-  //     itemStyle: {
-  //       font: "9pt Trebuchet MS, Verdana, sans-serif",
-  //       color: "black",
-  //     },
-  //     itemHoverStyle: {
-  //       color: "gray",
-  //     },
-  //   },
-  // };
-  // Highcharts.setOptions(Highcharts.theme);
-  Highcharts.getJSON(
-    "https://demo-live-data.highcharts.com/aapl-ohlc.json",
-    function (data) {
-      // create the chart;
-      Highcharts.stockChart("candlestick", {
-        rangeSelector: {
-          selected: 11,
+function chart(arr) {
+  Highcharts.stockChart("candlestick", {
+    rangeSelector: {
+      selected: 11,
+    },
+    title: {
+      text: companyName,
+    },
+    credits: {
+      enabled: false,
+    },
+    series: [
+      {
+        type: "candlestick",
+        name: "Price",
+        data: arr,
+        dataGrouping: {
+          units: [
+            ["week", [1]],
+            ["month", [1, 2, 3, 4, 6]],
+          ],
         },
-        title: {
-          text: companyName,
-        },
-        credits: {
-          enabled: false,
-        },
-        series: [
-          {
-            type: "candlestick",
-            name: "Price",
-            data: arr,
-            dataGrouping: {
-              units: [
-                [
-                  "week", // unit name
-                  [1], // allowed multiples
-                ],
-                ["month", [1, 2, 3, 4, 6]],
-              ],
-            },
-          },
-        ],
-      });
-    }
-  );
+      },
+    ],
+  });
 }
 
 /**
