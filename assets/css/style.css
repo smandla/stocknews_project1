@@ -2,7 +2,7 @@
   padding: 0;
   margin-left: 2.5px;
   --background-color: #212121;
-  --loadcolor: rgba(255, 255, 255, 1);
+  --loadcolor: rgba(black, 1);
   --border: #ab4df4;
   font-family: "Poppins";
   text-decoration: none;
@@ -87,7 +87,7 @@ main {
 }
 
 #cards {
-  height: 70vh;
+  height: 85vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -157,7 +157,7 @@ main {
   background: linear-gradient(to top, transparent 10%, rgba(81, 81, 81) 80%);
   /* background: red; */
   /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
-  z-index: 1000;
+  z-index: 1;
 }
 /* .cards_section::after {
   border-radius: 16px;
@@ -196,6 +196,13 @@ main {
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+.r {
+  display: flex;
+  align-items: center;
+
+  float: right;
+  font-size: 15px;
+}
 .current_price {
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
@@ -213,10 +220,10 @@ main {
   text-align: center;
 }
 .green span {
-  background-color: rgba(85, 201, 22, 0.65);
+  color: rgba(85, 201, 22, 0.65);
 }
 .red span {
-  background-color: rgba(233, 11, 11, 0.744);
+  color: rgba(233, 11, 11, 0.744);
 }
 #candlestick {
   /* display: flex; */
@@ -254,14 +261,19 @@ main {
 
 .headlines {
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
+  color: rgb(175, 169, 169);
+  /* font-weight: thin; */
 }
 
-.headlines span {
+.headlines {
   display: inline-block;
-  animation: horizontal_slide 25s linear infinite;
+  animation: horizontal_slide 55s linear infinite;
 }
 
+.headlines span span {
+  /* animation-delay: 5s; */
+}
 @keyframes horizontal_slide {
   0% {
     transform: translate(0, 0);
@@ -272,6 +284,13 @@ main {
 }
 .bold {
   font-weight: bolder;
+}
+.title {
+  font-weight: 400;
+  /* text-decoration: underline; */
+}
+.subtitle {
+  font-weight: 100;
 }
 .positive {
   color: green;
@@ -415,8 +434,10 @@ main {
 .modal-card-head,
 .modal-card-body,
 .modal-card-foot {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(56, 56, 56, 1);
+  /* padding: 10px; */
   color: #ab4df4;
+  border: none;
 }
 
 .modal-card-title {
@@ -449,5 +470,5 @@ main {
 
 .NYnews_section {
   padding: 0;
-  height: 80vh;
+  height: 100vh;
 }
