@@ -1,4 +1,4 @@
-/* ======================================= General ======================================= */ 
+/* ======================================= General ======================================= */
 * {
   padding: 0;
   margin-left: 2.5px;
@@ -92,7 +92,6 @@ header {
 
 .positive {
   color: rgba(85, 201, 22, 0.65);
-
 }
 .negative {
   color: red;
@@ -238,7 +237,6 @@ body::-webkit-scrollbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
 .about_info,
 .market_info {
   height: fit-content;
@@ -260,7 +258,7 @@ body::-webkit-scrollbar {
   overflow: hidden;
   padding: 1.25rem;
   /* padding-left: 1.25rem; */
-  
+
   /* bottom: 0; */
   /* border-bottom: 1px solid #ffffff; */
 
@@ -321,12 +319,9 @@ body::-webkit-scrollbar {
   /* background-color: rgb(181, 181, 181); */
 }
 
-.card-image img {
-  border-radius: 16px 16px 16px 16px;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+.card-image:first-child img {
+  border-radius: 16px;
 }
-
 .card-content a {
   text-decoration: none;
 }
@@ -373,7 +368,6 @@ body::-webkit-scrollbar {
 /*
 color: rgb(33, 173, 178);
 } */
-
 
 /* ======================================= Loading Animation ======================================= */
 #spinmain::before {
@@ -492,7 +486,6 @@ color: rgb(33, 173, 178);
   }
 }
 
-
 /* ======================================= Modals ======================================= */
 .modal-card-head,
 .modal-card-body,
@@ -514,12 +507,12 @@ color: rgb(33, 173, 178);
     justify-content: center;
     align-items: center;
   }
-  
+
   .header-wrappers {
     display: flex;
     justify-content: center;
   }
-  
+
   #banner {
     height: 300px;
     margin-bottom: 5rem;
