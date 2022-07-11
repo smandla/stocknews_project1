@@ -98,6 +98,9 @@ const fetchStockRealTime = async (companySymbols) => {
   var stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
+  if (stockRealTimeresponse.status === 402) {
+    modal402El.addClass("is-active");
+  }
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
   console.log(stockRtd.data);
@@ -137,6 +140,9 @@ const getTicker = async (input) => {
       },
     }
   );
+  if (response.status === 402) {
+    modal402El.addClass("is-active");
+  }
   var data = await response.json();
   console.log(data);
   if (data.ResultSet.Result[0] === undefined) {
