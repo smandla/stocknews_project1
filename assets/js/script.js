@@ -63,20 +63,20 @@ var arr = new Array();
  * @param {*} companySymbols - ticker name for the companies searched
  */
 const fetchStockEODHistorical = async (companySymbols) => {
-  let stockEODHistoricalresponse = await fetch(
+  var stockEODHistoricalresponse = await fetch(
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
   if (stockEODHistoricalresponse.status === 402) {
     modal402El.addClass("is-active");
   }
-  let eodData = await stockEODHistoricalresponse.json();
+  var eodData = await stockEODHistoricalresponse.json();
   var stockEod = eodData.data;
   var indexArr = [];
   if (arr !== []) {
     arr = [];
   }
-  for (let i = stockEod.length - 1; i >= 0; i--) {
-    let days = stockEod[i].date;
+  for (var i = stockEod.length - 1; i >= 0; i--) {
+    var days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
     indexArr[1] = stockEod[i].open;
     indexArr[2] = stockEod[i].high;
@@ -95,10 +95,10 @@ const fetchStockEODHistorical = async (companySymbols) => {
  */
 const fetchStockRealTime = async (companySymbols) => {
   console.log(companySymbols);
-  let stockRealTimeresponse = await fetch(
+  var stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
-  let realTimeData = await stockRealTimeresponse.json();
+  var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
   console.log(stockRtd.data);
   if (stockRtd.data[0] === undefined) {
@@ -109,11 +109,11 @@ const fetchStockRealTime = async (companySymbols) => {
   tickerEl.text("(" + stockRtd.data[0].ticker + ")");
   dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
-  );
+    );
   if (stockRtd.data[0].day_change < 0) {
-    dayChangeEl.addClass("red");
+    dayChangeEl.addClass("negative");
   } else if (stockRtd.data[0].day_change >= 0) {
-    dayChangeEl.removeClass("red").addClass("green");
+    dayChangeEl.removeClass("negative").addClass("positive");
   }
   priceEl.text("Current Price: $" + stockRtd.data[0].price);
   prevCloseEl.text("$" + stockRtd.data[0].previous_close_price);
@@ -129,7 +129,7 @@ const fetchStockRealTime = async (companySymbols) => {
  * @param {*} input - Takes company user is searching for to return ticker name
  */
 const getTicker = async (input) => {
-  const response = await fetch(
+  var response = await fetch(
     `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
     {
       headers: {
@@ -137,7 +137,7 @@ const getTicker = async (input) => {
       },
     }
   );
-  const data = await response.json();
+  var data = await response.json();
   console.log(data);
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
@@ -172,15 +172,71 @@ const getTicker = async (input) => {
  * @param {*} input - Takes company name and fetches NYTimes articles
  */
 const getNewsData = async (input) => {
-  console.log(input);
-  let newsDataResponse = await fetch(
+  var newsDataResponse = await fetch(
+
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
+    );
+    var newsData = await newsDataResponse.json();
+    var articles = newsData.response.docs;
+    await showNewsData(articles);
+  };
+  
+  /**
+   * Get data for market index headline
+ */
+const getIndexData = async () => {
+  var indexResponse = await fetch(
+    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
+    {
+      headers: {
+        "x-api-key": `${yahooAPIKey}`,
+      },
+    }
+  );
+  var data = await indexResponse.json();
+  var indexData = data.marketSummaryResponse.result;
+  showIndexData(indexData);
+};
+
+/**
+ * Writes Company info to page
+ * @param {*} input - Takes stock ticker input for api call
+ */
+
+const getInfo = async (input) => {
+  var infoResponse = await fetch(
+    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
+  );
+  var infoData = await infoResponse.json();
+  var companyNameAboutEl = $("#company_name_aboutsection");
+  var exchangeEl = $("#exchange");
+  var sectorEl = $("#sector");
+  var industryEl = $("#industry");
+  var ceoEl = $("#ceo");
+  var ipoEl = $("#ipo");
+  var siteEl = $("#site");
+  companyNameAboutEl.text(companyName);
+
+  exchangeEl.text(infoData[0].exchangeShortName);
+  sectorEl.text(infoData[0].sector);
+  industryEl.text(infoData[0].industry);
+  ceoEl.text(infoData[0].ceo);
+  ipoEl.text(infoData[0].ipoDate);
+  siteEl.html(
+    '<a href="' +
+      infoData[0].website +
+      '" target="_blank">' +
+      infoData[0].website +
+      "</a>"
   );
   let newsData = await newsDataResponse.json();
   console.log(newsData);
   let articles = newsData.response.docs;
   await showNewsData(articles);
+
 };
+
+// ======================================= Display to Page Functions =======================================
 
 /**
  * Writes articles to page
@@ -189,7 +245,7 @@ const getNewsData = async (input) => {
 async function showNewsData(articles) {
   titleNewsEl.text(companyName + " News");
   cardsEl.html("");
-  for (let i = 0; i < articles.length; i++) {
+  for (var i = 0; i < articles.length; i++) {
     var cardEl = $("<div>").addClass("card has-text-light pt-5 card_section");
     var cardImageDivEl = $("<div>").addClass("card-image");
     cardImageDivEl.appendTo(cardEl);
@@ -243,52 +299,6 @@ async function showNewsData(articles) {
   }
 }
 
-/**
- * Writes Company info to page
- * @param {*} input - Takes stock ticker input for api call
- */
-
-const getInfo = async (input) => {
-  let infoResponse = await fetch(
-    `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
-  );
-  let infoData = await infoResponse.json();
-  var companyNameAboutEl = $("#company_name_aboutsection");
-  var exchangeEl = $("#exchange");
-  var sectorEl = $("#sector");
-  var industryEl = $("#industry");
-  var ceoEl = $("#ceo");
-  var ipoEl = $("#ipo");
-  var siteEl = $("#site");
-  companyNameAboutEl.text(companyName);
-
-  exchangeEl.text(infoData[0].exchangeShortName);
-  sectorEl.text(infoData[0].sector);
-  industryEl.text(infoData[0].industry);
-  ceoEl.text(infoData[0].ceo);
-  ipoEl.text(infoData[0].ipoDate);
-  siteEl.html(
-    '<a href="' +
-      infoData[0].website +
-      '" target="_blank">' +
-      infoData[0].website +
-      "</a>"
-  );
-};
-
-const getIndexData = async () => {
-  let indexResponse = await fetch(
-    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
-    {
-      headers: {
-        "x-api-key": `${yahooAPIKey}`,
-      },
-    }
-  );
-  let data = await indexResponse.json();
-  let indexData = data.marketSummaryResponse.result;
-  showIndexData(indexData);
-};
 var headlinesEl = $("#headlines");
 // var snpTitleEl = $("#snp");
 // var snpMarketPriceEl = $("#snp_mrktprice");
@@ -330,7 +340,6 @@ const showIndexData = (indexData) => {
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
       .text(`(${indexData[i].regularMarketChangePercent.fmt}) | `);
     marketChangePercentEl.appendTo(spanEl);
-
     /**
      *    <span>
           <span id="snp" class="bold"></span>
@@ -390,7 +399,7 @@ function writeHistory() {
   }
 }
 
-// ======================================= Event =======================================
+// ======================================= Event Listeners =======================================
 /**
  * add event listener for search button and get data for newspaper on submit
  */
@@ -457,10 +466,10 @@ dropdownContent.addEventListener("click", async function (e) {
       $(".spin").attr("style", "display:block;");
       companyName = companyList[i];
       try {
-        const a = getNewsData(companyList[i]);
-        const b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
-        const c = fetchStockRealTime(localStorage.getItem(companyList[i]));
-        const d = getInfo(localStorage.getItem(companyList[i]));
+        var a = getNewsData(companyList[i]);
+        var b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
+        var c = fetchStockRealTime(localStorage.getItem(companyList[i]));
+        var d = getInfo(localStorage.getItem(companyList[i]));
         await Promise.all([a, b, c, d]);
       } catch (error) {
         console.log(error);
@@ -486,11 +495,11 @@ async function init() {
   companyName = "Apple Inc.";
   symbol = "AAPL";
   try {
-    const a = getNewsData(companyName);
-    const b = fetchStockRealTime(symbol);
-    const c = fetchStockEODHistorical(symbol);
-    const d = getInfo(symbol);
-    const e = getIndexData();
+    var a = getNewsData(companyName);
+    var b = fetchStockRealTime(symbol);
+    var c = fetchStockEODHistorical(symbol);
+    var d = getInfo(symbol);
+    var e = getIndexData();
     await Promise.all([a, b, c, d, e]);
   } catch (error) {
     console.log(error);
