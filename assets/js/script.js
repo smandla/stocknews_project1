@@ -23,11 +23,10 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
-var yahooAPIKey = "gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY";
+var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
-
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -214,7 +213,7 @@ async function showNewsData(articles) {
     var aTagEl = $("<a>")
       .css("textDecoration", " none")
       .attr("href", articles[i].web_url)
-      .attr('target', '="_blank"');
+      .attr("target", '="_blank"');
     var mediaDivEl = $("<div>").addClass("media");
     mediaDivEl.appendTo(cardContentEl);
     var TitleDivEl = $("<div>")
@@ -516,8 +515,8 @@ dropdownContent.addEventListener("click", async function (e) {
  * On page load function
  */
 async function init() {
-  setTimeout(function (){
-    $(".spin").attr("style", "display:none;")
+  setTimeout(function () {
+    $(".spin").attr("style", "display:none;");
   }, 500);
   if (Boolean(JSON.parse(localStorage.getItem("companyList"))) !== false) {
     companyList = JSON.parse(localStorage.getItem("companyList"));
@@ -526,14 +525,14 @@ async function init() {
   companyName = "Apple Inc.";
   symbol = "AAPL";
   try {
-  const a = getNewsData(companyName);
-  const b = fetchStockRealTime(symbol);
-  const c = fetchStockEODHistorical(symbol);
-  const d = getInfo(symbol);
-  const e = getIndexData();
-  await Promise.all ([a, b, c, d, e])
+    const a = getNewsData(companyName);
+    const b = fetchStockRealTime(symbol);
+    const c = fetchStockEODHistorical(symbol);
+    const d = getInfo(symbol);
+    const e = getIndexData();
+    await Promise.all([a, b, c, d, e]);
   } catch (error) {
-    console.log (error)
+    console.log(error);
   }
   $(".spin").attr("style", "display:none;");
 }

@@ -264,13 +264,13 @@ main {
   width: 100%;
   white-space: nowrap;
   color: rgb(175, 169, 169);
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   display: inline-block;
   animation: horizontal_slide 55s linear infinite;
 }
 
 .headlines span {
-  overflow: hidden;
+  /* overflow: hidden; */
   /* animation-delay: 5s; */
 }
 @keyframes horizontal_slide {
@@ -471,14 +471,14 @@ main {
   header {
     display: flex;
     justify-content: center;
-    align-items: center ;
+    align-items: center;
   }
 
   .header-wrappers {
-    display:flex;
+    display: flex;
     justify-content: center;
   }
-  
+
   #banner {
     height: 300px;
     margin-bottom: 5rem;
