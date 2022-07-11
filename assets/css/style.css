@@ -44,6 +44,25 @@ header {
   color: #29c8e5;
 }
 
+.button{
+  background-color: #303134;
+  color: #ab4df4;
+  border: 1px solid #ab4df4;
+  margin-left: 10px;
+}
+
+.button:hover{
+  background-color: var(--border);
+  color: white;
+}
+
+.button:active{
+  background-color: #303134;
+  color: #ab4df4;
+  border: 1px solid #ab4df4;
+  margin-left: 10px;
+}
+
 .blue_title {
   position: absolute;
   transform: translate(-2px, -2%);

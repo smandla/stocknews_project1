@@ -491,6 +491,11 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
+$('default').on("click", function(){
+  defaultName = localStorage.getItem(companyList[companyList.length-1])
+  defaultSymbol = localStorage.getItem(companyList[companyList.length-1])
+})
+
 // ======================================= On Load =======================================
 /**
  * On page load function
