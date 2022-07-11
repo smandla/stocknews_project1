@@ -16,8 +16,8 @@
 // 2:5c90c4482d1038a42bbb2e5903207658
 
 // ======================================= Keys =======================================
-// var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
-// var yahooAPIKey = "AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW";
+// var stockAPIKey = "U7v3xcQrckzcWtf6HYAUT5MO5JYgd5MCgQxZliSD";
+var yahooAPIKey = "AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW";
 // var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
@@ -71,7 +71,6 @@ const fetchStockEODHistorical = async (companySymbols) => {
   for (let i = stockEod.length - 1; i >= 0; i--) {
     let days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
-    // indexArr[0] = date*1000;
     indexArr[1] = stockEod[i].open;
     indexArr[2] = stockEod[i].high;
     indexArr[3] = stockEod[i].low;
