@@ -29,8 +29,8 @@
 // ======================================= Keys =======================================
 
 // var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-// var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
-// var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 // var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
 // ======================================= Variables =======================================
@@ -99,7 +99,6 @@ const fetchStockEODHistorical = async (companySymbols) => {
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
-  console.log(companySymbols);
   var stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
@@ -491,6 +490,14 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
+var defaultKey = []
+$('#default').on("click", function(){
+  // var com = (companyList[companyList.length-1])
+  var findSymbol = localStorage.getItem(companyName)
+  defaultKey = [companyName, findSymbol]
+  localStorage.setItem('defaultKey', JSON.stringify(defaultKey))
+})
+
 // ======================================= On Load =======================================
 /**
  * On page load function
@@ -505,6 +512,15 @@ async function init() {
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
+  console.log(!localStorage.getItem('defaultKey'))
+  console.log(JSON.parse(localStorage.getItem('defaultKey')))
+  if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
+    defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
+    companyName = defaultKey[0]
+    symbol = defaultKey[1]
+  }
+  console.log(companyName)
+  console.log(symbol)
   try {
     var a = getNewsData(companyName);
     var b = fetchStockRealTime(symbol);
