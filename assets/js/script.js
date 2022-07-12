@@ -29,7 +29,7 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7";
+var stockAPIKey = "3XHTIzWU6UooTepadwRMR5Zm2pKJf8sa498EnH8W";
 var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
