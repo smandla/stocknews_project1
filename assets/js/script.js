@@ -321,7 +321,7 @@ async function showNewsData(articles) {
     }
     imgEl.appendTo(figureEl);
 
-    /**card content */
+    /**card content elements */
     var cardContentEl = $("<div>").addClass("card-content");
     var aTagEl = $("<a>")
       .css("textDecoration", " none")
@@ -332,7 +332,6 @@ async function showNewsData(articles) {
     var TitleDivEl = $("<div>")
       .addClass("media-content")
       .css("overflow", "hidden");
-
     var titleEl = $("<p>")
       .addClass("title is-4")
       .text(articles[i].headline.main);
@@ -351,12 +350,14 @@ async function showNewsData(articles) {
     cardEl.appendTo(cardsEl);
   }
 }
-
+// Headline Banner for rolling stock tickers
 var headlinesEl = $("#headlines");
 const showIndexData = (indexData) => {
+  //create each tag to roll
   for (var i = 0; i < indexData.length; i++) {
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
+    //Exchange Index
     var titleEl = $("<span>")
       .attr("id", indexData[i].exchange)
       .addClass("bold");
@@ -365,12 +366,13 @@ const showIndexData = (indexData) => {
     } else {
       titleEl.text(indexData[i].exchange);
     }
+    // Price of Index items
     titleEl.appendTo(spanEl);
     var marketPriceEl = $("<span>")
       .attr("id", indexData[i].regularMarketPrice.fmt)
       .text(` $${indexData[i].regularMarketPrice.fmt}`);
     marketPriceEl.appendTo(spanEl);
-
+    //Market Change
     var marketChangeEl = $("<span>").attr(
       "id",
       indexData[i].regularMarketChange.fmt
@@ -384,6 +386,7 @@ const showIndexData = (indexData) => {
         .addClass("positive")
         .text(`▲${indexData[i].regularMarketChange.fmt}`);
     }
+    //Market Change Percentage
     marketChangeEl.appendTo(spanEl);
     var marketChangePercentEl = $("<span>")
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
@@ -398,15 +401,19 @@ const showIndexData = (indexData) => {
  */
 function chart(arr) {
   Highcharts.stockChart("candlestick", {
+    //Default Range on chart load
     rangeSelector: {
       selected: 11,
     },
+    //Title for chart
     title: {
       text: companyName,
     },
+    //Hide Highcharts
     credits: {
       enabled: false,
     },
+    //Chart Type, Name of data on Hover, Data Arr pulled, Data Grouping
     series: [
       {
         type: "candlestick",
@@ -470,6 +477,7 @@ formEl.on("submit", async function (e) {
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
   $(".spin").attr("style", "display: block");
+  //If empty search
   if (inputVal === "") {
     $("#empty-search").addClass("is-active");
     $(".spin").attr("style", "display:none;");
@@ -545,12 +553,17 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
+/**
+ * Default Button Event Listtener to set default on init
+ */
 var defaultKey = [];
 $("#default").on("click", function () {
   var findSymbol = localStorage.getItem(companyName);
   defaultKey = [companyName, findSymbol];
   localStorage.setItem("defaultKey", JSON.stringify(defaultKey));
 });
+
+// Set the height of the news section to equal the height of the the otehr 3 sections
 const getHeight = () => {
   var bannerEl = $("#banner").height();
   var chartSectionEl = $("#chart_section").height();
