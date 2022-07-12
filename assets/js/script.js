@@ -32,8 +32,10 @@
 // 7:7c2786f04977c8a3c9f8f17c98e36e88
 
 // ======================================= Keys =======================================
-var stockAPIKey = "1OsjbMP8IHg6pjC8bJBN33hr0FinHir3mdWLV3d1";
-var yahooAPIKey = "hEQk86zZLc2h83eJExKMT3PoMcMIBEov4QhDDGUe";
+
+var stockAPIKey = "3XHTIzWU6UooTepadwRMR5Zm2pKJf8sa498EnH8W";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "7c2786f04977c8a3c9f8f17c98e36e88";
 
