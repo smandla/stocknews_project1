@@ -260,7 +260,6 @@ const getIndexData = async () => {
   );
   //json response
   var data = await indexResponse.json();
-  console.log(data);
   var indexData = data.marketSummaryResponse.result;
   //display headlines data on screen
   showIndexData(indexData);
