@@ -551,6 +551,7 @@ dropdownContent.addEventListener("click", async function (e) {
         writeUnavailable();
       }
       $(".spin").attr("style", "display:none;");
+      break
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
