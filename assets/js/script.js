@@ -14,6 +14,7 @@
 // 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
 // 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1
 // 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b
+// 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -28,7 +29,7 @@
 
 // ======================================= Keys =======================================
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var yahooAPIKey = "P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
@@ -106,7 +107,6 @@ const fetchStockRealTime = async (companySymbols) => {
   }
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  console.log(stockRtd.data);
   if (stockRtd.data[0] === undefined) {
     console.log("no data");
     badSearchModalEl.addClass("is-active");
@@ -236,10 +236,6 @@ const getInfo = async (input) => {
       infoData[0].website +
       "</a>"
   );
-  let newsData = await newsDataResponse.json();
-  console.log(newsData);
-  let articles = newsData.response.docs;
-  await showNewsData(articles);
 };
 
 // ======================================= Display to Page Functions =======================================
@@ -491,15 +487,11 @@ async function init() {
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
-  console.log(!localStorage.getItem('defaultKey'))
-  console.log(JSON.parse(localStorage.getItem('defaultKey')))
   if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
     defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
     companyName = defaultKey[0]
     symbol = defaultKey[1]
   }
-  console.log(companyName)
-  console.log(symbol)
   try {
     var a = getNewsData(companyName);
     var b = fetchStockRealTime(symbol);
