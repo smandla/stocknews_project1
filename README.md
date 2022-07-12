@@ -2,13 +2,6 @@
 
 ### [Live Page](https://smandla.github.io/stockwatch/)
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-
 ## Description
 
 This site provides an easy-to-navigate dashboard of current stock market data for a searched company along with historical data back 1 year. This includes the day change, the current price, the previous day's close, today's open, the day's high and low, and the 52 week high and low.
@@ -20,6 +13,14 @@ A banner of common indexes also scrolls at the top of the page providing a quick
 Stock data is drawn from a variety of APIs (see [Credits](#credits))
 
 Alongside the stock market data top headlines for the searched company to provide users with an idea of current events. Currently, this news feed is drawn from the New York Times.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Credits](#credits)
+- [License](#license)
 
 ## Installation
 
@@ -69,6 +70,46 @@ It will also locally keep a record of your recent searches. For the news section
 
 ---
 
+## Features and User Stories
+
+In addition to displaying various pieces of information, the site includes several features to improve user experience by handling edge cases and making the site more intuitive. Each of these features have been designed in terms of user needs.
+
+```md
+GIVEN I am looking for a stock overview of various companies on a regular basis
+
+WHEN I search for an empty value
+THEN the site lets me know with an easy to dismiss message
+
+WHEN I search for a company and no information is found 
+THEN the site lets me know with an easy to dismiss message
+
+WHEN I run into the API key limit
+THEN the page lets me know I need to try again later
+
+WHEN I make a search and the page is loading
+THEN the page lets me know with a loading animation that doesn't clog up the screen when the page is done loading
+
+WHEN I search for a company on a foreign exchange that doesnt have accesible information
+THEN the page updates to display what information is or is not unavailable
+
+WHEN I search for a particular company
+THEN I have the option to make that company's information load as default when I revisit the page
+
+WHEN I search for a company 
+THEN the page stores my recent searches 
+
+WHEN I click on a recent search 
+THEN the page responds as if I had searched for that company 
+
+WHEN I scroll on the news feed
+THEN the news card blend into their container box in pleasing fashion
+
+WHEN I look at the general information for market indexes 
+THEN the market index scrolls on a loop to display each item 
+```
+
+---
+
 ## Credits:
 
 ### Created by:
@@ -93,8 +134,6 @@ It will also locally keep a record of your recent searches. For the news section
 
 [Tailor Brands](https://www.tailorbrands.com/)
 
-<<<<<<< HEAD
-
 ### Documentation:z
 
 [MDN Web docs](https://developer.mozilla.org/en-US/) |
@@ -102,10 +141,6 @@ It will also locally keep a record of your recent searches. For the news section
 [Stack Overflow](https://stackoverflow.com/) |
 
 ---
-
-## License
-
-=======
 
 ### Documentation:
 
@@ -116,7 +151,5 @@ It will also locally keep a record of your recent searches. For the news section
 ---
 
 ## [License](./LICENSE)
-
-> > > > > > > c2641692fde6d244eede75ed7a480dc9fe3f37ff
 
 MIT License
