@@ -6,6 +6,7 @@
 //apikey5: xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
 //apikey6: MoK3MjXgPlgHKLkmmPQ7eEhFpOZLVFRSGIGJFUJK
 //apikey7: kmL8fQ0udH795aLBeHF8LgfSGft1kwkRI2efNlLL
+//apikey8: 1OsjbMP8IHg6pjC8bJBN33hr0FinHir3mdWLV3d1
 
 // ====Yahoo Keys====
 // 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp x
@@ -13,8 +14,10 @@
 // 3:gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY x
 // 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7 x
 // 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1 x
-// 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b
-// 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa
+// 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b x
+// 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa x
+// 8:3EOxAGRdyK5Wm1IjFj7lD9vm64KbccJr53CT6Wfu
+// 9:hEQk86zZLc2h83eJExKMT3PoMcMIBEov4QhDDGUe
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -26,12 +29,13 @@
 // 4:d9a06ad75e28929230f1da93aca4cb17
 // 5:5278c2342f937c25cfe3a2aa31f460d4
 // 6:9e1c1223806cfd0cd57977689e3d930d
+// 7:7c2786f04977c8a3c9f8f17c98e36e88
 
 // ======================================= Keys =======================================
-var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-var yahooAPIKey = "P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa";
+var stockAPIKey = "1OsjbMP8IHg6pjC8bJBN33hr0FinHir3mdWLV3d1";
+var yahooAPIKey = "hEQk86zZLc2h83eJExKMT3PoMcMIBEov4QhDDGUe";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
+var infoAPIkey = "7c2786f04977c8a3c9f8f17c98e36e88";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -55,6 +59,13 @@ var dayLEl = $("#dayL");
 var dayHEl = $("#dayH");
 var yearLEl = $("#yearL");
 var yearHEl = $("#yearH");
+var companyNameAboutEl = $("#company_name_aboutsection");
+var exchangeEl = $("#exchange");
+var sectorEl = $("#sector");
+var industryEl = $("#industry");
+var ceoEl = $("#ceo");
+var ipoEl = $("#ipo");
+var siteEl = $("#site");
 var symbol;
 var companyName;
 var companyList = [];
@@ -68,14 +79,24 @@ var arr = new Array();
  * @param {*} companySymbols - ticker name for the companies searched
  */
 const fetchStockEODHistorical = async (companySymbols) => {
+  console.log (`We just sent in a fetch historical request with a ticker name of ${companySymbols}`)
   var stockEODHistoricalresponse = await fetch(
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
+  console.log (`We've got an historical promise of`, stockEODHistoricalresponse)
   if (stockEODHistoricalresponse.status === 402) {
     modal402El.addClass("is-active");
   }
   var eodData = await stockEODHistoricalresponse.json();
+  console.log (`Our historical data is`, eodData)
   var stockEod = eodData.data;
+  if (stockEod === undefined) {
+    console.log ("nothing for historical")
+    return false
+  }
+  nameEl.text(eodData.meta.name);
+  tickerEl.text("(" + eodData.meta.ticker + ")");
+  exchangeEl.text(eodData.meta.exchange.exchange_long);
   var indexArr = [];
   if (arr !== []) {
     arr = [];
@@ -92,6 +113,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
     indexArr = [];
   }
   chart(arr);
+  return true
 };
 
 /**
@@ -99,21 +121,28 @@ const fetchStockEODHistorical = async (companySymbols) => {
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
+  console.log (`We just sent in a fetch realTime request with a ticker name of ${companySymbols}`)
   var stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
+  console.log (`We've got a realtime promise of`,stockRealTimeresponse)
   if (stockRealTimeresponse.status === 402) {
     modal402El.addClass("is-active");
-  }
+  } 
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
   if (stockRtd.data[0] === undefined) {
-    console.log("no data");
-    badSearchModalEl.addClass("is-active");
-    console.log("fetchStockRealTime")
+    console.log ("didn't work")
+    return false;
   }
-  nameEl.text(stockRtd.data[0].name);
-  tickerEl.text("(" + stockRtd.data[0].ticker + ")");
+  console.log (`Our realTime data is`, stockRtd)
+  // if (stockRtd.data[0] === undefined) {
+  //   console.log("no data");
+  //   badSearchModalEl.addClass("is-active");
+  //   console.log("fetchStockRealTime")
+  // }
+  // nameEl.text(stockRtd.data[0].name);
+  // tickerEl.text("(" + stockRtd.data[0].ticker + ")");
   dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
   );
@@ -148,15 +177,20 @@ const getTicker = async (input) => {
     modal402El.addClass("is-active");
   }
   var data = await response.json();
+  // if (data.ResultSet.Result[0] === undefined) {
+  //   badSearchModalEl.addClass("is-active");
+  //   console.log ("getTicker")
+  // }
+  console.log (data.ResultSet.Result[0])
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
-    console.log ("getTicker")
   }
-  symbol = data.ResultSet.Result[0].symbol;
+  symbol = data.ResultSet.Result[0].symbol
   companyName = data.ResultSet.Result[0].name;
   if (companyList.includes(companyName) === false) {
     companyList.push(companyName);
     localStorage.setItem(companyName, symbol);
+    console.log (`Local storage has just recieved a new key of ${companyName} with a value of ${symbol}`)
     if (companyList.length > 4) {
       localStorage.removeItem(companyList[0]);
       companyList.shift();
@@ -168,9 +202,15 @@ const getTicker = async (input) => {
     }
   }
   getNewsData(companyName);
-  fetchStockRealTime(symbol);
-  fetchStockEODHistorical(symbol);
   getInfo(symbol);
+  var a = await fetchStockEODHistorical(symbol);
+  var b = await fetchStockRealTime(symbol);
+  if (a === true && b === false) {
+    console.log ("%c Sorry, some information was unable to be drawn from our API.", "color: black; background-color:orange; font-weight: bold;")
+    writeUnavailable()    
+  } else if (a === false && b === false) {
+    badSearchModalEl.addClass("is-active");
+  }
 };
 
 /**
@@ -213,15 +253,8 @@ const getInfo = async (input) => {
     `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
   );
   var infoData = await infoResponse.json();
-  var companyNameAboutEl = $("#company_name_aboutsection");
-  var exchangeEl = $("#exchange");
-  var sectorEl = $("#sector");
-  var industryEl = $("#industry");
-  var ceoEl = $("#ceo");
-  var ipoEl = $("#ipo");
-  var siteEl = $("#site");
   companyNameAboutEl.text(companyName);
-  exchangeEl.text(infoData[0].exchangeShortName);
+  // exchangeEl.text(infoData[0].exchangeShortName);
   sectorEl.text(infoData[0].sector);
   industryEl.text(infoData[0].industry);
   ceoEl.text(infoData[0].ceo);
@@ -367,6 +400,28 @@ function chart(arr) {
 }
 
 /**
+ * Writes unavailable in relevant places when Real Time Api fails
+ */
+function writeUnavailable () {
+dayChangeEl.html(
+  "Day Change: " + "<span>" + "Unavailable" + "</span>");
+dayChangeEl.removeClass("negative").removeClass("positive");
+priceEl.text("Current Price: Unavailable");
+prevCloseEl.text("Unavailable");
+openEl.text("Unavailable");
+dayLEl.text("Unavailable");
+dayHEl.text("Unavailable");
+yearLEl.text("Unavailable");
+yearHEl.text("Unavailable");
+companyNameAboutEl.text("Unavailable");
+sectorEl.text("Unavailable");
+industryEl.text("Unavailable");
+ceoEl.text("Unavailable");
+ipoEl.text("Unavailable");
+siteEl.html("Unavailable");
+}
+
+/**
  * Writes search history to search history box
  */
 function writeHistory() {
@@ -442,14 +497,19 @@ dropdownContent.addEventListener("click", async function (e) {
     if (e.target.matches(`#search${i}`)) {
       $(".spin").attr("style", "display:block;");
       companyName = companyList[i];
+      console.log (`We just initiated a search for ${companyList[i]} which has a value stored in local storage of ${localStorage.getItem(companyList[i])}`)
       try {
         var a = getNewsData(companyList[i]);
         var b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
         var c = fetchStockRealTime(localStorage.getItem(companyList[i]));
         var d = getInfo(localStorage.getItem(companyList[i]));
         await Promise.all([a, b, c, d]);
+        if (c === false) {
+          console.log ("you failed")
+          writeUnavailable();
+        }
       } catch (error) {
-        console.log(error);
+        console.log(`In searching via the search history (plugging in ${companyList[i]} and ${localStorage.getItem(companyList[i])}) we've returned the following error: ${error}`);
       }
       $(".spin").attr("style", "display:none;");
     }
