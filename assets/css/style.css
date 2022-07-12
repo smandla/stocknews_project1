@@ -4,15 +4,13 @@
   margin-left: 2.5px;
   --background-color: #212121;
   --loadcolor: #29c8e5;
-  --border: #ab4df4;
-  font-family: "Poppins";
+  --purple-color: #ab4df4;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-decoration: none;
-  /* border: 1px solid red; */
 }
 
 /* added html selector to always keep width and height at 100% no matter size of the screen */
 html {
-  /* height: 100%; */
   width: 100%;
   background-color: var(--background-color);
 }
@@ -24,17 +22,12 @@ body {
   position: relative;
   width: 100%;
   overflow-x: hidden;
-  /* height: 100vh; */
 }
 
 /* ======================================= Header ======================================= */
 header {
-  /* height: 80px;
-  width: 100%;
-  margin: 0 auto;*/
   border-bottom: 2px solid rgba(90, 17, 119, 0.4);
   padding: 20px;
-  /* border-bottom: 1px solid #21adb2; */
 }
 
 .logo_image {
@@ -53,7 +46,7 @@ header {
 }
 
 .button:hover {
-  background-color: var(--border);
+  background-color: var(--purple-color);
   color: white;
 }
 
@@ -67,18 +60,17 @@ header {
 .blue_title {
   position: absolute;
   transform: translate(-2px, -2%);
-  /* right: 1px; */
   color: #ab4df4;
 }
 
 #search_input {
   background-color: #303134;
-  border: 1px solid var(--border);
-  color: var(--border);
+  border: 1px solid var(--purple-color);
+  color: var(--purple-color);
 }
 
 #search_input::placeholder {
-  color: var(--border);
+  color: var(--purple-color);
 }
 
 /* Headline/Animations */
@@ -86,7 +78,6 @@ header {
   width: 100%;
   white-space: nowrap;
   color: rgb(175, 169, 169);
-  /* overflow-x: hidden; */
   display: inline-block;
   animation: horizontal_slide 55s linear infinite;
 }
@@ -96,11 +87,6 @@ header {
 }
 .negative {
   color: red;
-}
-
-.headlines span {
-  /* overflow: hidden; */
-  /* animation-delay: 5s; */
 }
 
 @keyframes horizontal_slide {
@@ -132,10 +118,6 @@ header {
   background-color: var(--border);
 }
 
-header h1 {
-  /* font-size: 2rem; */
-}
-
 /* ======================================= Main ======================================= */
 main {
   position: relative;
@@ -147,7 +129,7 @@ main {
 }
 
 body::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
 }
 
 #banner {
@@ -162,7 +144,6 @@ body::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.1);
   color: #ab4df4;
   border-radius: 16px;
-  /* height:fit */
 }
 
 .subtitle {
@@ -177,19 +158,13 @@ body::-webkit-scrollbar {
 
 .title {
   font-weight: 400;
-  /* text-decoration: underline; */
 }
 
 /* ======================================= Company Info ======================================= */
-.company_section {
-  /* background: rgba(38, 192, 199, 0.8); */
-  /* background-color: rgb(38, 192, 199); */
-}
 
 .current_price {
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
-  /* float: right; */
   font-size: 30px;
   align-items: center;
   justify-content: center;
@@ -213,10 +188,8 @@ body::-webkit-scrollbar {
 
 /* ======================================= Chart ======================================= */
 #candlestick {
-  /* display: flex; */
   justify-content: center;
   width: 99%;
-  /* padding: 10px; */
 }
 
 .chart_section {
@@ -232,9 +205,6 @@ body::-webkit-scrollbar {
 }
 
 .more_info p {
-  /* text-decoration: underline; */
-  /* padding-bottom: 1px */
-  /* background-color: red; */
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -248,60 +218,33 @@ body::-webkit-scrollbar {
 .NYnews_section {
   padding: 0;
   height: 100%;
-  /* background-color: blue; */
 }
 
 .news_section {
   height: 100%;
   border-radius: 16px;
   overflow: hidden;
-  /* background-color: green; */
 }
 
 #news_title_section {
   overflow: hidden;
   padding: 1.25rem;
-  /* padding-left: 1.25rem; */
-
-  /* bottom: 0; */
-  /* border-bottom: 1px solid #ffffff; */
-
   margin: 0;
-  /* text-decoration: none; */
-  /* background: red; */
 }
 
 #news-wrapper {
-  /* height: 90vh; */
-  /* max-height: 100vh; */
   background-color: rgba(181, 181, 181, 0.2);
   border-radius: 16px;
   width: 90%;
   margin: 0 auto;
   padding: 0 10px;
   margin-bottom: 10px;
-  /* padding-bottom: 10px; */
-  /* padding-bottom: 2px; */
-  /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
-  /* margin-right: -8px; */
 }
-/* @media screen and .chart_section {
-  height: fit-content;
-  margin: 0;
-} */
+
 .tile + .fitHeight {
   height: 100%;
-  /* background: red; */
   flex-grow: 0;
 }
-/*
-.cards_section {
-  margin: 0;
-  padding: 0;
-  /* background-color: red; 
-  /* margin-left: -1px; 
-}
-*/
 
 #cards {
   height: 100%;
@@ -309,14 +252,9 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   border-radius: 1em;
-  /* width: 200px;  */
-  /* background: green;  */
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  /* box-shadow: inset 0 90px 40px 0 rgb(0, 0, 0), */
-  /* inset 0 90px 0px 0px rgb(255, 255, 255); */
-  /* z-index: 1000000; */
 }
 
 #cards::-webkit-scrollbar {
@@ -330,9 +268,7 @@ body::-webkit-scrollbar {
 
 .card_section {
   background-color: #383838;
-  /* background: rgba(181, 181, 181, 0.2); */
   color: white;
-  /* background-color: rgb(181, 181, 181); */
 }
 
 .card-image:first-child img {
@@ -341,27 +277,17 @@ body::-webkit-scrollbar {
 .card-content a {
   text-decoration: none;
 }
-.cards_section {
-  /* height: 49%; */
-}
+
 /* Linear Gradient */
 .cards_section::before {
   border-radius: 16px;
-  /* margin: 0 10px; */
-  /* margin-left: -5px; */
-  /* display: flex; */
   content: "";
   justify-content: center;
   position: absolute;
   margin-top: -1px;
   width: 85%;
-  /* top: 2px;*/
-  /* margin: 0 auto; */
   height: 60px;
   background: linear-gradient(to top, transparent 10%, rgba(81, 81, 81) 80%);
-  /* background: blue; */
-  /* background: red; */
-  /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
   z-index: 1;
 }
 
@@ -382,10 +308,6 @@ body::-webkit-scrollbar {
   /* background: red; 
   /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); 
   z-index: 1000;
-} */
-
-/*
-color: rgb(33, 173, 178);
 } */
 
 /* ======================================= Loading Animation ======================================= */
@@ -510,7 +432,6 @@ color: rgb(33, 173, 178);
 .modal-card-body,
 .modal-card-foot {
   background-color: rgba(56, 56, 56, 1);
-  /* padding: 10px; */
   color: #ab4df4;
   border: none;
 }
