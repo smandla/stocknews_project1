@@ -32,7 +32,7 @@ As someone who keeps track of the stock market's constant changes, I want a easy
 
 ## Learning Objectives
 
-This site was developed nin order to learn, practice, and implement basic javasrcipt and API skills. 
+This site was developed in order to learn, practice, and implement basic javasrcipt and API skills. 
 
 Our primary learning objectives were: 
 1. How to navigate data in the form of JSON objects
