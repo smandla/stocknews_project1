@@ -240,7 +240,7 @@ body::-webkit-scrollbar {
 }
 
 #news-wrapper {
-  background-color: #b5b5b533;
+  background-color: rgba(181, 181, 181, 0.2);
   border-radius: 16px;
   width: 90%;
   margin: 0 auto;

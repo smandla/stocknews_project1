@@ -21,6 +21,7 @@
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
+// 2: ntvEWYii6UloLdyL0Qyod0R0PblpjWie
 
 // ====Info Keys====
 // 1:973dd69ad729bc5ec99c97d881b85c04
@@ -33,10 +34,10 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
-var yahooAPIKey = "yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b";
-var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
+var stockAPIKey = "xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7";
+var yahooAPIKey = "on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1";
+var newsApiKey = "ntvEWYii6UloLdyL0Qyod0R0PblpjWie";
+var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
 
 // ======================================= Variables =======================================
 var stockEod;
