@@ -16,7 +16,7 @@
 // 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1 x
 // 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b x
 // 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa x
-// 8:3EOxAGRdyK5Wm1IjFj7lD9vm64KbccJr53CT6Wfu
+// 8:3EOxAGRdyK5Wm1IjFj7lD9vm64KbccJr53CT6Wfu x
 // 9:hEQk86zZLc2h83eJExKMT3PoMcMIBEov4QhDDGUe
 
 // ====News Keys====
@@ -33,11 +33,10 @@
 
 // ======================================= Keys =======================================
 
-var stockAPIKey = "3XHTIzWU6UooTepadwRMR5Zm2pKJf8sa498EnH8W";
+var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
 var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
-
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
-var infoAPIkey = "7c2786f04977c8a3c9f8f17c98e36e88";
+var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -71,7 +70,7 @@ var siteEl = $("#site");
 var symbol;
 var companyName;
 var companyList = [];
-var defaultKey = []
+var defaultKey = [];
 var arr = new Array();
 
 // ======================================= Fetch Functions =======================================
@@ -81,28 +80,35 @@ var arr = new Array();
  * @param {*} companySymbols - ticker name for the companies searched
  */
 const fetchStockEODHistorical = async (companySymbols) => {
-  console.log (`We just sent in a fetch historical request with a ticker name of ${companySymbols}`)
   var stockEODHistoricalresponse = await fetch(
     `https://api.stockdata.org/v1/data/eod?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
-  console.log (`We've got an historical promise of`, stockEODHistoricalresponse)
+  //error handling
   if (stockEODHistoricalresponse.status === 402) {
     modal402El.addClass("is-active");
   }
+  //json response
   var eodData = await stockEODHistoricalresponse.json();
-  console.log (`Our historical data is`, eodData)
+
+  //grab data array
   var stockEod = eodData.data;
   if (stockEod === undefined) {
-    console.log ("nothing for historical")
-    return false
+    return false;
   }
+  //rename displays
   nameEl.text(eodData.meta.name);
   tickerEl.text("(" + eodData.meta.ticker + ")");
   exchangeEl.text(eodData.meta.exchange.exchange_long);
+
+  // create empty array for data manipulation logic
   var indexArr = [];
+
+  // make sure the arr var is empty to push new information
   if (arr !== []) {
     arr = [];
   }
+
+  //for every object in the data convert info to an array [{}] -> [[]]
   for (var i = stockEod.length - 1; i >= 0; i--) {
     var days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
@@ -114,9 +120,14 @@ const fetchStockEODHistorical = async (companySymbols) => {
 
     indexArr = [];
   }
+
+  //display highcharts with manipulated data
   chart(arr);
+
+  //resize news section based on height of rendered chart
   getHeight();
-  return true
+
+  return true;
 };
 
 /**
@@ -124,28 +135,20 @@ const fetchStockEODHistorical = async (companySymbols) => {
  * @param {*} companySymbols - ticker name for the company searched
  */
 const fetchStockRealTime = async (companySymbols) => {
-  console.log (`We just sent in a fetch realTime request with a ticker name of ${companySymbols}`)
   var stockRealTimeresponse = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${companySymbols}&api_token=${stockAPIKey}`
   );
-  console.log (`We've got a realtime promise of`,stockRealTimeresponse)
+  //error handling
   if (stockRealTimeresponse.status === 402) {
     modal402El.addClass("is-active");
-  } 
+  }
+  //json response
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
   if (stockRtd.data[0] === undefined) {
-    console.log ("didn't work")
     return false;
   }
-  console.log (`Our realTime data is`, stockRtd)
-  // if (stockRtd.data[0] === undefined) {
-  //   console.log("no data");
-  //   badSearchModalEl.addClass("is-active");
-  //   console.log("fetchStockRealTime")
-  // }
-  // nameEl.text(stockRtd.data[0].name);
-  // tickerEl.text("(" + stockRtd.data[0].ticker + ")");
+  //change data on screen
   dayChangeEl.html(
     "Day Change: " + "<span>" + stockRtd.data[0].day_change + "</span>"
   );
@@ -176,41 +179,51 @@ const getTicker = async (input) => {
       },
     }
   );
+  //error handling
   if (response.status === 402) {
     modal402El.addClass("is-active");
   }
+  // json response
   var data = await response.json();
-  // if (data.ResultSet.Result[0] === undefined) {
-  //   badSearchModalEl.addClass("is-active");
-  //   console.log ("getTicker")
-  // }
-  console.log (data.ResultSet.Result[0])
+
+  //error handling
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
   }
-  symbol = data.ResultSet.Result[0].symbol
+  //update companyName and symbol
+  symbol = data.ResultSet.Result[0].symbol;
   companyName = data.ResultSet.Result[0].name;
+
+  // add company to company list and local storage if it's not already included
   if (companyList.includes(companyName) === false) {
     companyList.push(companyName);
     localStorage.setItem(companyName, symbol);
-    console.log (`Local storage has just recieved a new key of ${companyName} with a value of ${symbol}`)
-    if (companyList.length > 4) {
+
+    //when length > 5, removes oldest search
+    if (companyList.length > 5) {
       localStorage.removeItem(companyList[0]);
       companyList.shift();
       localStorage.setItem("companyList", JSON.stringify(companyList));
+      //TODO: add
       writeHistory();
     } else {
       localStorage.setItem("companyList", JSON.stringify(companyList));
       writeHistory();
     }
   }
+  //refetch data
   getNewsData(companyName);
   getInfo(symbol);
   var a = await fetchStockEODHistorical(symbol);
   var b = await fetchStockRealTime(symbol);
+
+  //error handling
   if (a === true && b === false) {
-    console.log ("%c Sorry, some information was unable to be drawn from our API.", "color: black; background-color:orange; font-weight: bold;")
-    writeUnavailable()    
+    console.log(
+      "%c Sorry, some information was unable to be drawn from our API.",
+      "color: black; background-color:orange; font-weight: bold;"
+    );
+    writeUnavailable();
   } else if (a === false && b === false) {
     badSearchModalEl.addClass("is-active");
   }
@@ -224,8 +237,10 @@ const getNewsData = async (input) => {
   var newsDataResponse = await fetch(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${input}&api-key=${newsApiKey}`
   );
+  //json response
   var newsData = await newsDataResponse.json();
   var articles = newsData.response.docs;
+  //display news data on screen
   await showNewsData(articles);
 };
 
@@ -241,8 +256,10 @@ const getIndexData = async () => {
       },
     }
   );
+  //json response
   var data = await indexResponse.json();
   var indexData = data.marketSummaryResponse.result;
+  //display headlines data on screen
   showIndexData(indexData);
 };
 
@@ -255,9 +272,10 @@ const getInfo = async (input) => {
   var infoResponse = await fetch(
     `https://financialmodelingprep.com/api/v3/profile/${input}?apikey=${infoAPIkey}`
   );
+  //json response
   var infoData = await infoResponse.json();
+  //update data on page
   companyNameAboutEl.text(companyName);
-  // exchangeEl.text(infoData[0].exchangeShortName);
   sectorEl.text(infoData[0].sector);
   industryEl.text(infoData[0].industry);
   ceoEl.text(infoData[0].ceo);
@@ -278,6 +296,7 @@ const getInfo = async (input) => {
  * @param {*} articles - Takes array of articles
  */
 async function showNewsData(articles) {
+  //update data and create elements to display cards
   titleNewsEl.text(companyName + " News");
   cardsEl.html("");
   for (var i = 0; i < articles.length; i++) {
@@ -287,6 +306,8 @@ async function showNewsData(articles) {
     var figureEl = $("<figure>").addClass("image is-4by3");
     figureEl.appendTo(cardImageDivEl);
     var imgEl = $("<img>");
+
+    //when there is no NYT image to display, display image of NYT logo
     if (articles[i].multimedia[0] === undefined) {
       imgEl.attr(
         "src",
@@ -405,23 +426,22 @@ function chart(arr) {
 /**
  * Writes unavailable in relevant places when Real Time Api fails
  */
-function writeUnavailable () {
-dayChangeEl.html(
-  "Day Change: " + "<span>" + "Unavailable" + "</span>");
-dayChangeEl.removeClass("negative").removeClass("positive");
-priceEl.text("Current Price: Unavailable");
-prevCloseEl.text("Unavailable");
-openEl.text("Unavailable");
-dayLEl.text("Unavailable");
-dayHEl.text("Unavailable");
-yearLEl.text("Unavailable");
-yearHEl.text("Unavailable");
-companyNameAboutEl.text("Unavailable");
-sectorEl.text("Unavailable");
-industryEl.text("Unavailable");
-ceoEl.text("Unavailable");
-ipoEl.text("Unavailable");
-siteEl.html("Unavailable");
+function writeUnavailable() {
+  dayChangeEl.html("Day Change: " + "<span>" + "Unavailable" + "</span>");
+  dayChangeEl.removeClass("negative").removeClass("positive");
+  priceEl.text("Current Price: Unavailable");
+  prevCloseEl.text("Unavailable");
+  openEl.text("Unavailable");
+  dayLEl.text("Unavailable");
+  dayHEl.text("Unavailable");
+  yearLEl.text("Unavailable");
+  yearHEl.text("Unavailable");
+  companyNameAboutEl.text("Unavailable");
+  sectorEl.text("Unavailable");
+  industryEl.text("Unavailable");
+  ceoEl.text("Unavailable");
+  ipoEl.text("Unavailable");
+  siteEl.html("Unavailable");
 }
 
 /**
@@ -495,31 +515,35 @@ document.querySelector("#search_input").addEventListener("focus", function () {
  * Fetches information based on what search history element was clicked
  */
 dropdownContent.addEventListener("click", async function (e) {
-  console.log("ok");
   for (var i = 0; i < companyList.length; i++) {
     if (e.target.matches(`#search${i}`)) {
       $(".spin").attr("style", "display:block;");
       companyName = companyList[i];
-      console.log (`We just initiated a search for ${companyList[i]} which has a value stored in local storage of ${localStorage.getItem(companyList[i])}`)
+      var a;
+      var b;
+      var c;
+      var d;
+      var e;
       try {
-        var a = getNewsData(companyList[i]);
-        var b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
-        var c = fetchStockRealTime(localStorage.getItem(companyList[i]));
-        var d = getInfo(localStorage.getItem(companyList[i]));
-        await Promise.all([a, b, c, d]);
-        if (c === false) {
-          console.log ("you failed")
+        a = getNewsData(companyList[i]);
+        b = fetchStockEODHistorical(localStorage.getItem(companyList[i]));
+        c = fetchStockRealTime(localStorage.getItem(companyList[i]));
+        d = getInfo(localStorage.getItem(companyList[i]));
+        e = await Promise.allSettled([a, b, c, d]);
+        if (e[2].value === false) {
           writeUnavailable();
         }
       } catch (error) {
-        console.log(`In searching via the search history (plugging in ${companyList[i]} and ${localStorage.getItem(companyList[i])}) we've returned the following error: ${error}`);
+        console.log("error", error);
+      }
+      if (e[2] === false) {
+        writeUnavailable();
       }
       $(".spin").attr("style", "display:none;");
     }
   }
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
-
 
 var defaultKey = [];
 $("#default").on("click", function () {
@@ -528,11 +552,9 @@ $("#default").on("click", function () {
   localStorage.setItem("defaultKey", JSON.stringify(defaultKey));
 });
 const getHeight = () => {
-  console.log("de");
   var bannerEl = $("#banner").height();
   var chartSectionEl = $("#chart_section").height();
   var marketSumEl = $("#market_info").height();
-
   var aboutSectionEl = $("#about_info").height();
   var newsTitleSectionEl = $("#news_title_section").height();
   var sum = bannerEl + chartSectionEl - newsTitleSectionEl;
@@ -543,13 +565,8 @@ const getHeight = () => {
   }
   $("#news-wrapper").height(sum);
   cardsEl.height(sum);
-  console.log(sum);
-  // var ancestorEl = $("#ancestor")
-  // .innerHeight(
-
-
-  console.log(chartSectionEl, ancestorEl);
 };
+
 // ======================================= On Load =======================================
 /**
  * On page load function
@@ -565,10 +582,10 @@ async function init() {
   companyName = "Apple Inc.";
   symbol = "AAPL";
 
-  if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
-    defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
-    companyName = defaultKey[0]
-    symbol = defaultKey[1]
+  if (JSON.parse(localStorage.getItem("defaultKey") !== null)) {
+    defaultKey = JSON.parse(localStorage.getItem("defaultKey"));
+    companyName = defaultKey[0];
+    symbol = defaultKey[1];
   }
 
   try {
