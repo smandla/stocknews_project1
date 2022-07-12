@@ -59,8 +59,8 @@
         </p>
       </div>
     </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical is-9">
+    <div class="tile is-ancestor" id="ancestor">
+      <div class="tile is-vertical is-9"  >
         <div id="banner" class="tile">
           <div class="tile is-parent">
             <article class="tile is-child notification company_section">
@@ -84,15 +84,15 @@
             </article>
           </div>
         </div>
-        <div class="tile is-parent">
+        <div class="tile is-parent fitHeight" id="chart_section">
           <article class="tile is-child notification chart_section">
             <p class="title" id="chart_title">Price History</p>
             <p class="subtitle" id="candlestick"></p>
           </article>
         </div>
-        <div class="tile">
-          <div class="tile is-parent">
-            <article class="tile is-child notification market_info">
+        <div class="tile fitHeight">
+          <div class="tile is-parent ">
+            <article class="tile is-child notification market_info" id="market_info">
               <p class="title">Market Information</p>
               <div class="columns more_info">
                 <div class="column">
@@ -107,8 +107,8 @@
                 </div>
             </article>
           </div>
-          <div class="tile is-parent">
-            <article class="tile is-child notification about_info">
+          <div class="tile is-parent" >
+            <article class="tile is-child notification about_info" id="about_info">
               <p class="title">About <span id="company_name_aboutsection"></span></p>
               <div class="columns more_info">
                 <div class="column">

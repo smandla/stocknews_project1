@@ -45,19 +45,19 @@ header {
   color: #29c8e5;
 }
 
-.button{
+.button {
   background-color: #303134;
   color: #ab4df4;
   border: 1px solid #ab4df4;
   margin-left: 10px;
 }
 
-.button:hover{
+.button:hover {
   background-color: var(--border);
   color: white;
 }
 
-.button:active{
+.button:active {
   background-color: #303134;
   color: #ab4df4;
   border: 1px solid #ab4df4;
@@ -162,6 +162,7 @@ body::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.1);
   color: #ab4df4;
   border-radius: 16px;
+  /* height:fit */
 }
 
 .subtitle {
@@ -247,12 +248,14 @@ body::-webkit-scrollbar {
 .NYnews_section {
   padding: 0;
   height: 100%;
+  /* background-color: blue; */
 }
 
 .news_section {
-  /* height: 90vh; */
+  height: 100%;
   border-radius: 16px;
   overflow: hidden;
+  /* background-color: green; */
 }
 
 #news_title_section {
@@ -269,6 +272,8 @@ body::-webkit-scrollbar {
 }
 
 #news-wrapper {
+  /* height: 90vh; */
+  /* max-height: 100vh; */
   background-color: rgba(181, 181, 181, 0.2);
   border-radius: 16px;
   width: 90%;
@@ -280,32 +285,42 @@ body::-webkit-scrollbar {
   /* Had to use margin on just the right in order to center, figuring out the proper way was taking too much time */
   /* margin-right: -8px; */
 }
-
+/* @media screen and .chart_section {
+  height: fit-content;
+  margin: 0;
+} */
+.tile + .fitHeight {
+  height: 100%;
+  /* background: red; */
+  flex-grow: 0;
+}
+/*
 .cards_section {
   margin: 0;
   padding: 0;
-  /* background-color: red; */
-  /* margin-left: -1px; */
+  /* background-color: red; 
+  /* margin-left: -1px; 
 }
+*/
 
 #cards {
-  height: 85vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 1em;
-  /* width: 200px; */
-  /* background: green; */
+  /* width: 200px;  */
+  /* background: green;  */
   overflow: scroll;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  /* box-shadow: inset 0 90px 40px 0 rgb(0, 0, 0),
-  inset 0 90px 0px 0px rgb(255, 255, 255);
-  z-index: 1000000; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  /* box-shadow: inset 0 90px 40px 0 rgb(0, 0, 0), */
+  /* inset 0 90px 0px 0px rgb(255, 255, 255); */
+  /* z-index: 1000000; */
 }
 
 #cards::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
 }
 
 .card {
@@ -326,7 +341,9 @@ body::-webkit-scrollbar {
 .card-content a {
   text-decoration: none;
 }
-
+.cards_section {
+  /* height: 49%; */
+}
 /* Linear Gradient */
 .cards_section::before {
   border-radius: 16px;
@@ -342,6 +359,7 @@ body::-webkit-scrollbar {
   /* margin: 0 auto; */
   height: 60px;
   background: linear-gradient(to top, transparent 10%, rgba(81, 81, 81) 80%);
+  /* background: blue; */
   /* background: red; */
   /* box-shadow: inset 0 22px 12px -12px rgba(0, 0, 0, 0.5); */
   z-index: 1;

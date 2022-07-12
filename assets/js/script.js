@@ -28,8 +28,9 @@
 // 6:9e1c1223806cfd0cd57977689e3d930d
 
 // ======================================= Keys =======================================
-var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-var yahooAPIKey = "P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa";
+
+var stockAPIKey = "xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7";
+var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
@@ -92,6 +93,7 @@ const fetchStockEODHistorical = async (companySymbols) => {
     indexArr = [];
   }
   chart(arr);
+  getHeight();
 };
 
 /**
@@ -457,12 +459,36 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
-$('#default').on("click", function(){
-  var findSymbol = localStorage.getItem(companyName)
-  defaultKey = [companyName, findSymbol]
-  localStorage.setItem('defaultKey', JSON.stringify(defaultKey))
-})
 
+var defaultKey = [];
+$("#default").on("click", function () {
+  var findSymbol = localStorage.getItem(companyName);
+  defaultKey = [companyName, findSymbol];
+  localStorage.setItem("defaultKey", JSON.stringify(defaultKey));
+});
+const getHeight = () => {
+  console.log("de");
+  var bannerEl = $("#banner").height();
+  var chartSectionEl = $("#chart_section").height();
+  var marketSumEl = $("#market_info").height();
+
+  var aboutSectionEl = $("#about_info").height();
+  var newsTitleSectionEl = $("#news_title_section").height();
+  var sum = bannerEl + chartSectionEl - newsTitleSectionEl;
+  if (marketSumEl > aboutSectionEl) {
+    sum += marketSumEl;
+  } else {
+    sum += aboutSectionEl;
+  }
+  $("#news-wrapper").height(sum);
+  cardsEl.height(sum);
+  console.log(sum);
+  // var ancestorEl = $("#ancestor")
+  // .innerHeight(
+
+
+  console.log(chartSectionEl, ancestorEl);
+};
 // ======================================= On Load =======================================
 /**
  * On page load function
@@ -477,21 +503,25 @@ async function init() {
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
+
   if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
     defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
     companyName = defaultKey[0]
     symbol = defaultKey[1]
   }
+
   try {
     var a = getNewsData(companyName);
     var b = fetchStockRealTime(symbol);
     var c = fetchStockEODHistorical(symbol);
     var d = getInfo(symbol);
     var e = getIndexData();
+
     await Promise.all([a, b, c, d, e]);
   } catch (error) {
     console.log(error);
   }
+  getHeight();
   $(".spin").attr("style", "display:none;");
 }
 init();
