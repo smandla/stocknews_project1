@@ -14,6 +14,7 @@
 // 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7 x
 // 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1 x
 // 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b
+// 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -28,7 +29,7 @@
 
 // ======================================= Keys =======================================
 var stockAPIKey = "eauDK4H3TkATb6LOtPlIq9pefdDc5fqmkQF7lkI8";
-var yahooAPIKey = "yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b";
+var yahooAPIKey = "P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "d9a06ad75e28929230f1da93aca4cb17";
 
@@ -106,7 +107,6 @@ const fetchStockRealTime = async (companySymbols) => {
   }
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  console.log(stockRtd.data);
   if (stockRtd.data[0] === undefined) {
     console.log("no data");
     badSearchModalEl.addClass("is-active");
@@ -233,9 +233,6 @@ const getInfo = async (input) => {
       infoData[0].website +
       "</a>"
   );
-  let newsData = await newsDataResponse.json();
-  let articles = newsData.response.docs;
-  await showNewsData(articles);
 };
 
 // ======================================= Display to Page Functions =======================================
@@ -254,7 +251,6 @@ async function showNewsData(articles) {
     var figureEl = $("<figure>").addClass("image is-4by3");
     figureEl.appendTo(cardImageDivEl);
     var imgEl = $("<img>");
-    // console.log(articles[i].multimedia);
     if (articles[i].multimedia[0] === undefined) {
       imgEl.attr(
         "src",
@@ -268,7 +264,6 @@ async function showNewsData(articles) {
     }
     imgEl.appendTo(figureEl);
 
-    //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
     /**card content */
     var cardContentEl = $("<div>").addClass("card-content");
     var aTagEl = $("<a>")
@@ -286,7 +281,6 @@ async function showNewsData(articles) {
       .text(articles[i].headline.main);
     titleEl.appendTo(aTagEl);
     aTagEl.appendTo(TitleDivEl);
-    //   <p class="subtitle is-6">@johnsmith</p>
     var subEl = $("<p>")
       .addClass("subtitle is-6")
       .text(articles[i].byline.original);
@@ -302,10 +296,6 @@ async function showNewsData(articles) {
 }
 
 var headlinesEl = $("#headlines");
-// var snpTitleEl = $("#snp");
-// var snpMarketPriceEl = $("#snp_mrktprice");
-// var snpMarketChangeEl = $("#snp_mrktchnge");
-// var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
 const showIndexData = (indexData) => {
   for (var i = 0; i < indexData.length; i++) {
     var spanEl = $("<span>");
@@ -342,14 +332,6 @@ const showIndexData = (indexData) => {
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
       .text(`(${indexData[i].regularMarketChangePercent.fmt}) | `);
     marketChangePercentEl.appendTo(spanEl);
-    /**
-     *    <span>
-          <span id="snp" class="bold"></span>
-          <span id="snp_mrktprice"></span>
-          <span id="snp_mrktchnge"></span>
-          <span id="snp_mrktchngeprcnt"></span>
-        </span>
-     */
   }
 };
 
@@ -476,7 +458,6 @@ dropdownContent.addEventListener("click", async function (e) {
 });
 
 $('#default').on("click", function(){
-  // var com = (companyList[companyList.length-1])
   var findSymbol = localStorage.getItem(companyName)
   defaultKey = [companyName, findSymbol]
   localStorage.setItem('defaultKey', JSON.stringify(defaultKey))
