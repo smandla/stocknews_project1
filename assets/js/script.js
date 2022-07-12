@@ -173,7 +173,6 @@ const getTicker = async (input) => {
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
   getInfo(symbol);
-  // for (var i = 0; i < 100000000; i++) {}
 };
 
 /**
@@ -259,7 +258,6 @@ async function showNewsData(articles) {
     var figureEl = $("<figure>").addClass("image is-4by3");
     figureEl.appendTo(cardImageDivEl);
     var imgEl = $("<img>");
-    // console.log(articles[i].multimedia);
     if (articles[i].multimedia[0] === undefined) {
       imgEl.attr(
         "src",
@@ -273,7 +271,6 @@ async function showNewsData(articles) {
     }
     imgEl.appendTo(figureEl);
 
-    //<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
     /**card content */
     var cardContentEl = $("<div>").addClass("card-content");
     var aTagEl = $("<a>")
@@ -291,7 +288,6 @@ async function showNewsData(articles) {
       .text(articles[i].headline.main);
     titleEl.appendTo(aTagEl);
     aTagEl.appendTo(TitleDivEl);
-    //   <p class="subtitle is-6">@johnsmith</p>
     var subEl = $("<p>")
       .addClass("subtitle is-6")
       .text(articles[i].byline.original);
@@ -307,10 +303,6 @@ async function showNewsData(articles) {
 }
 
 var headlinesEl = $("#headlines");
-// var snpTitleEl = $("#snp");
-// var snpMarketPriceEl = $("#snp_mrktprice");
-// var snpMarketChangeEl = $("#snp_mrktchnge");
-// var snpMarketChangePercentEl = $("#snp_mrktchngeprcnt");
 const showIndexData = (indexData) => {
   for (let i = 0; i < indexData.length; i++) {
     var spanEl = $("<span>");
@@ -347,14 +339,6 @@ const showIndexData = (indexData) => {
       .attr("id", indexData[i].regularMarketChangePercent.fmt)
       .text(`(${indexData[i].regularMarketChangePercent.fmt}) | `);
     marketChangePercentEl.appendTo(spanEl);
-    /**
-     *    <span>
-          <span id="snp" class="bold"></span>
-          <span id="snp_mrktprice"></span>
-          <span id="snp_mrktchnge"></span>
-          <span id="snp_mrktchngeprcnt"></span>
-        </span>
-     */
   }
 };
 
@@ -415,7 +399,6 @@ formEl.on("submit", async function (e) {
   var inputVal = searchInputEl.val();
   searchInputEl.val("");
   $(".spin").attr("style", "display: block");
-  // $(".spin").removeAttr("style", "display: none")
   if (inputVal === "") {
     $("#empty-search").addClass("is-active");
     $(".spin").attr("style", "display:none;");
@@ -489,7 +472,6 @@ dropdownContent.addEventListener("click", async function (e) {
 
 var defaultKey = []
 $('#default').on("click", function(){
-  // var com = (companyList[companyList.length-1])
   var findSymbol = localStorage.getItem(companyName)
   defaultKey = [companyName, findSymbol]
   localStorage.setItem('defaultKey', JSON.stringify(defaultKey))
