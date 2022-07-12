@@ -8,12 +8,13 @@
 //apikey7: kmL8fQ0udH795aLBeHF8LgfSGft1kwkRI2efNlLL
 
 // ====Yahoo Keys====
-// 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp
+// 1:zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp x
 // 2:AGCJTVhXEI6nit286CVCQ9ArKw62Ejwxapo8eKgW x
-// 3:gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY
-// 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7
-// 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1
+// 3:gGt5JXw9g18ZmRyVohI638kLGeu1GJTE5jmM8khY x
+// 4:xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7 x
+// 5:on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1 x
 // 6:yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b
+// 7:P1rYCjaI8o6JDZ44NcRxpR3nqhEpe3waSdgR9Qoa
 
 // ====News Keys====
 // 1:9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq
@@ -27,6 +28,7 @@
 // 6:9e1c1223806cfd0cd57977689e3d930d
 
 // ======================================= Keys =======================================
+
 var stockAPIKey = "xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7";
 var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
@@ -57,7 +59,7 @@ var yearHEl = $("#yearH");
 var symbol;
 var companyName;
 var companyList = [];
-
+var defaultKey = []
 var arr = new Array();
 
 // ======================================= Fetch Functions =======================================
@@ -107,10 +109,10 @@ const fetchStockRealTime = async (companySymbols) => {
   }
   var realTimeData = await stockRealTimeresponse.json();
   stockRtd = realTimeData;
-  console.log(stockRtd.data);
   if (stockRtd.data[0] === undefined) {
     console.log("no data");
     badSearchModalEl.addClass("is-active");
+    console.log("fetchStockRealTime")
   }
   nameEl.text(stockRtd.data[0].name);
   tickerEl.text("(" + stockRtd.data[0].ticker + ")");
@@ -148,20 +150,18 @@ const getTicker = async (input) => {
     modal402El.addClass("is-active");
   }
   var data = await response.json();
-  console.log(data);
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
+    console.log ("getTicker")
   }
   symbol = data.ResultSet.Result[0].symbol;
   companyName = data.ResultSet.Result[0].name;
-  console.log(companyName, symbol);
   if (companyList.includes(companyName) === false) {
     companyList.push(companyName);
-
     localStorage.setItem(companyName, symbol);
     if (companyList.length > 4) {
-      companyList.shift();
       localStorage.removeItem(companyList[0]);
+      companyList.shift();
       localStorage.setItem("companyList", JSON.stringify(companyList));
       writeHistory();
     } else {
@@ -169,7 +169,6 @@ const getTicker = async (input) => {
       writeHistory();
     }
   }
-  console.log(companyName);
   getNewsData(companyName);
   fetchStockRealTime(symbol);
   fetchStockEODHistorical(symbol);
@@ -224,7 +223,6 @@ const getInfo = async (input) => {
   var ipoEl = $("#ipo");
   var siteEl = $("#site");
   companyNameAboutEl.text(companyName);
-
   exchangeEl.text(infoData[0].exchangeShortName);
   sectorEl.text(infoData[0].sector);
   industryEl.text(infoData[0].industry);
@@ -237,10 +235,6 @@ const getInfo = async (input) => {
       infoData[0].website +
       "</a>"
   );
-  let newsData = await newsDataResponse.json();
-  console.log(newsData);
-  let articles = newsData.response.docs;
-  await showNewsData(articles);
 };
 
 // ======================================= Display to Page Functions =======================================
@@ -305,7 +299,7 @@ async function showNewsData(articles) {
 
 var headlinesEl = $("#headlines");
 const showIndexData = (indexData) => {
-  for (let i = 0; i < indexData.length; i++) {
+  for (var i = 0; i < indexData.length; i++) {
     var spanEl = $("<span>");
     spanEl.appendTo(headlinesEl);
     var titleEl = $("<span>")
@@ -405,7 +399,6 @@ formEl.on("submit", async function (e) {
     $(".spin").attr("style", "display:none;");
   } else {
     try {
-      console.log("in try");
       await getTicker(inputVal);
       $(".spin").attr("style", "display:none;");
     } catch (error) {
@@ -416,18 +409,13 @@ formEl.on("submit", async function (e) {
   // convert search input into company proper name 'Apple or AAPL' -> 'Apple Inc.'Apple
 });
 
-//Modals
-$("#empty-search-button").click(function () {
-  $("#empty-search").removeClass("is-active");
-});
-
 //Modals - close button functionality
 $("#empty-search-button").click(function () {
   $("#empty-search").removeClass("is-active");
 });
 
 $("#bad-search-button").click(function () {
-  $("#bad-search").removeClass("is-active");
+  $(badSearchModalEl).removeClass("is-active");
 });
 
 $("#402-status-button").click(function () {
@@ -471,6 +459,7 @@ dropdownContent.addEventListener("click", async function (e) {
   document.querySelector("#dropdown").setAttribute("style", "display:none;");
 });
 
+
 var defaultKey = [];
 $("#default").on("click", function () {
   var findSymbol = localStorage.getItem(companyName);
@@ -497,6 +486,7 @@ const getHeight = () => {
   // var ancestorEl = $("#ancestor")
   // .innerHeight(
 
+
   console.log(chartSectionEl, ancestorEl);
 };
 // ======================================= On Load =======================================
@@ -513,15 +503,13 @@ async function init() {
   writeHistory();
   companyName = "Apple Inc.";
   symbol = "AAPL";
-  console.log(!localStorage.getItem("defaultKey"));
-  console.log(JSON.parse(localStorage.getItem("defaultKey")));
-  if (JSON.parse(localStorage.getItem("defaultKey") !== null)) {
-    defaultKey = JSON.parse(localStorage.getItem("defaultKey"));
-    companyName = defaultKey[0];
-    symbol = defaultKey[1];
+
+  if (JSON.parse(localStorage.getItem('defaultKey') !== null)){
+    defaultKey = JSON.parse(localStorage.getItem('defaultKey'))
+    companyName = defaultKey[0]
+    symbol = defaultKey[1]
   }
-  console.log(companyName);
-  console.log(symbol);
+
   try {
     var a = getNewsData(companyName);
     var b = fetchStockRealTime(symbol);
