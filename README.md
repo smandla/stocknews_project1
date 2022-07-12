@@ -115,7 +115,7 @@ THEN the page lets me know I need to try again later
 WHEN I make a search and the page is loading
 THEN the page lets me know with a loading animation that doesn't clog up the screen when the page is done loading
 
-WHEN I search for a company on a foreign exchange that doesnt have accesible information
+WHEN I search for a company on a foreign exchange that doesnt have accessible information
 THEN the page updates to display what information is or is not unavailable
 
 WHEN I search for a particular company
@@ -159,14 +159,6 @@ THEN the market index scrolls on a loop to display each item
 ### Logo from:
 
 [Tailor Brands](https://www.tailorbrands.com/)
-
-### Documentation:z
-
-[MDN Web docs](https://developer.mozilla.org/en-US/) |
-[W3 Schools](https://www.w3schools.com/) |
-[Stack Overflow](https://stackoverflow.com/) |
-
----
 
 ### Documentation:
 
