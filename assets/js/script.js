@@ -34,7 +34,7 @@
 // ======================================= Keys =======================================
 
 var stockAPIKey = "K6okZSBQ1g8zI1JkQgobaOIGzVbCvq3aSNcaARG0";
-var yahooAPIKey = "zlUmPNwUgb5oDLZES1jtj2OGxsGnI3Pu9Gk6bVNp";
+var yahooAPIKey = "yVXgGlHmg34CsiJSYM3eG1TlV2fDeT1b4APFBk6b";
 var newsApiKey = "9PncQC7G9Fw1IBbcYpjiZa1T4of4Qrgq";
 var infoAPIkey = "973dd69ad729bc5ec99c97d881b85c04";
 
@@ -108,7 +108,8 @@ const fetchStockEODHistorical = async (companySymbols) => {
     arr = [];
   }
 
-  //for every object in the data convert info to an array [{}] -> [[]]
+  //for every object in the data convert info to an array [{}] -> [[]]\
+
   for (var i = stockEod.length - 1; i >= 0; i--) {
     var days = stockEod[i].date;
     indexArr[0] = Date.parse(days);
@@ -258,6 +259,7 @@ const getIndexData = async () => {
   );
   //json response
   var data = await indexResponse.json();
+  console.log(data);
   var indexData = data.marketSummaryResponse.result;
   //display headlines data on screen
   showIndexData(indexData);
