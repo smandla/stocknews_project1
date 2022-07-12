@@ -10,23 +10,45 @@ General company information includes the exchange, the CEO, the sector, the IPO 
 
 A banner of common indexes also scrolls at the top of the page providing a quick refrence for more general market information.
 
-Stock data is drawn from a variety of APIs (see [Credits](#credits))
 
 Alongside the stock market data top headlines for the searched company to provide users with an idea of current events. Currently, this news feed is drawn from the New York Times.
 
+Stock data is drawn from a variety of APIs, and base styling for the layout and features is provided by the CSS framework Bulma (see [Credits](#credits)). 
+
+Unifying and omtivating these features is the following simple user story: 
+
+```md
+As someone who keeps track of the stock market's constant changes, I want a easy to view site with a breakdown of both general market indexes, specific company data (both historical and current), and current events that might shape the market's future.
+```
+
 ## Table of Contents
 
+- [Learning Objectives](#learning-objectives)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [Credits](#credits)
 - [License](#license)
 
+## Learning Objectives
+
+This site was developed nin order to learn, practice, and implement basic javasrcipt and API skills. 
+
+Our primary learning objectives were: 
+1. How to navigate data in the form of JSON objects
+2. How to effectively manage and combine the data from multiple fetch calls
+3. How to effectively implement syntactically sweet javscript features like ```async await```, ```Promise.method```, template literals, and ```=>``` functions.
+3. How to effectively use unfamiliar CSS frameworks
+4. How to implement error handling
+5. How to imagine and patch edge cases 
+6. How to make a site more intuitive with CSS and dynamic design
+7. And lastly, how to generally solve problems and find bugs in an extended project with multiple developers. 
+
+---
+
 ## Installation
 
 Clone repository and run on local machine or use deployed link above
-
-Provide instructions and examples for use. Include screenshots as needed.
 
 ## Usage
 
@@ -59,8 +81,12 @@ const getTicker = async (input) => {
 }
 ```
 
-Upon receiving the api call, we parse out the relevant data. Company Name and its respective symbol. We the use that information to call on otehr functions to generate the webpage elements to look like this:
+Upon receiving the api call, we parse out the relevant data: company Name and its respective symbol. We use that information to call on other functions to generate the webpage elements to look like this:
 ![alt text](assets/images/Example.gif)
+
+On mobile, the website looks like this:
+
+![mobile-demo](./assets/images/mobile-demo.gif)
 
 We utilize the information from the Yahoo API to make other API calls to [StockData's API](https://www.stockdata.org/)
 (for realtime pricing and market information as well as historical data for the candlestick Chart),
@@ -70,7 +96,7 @@ It will also locally keep a record of your recent searches. For the news section
 
 ---
 
-## Features and User Stories
+## Features
 
 In addition to displaying various pieces of information, the site includes several features to improve user experience by handling edge cases and making the site more intuitive. Each of these features have been designed in terms of user needs.
 
