@@ -1,6 +1,6 @@
 # StockWatch
 
-### [Live Page](https://smandla.github.io/stockwatch/)
+### [Live Page](https://corasinth.github.io/stockwatch/)
 
 ## Description
 
