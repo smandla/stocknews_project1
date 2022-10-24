@@ -5,9 +5,9 @@
   --background-color: #212121;
   --loadcolor: #29c8e5;
   --dark-grey: #383838;
-  -medium-grey: #b5b5b533;
+  --medium-grey: #b5b5b533;
   --button-color: #303134;
-  --purple-color: #ab4df4;
+  --purple-color: #bf74f9;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-decoration: none;
 }
@@ -424,8 +424,24 @@ body::-webkit-scrollbar {
   border: none;
 }
 
+.modal-card-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 .modal-card-title {
   color: var(--purple-color);
+}
+
+.search-result-items {
+  border-bottom: white 1px solid;
+  margin: .6em;
+}
+
+.search-result-items:hover {
+  border: white 1px solid;
 }
 
 /* ======================================= Media Querys ======================================= */
