@@ -37,7 +37,7 @@
 var stockAPIKey = "xWvzUJNDHlYWinQw2RmfvktQLDUKlbJ6KmK5cth7";
 var yahooAPIKey = "on4Q06YqoB1WD4eAZd3FZ5oehxCs7tmf5BzelPu1";
 var newsApiKey = "ntvEWYii6UloLdyL0Qyod0R0PblpjWie";
-var infoAPIkey = "5c90c4482d1038a42bbb2e5903207658";
+var infoAPIkey = "7c2786f04977c8a3c9f8f17c98e36e88";
 
 // ======================================= Variables =======================================
 var stockEod;
@@ -48,6 +48,7 @@ var searchInputEl = $("#search_input");
 var cardsEl = $("#cards");
 var modal402El = $("#402-status");
 var badSearchModalEl = $("#bad-search");
+var multipleResultsModalEl = $("#multiple-results")
 var dropdownContent = document.querySelector(".dropdown-content");
 
 var nameEl = $("#name");
@@ -172,15 +173,17 @@ const fetchStockRealTime = async (companySymbols) => {
  * Calls functions to fetch data for the rest of the page
  * @param {*} input - Takes company user is searching for to return ticker name
  */
-const getTicker = async (input) => {
-  var response = await fetch(
-    `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
-    {
-      headers: {
-        "x-api-key": `${yahooAPIKey}`,
-      },
-    }
-  );
+const getTicker = async (input, modal) => {
+  var response = await fetch(`https://financialmodelingprep.com/api/v3/search-name?query=${input}&limit=10&exchange=NASDAQ&apikey=${infoAPIkey}`)
+  // Yahoo finance API appears to be nonfunctional, possibly permanently?
+  // var response = await fetch(
+  //   `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
+  //   {
+  //     headers: {
+  //       "x-api-key": `${yahooAPIKey}`,
+  //     },
+  //   }
+  // );
   //error handling
   if (response.status === 402) {
     modal402El.addClass("is-active");
@@ -188,13 +191,18 @@ const getTicker = async (input) => {
   // json response
   var data = await response.json();
 
+  // Method for picking from multiple options goes here:
+  if (data.length > 1 && modal !=='noModal') {
+    searchOptionsModal(data)
+  }
+
   //error handling
-  if (data.ResultSet.Result[0] === undefined) {
+  if (data[0].symbol === undefined) {
     badSearchModalEl.addClass("is-active");
   }
   //update companyName and symbol
-  symbol = data.ResultSet.Result[0].symbol;
-  companyName = data.ResultSet.Result[0].name;
+  symbol = data[0].symbol;
+  companyName = data[0].name;
 
   // add company to company list and local storage if it's not already included
   if (companyList.includes(companyName) === false) {
@@ -206,7 +214,6 @@ const getTicker = async (input) => {
       localStorage.removeItem(companyList[0]);
       companyList.shift();
       localStorage.setItem("companyList", JSON.stringify(companyList));
-      //TODO: add
       writeHistory();
     } else {
       localStorage.setItem("companyList", JSON.stringify(companyList));
@@ -231,6 +238,23 @@ const getTicker = async (input) => {
   }
 };
 
+function searchOptionsModal(dataArray) {
+  var companyList = $('#search-results')
+  companyList.html('')
+  multipleResultsModalEl.addClass("is-active")
+  for (let i = 0; i < dataArray.length; i++) {
+    var liEl = $('<li></li>')
+    liEl.text(`${dataArray[i].name}`)
+    liEl.attr('class', 'search-result-items')
+    liEl.attr('id', `result-${[i]}`)
+    companyList.append(liEl) 
+    $(`#result-${i}`).click(()=>{
+      getTicker($(`#result-${i}`).text(), 'noModal')
+      multipleResultsModalEl.removeClass('is-active')
+    })
+  }
+}
+
 /**
  * Fetches and calls function to display articles
  * @param {*} input - Takes company name and fetches NYTimes articles
@@ -248,21 +272,22 @@ const getNewsData = async (input) => {
 
 /**
  * Get data for market index headline
+ * Currently nonfunctional due to Yahoo finance API failure and lack of appropriate replacements
  */
 const getIndexData = async () => {
-  var indexResponse = await fetch(
-    "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
-    {
-      headers: {
-        "x-api-key": `${yahooAPIKey}`,
-      },
-    }
-  );
+  // var indexResponse = await fetch(
+  //   "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US",
+  //   {
+  //     headers: {
+  //       "x-api-key": `${yahooAPIKey}`,
+  //     },
+  //   }
+  // );
   //json response
-  var data = await indexResponse.json();
-  var indexData = data.marketSummaryResponse.result;
+  // var data = await indexResponse.json();
+  // var indexData = data.marketSummaryResponse.result;
   //display headlines data on screen
-  showIndexData(indexData);
+  // showIndexData(indexData);
 };
 
 /**
@@ -501,12 +526,16 @@ $("#empty-search-button").click(function () {
 });
 
 $("#bad-search-button").click(function () {
-  $(badSearchModalEl).removeClass("is-active");
+  badSearchModalEl.removeClass("is-active");
 });
 
 $("#402-status-button").click(function () {
-  $("#402-status").removeClass("is-active");
+  modal402El.removeClass("is-active");
 });
+
+$("#multiple-results-button").click(function (){
+  multipleResultsModalEl.removeClass("is-active")
+})
 
 // Sets search history to appear when in focus and dissapear shortly after it loses focus
 document.querySelector("#search_input").addEventListener("blur", function () {
