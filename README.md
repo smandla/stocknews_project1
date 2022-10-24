@@ -56,18 +56,11 @@ On page initialization, the page will look like the following:
 ![alt text](assets/images/screenshot.png)
 
 To use this application, please use search bar to search for either a US based stock ticker or company.  
-Upon searching, the webpage will pull information from the Yahoo API to earch for the appropriate ticker/names
+Upon searching, the webpage will pull information from the Financal Modeling Prep API to earch for the appropriate ticker/names
 
 ```ruby
 const getTicker = async (input) => {
-  const response = await fetch(
-    `https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=${input}`,
-    {
-      headers: {
-        "x-api-key": `${yahooAPIKey}`,
-      },
-    }
-  );
+  var response = await fetch(`https://financialmodelingprep.com/api/v3/search-name?query=${input}&limit=10&exchange=NASDAQ&apikey=${infoAPIkey}`)
   const data = await response.json();
   if (data.ResultSet.Result[0] === undefined) {
     badSearchModalEl.addClass("is-active");
@@ -80,6 +73,7 @@ const getTicker = async (input) => {
   getInfo(symbol);
 }
 ```
+If the API returns multiple possible options, the use is asked to pick from a list of choices. The user can click on any of the presented options, or try to make a more precise search if these aren't what the user is looking for.
 
 Upon receiving the api call, we parse out the relevant data: company Name and its respective symbol. We use that information to call on other functions to generate the webpage elements to look like this:
 ![alt text](assets/images/Example.gif)
@@ -120,6 +114,9 @@ THEN the page updates to display what information is or is not unavailable
 
 WHEN I search for a particular company
 THEN I have the option to make that company's information load as default when I revisit the page
+
+WHEN I search for a company that returns multiple possible results
+THEN the page informs me of my options
 
 WHEN I search for a company 
 THEN the page stores my recent searches 
